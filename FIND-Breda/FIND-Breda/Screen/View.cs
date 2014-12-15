@@ -8,5 +8,20 @@ namespace FIND_Breda.Screen
 {
     class View
     {
+       
+        public View()
+        {
+
+        }
+
+        public void selectScreen(string screenID)
+        {
+
+        }
+
+        public void updateScreen()
+        {
+
+        }
     }
 }
