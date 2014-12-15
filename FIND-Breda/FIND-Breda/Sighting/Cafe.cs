@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace FIND_Breda.Sighting
 {
-    class Cafe
+    class Cafe : iSighting
     {
+        private DateTime _openTime { get; set; }
+        private DateTime _closeTime { get; set; }
+        private int _phonenumber { get; set; }
+
+
     }
 }

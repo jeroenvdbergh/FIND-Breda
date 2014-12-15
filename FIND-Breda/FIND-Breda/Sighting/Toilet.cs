@@ -8,5 +8,7 @@ namespace FIND_Breda.Sighting
 {
     class Toilet
     {
+        private DateTime _openTime { get; set; }
+        private DateTime _closeTime { get; set; }
     }
 }

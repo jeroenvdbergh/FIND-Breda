@@ -8,5 +8,8 @@ namespace FIND_Breda.Sighting
 {
     class Museum
     {
+        private DateTime _openTime { get; set; }
+        private DateTime _closeTime { get; set; }
+        private String _category { get; set; }
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FIND_Breda.Sighting
 {
-    class English
+    class English : iLanguage
     {
     }
 }
