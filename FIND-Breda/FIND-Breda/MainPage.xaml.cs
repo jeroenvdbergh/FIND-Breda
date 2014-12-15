@@ -48,7 +48,7 @@ namespace FIND_Breda
             // this event is handled for you.
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void HelpButton_Click(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(HelpView));
         }
