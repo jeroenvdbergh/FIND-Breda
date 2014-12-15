@@ -10,6 +10,7 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
+        <Button Content="Help / Info" HorizontalAlignment="Left" Margin="65,338,0,0" VerticalAlignment="Top" Width="261" Click="Button_Click"/>
 
     </Grid>
 </Page>

@@ -1,0 +1,16 @@
+﻿<Page
+    x:Class="FIND_Breda.Screen.HelpView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:FIND_Breda.Screen"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <TextBox HorizontalAlignment="Left" Margin="10,131,0,0" TextWrapping="Wrap" Text="Hier komt de uitleg van de applicatie" VerticalAlignment="Top" Height="499" Width="380" TextChanged="TextBox_TextChanged"/>
+        <TextBlock Margin="106,34,106,0" TextWrapping="Wrap" Text="Info &amp; Help" VerticalAlignment="Top" Height="58" Width="188" FontSize="36"/>
+
+    </Grid>
+</Page>
