@@ -7,16 +7,16 @@ using Windows.UI.Xaml.Controls;
 
 namespace FIND_Breda.Sighting
 {
-    interface iSighting
+    abstract class iSighting
     {
-        private String _name;
-        private String _shortInfo;
-        private String _adress;
-        private String _fullInfo;
-        private double _distanceFromUser;
-        private double _mapLocation;
-        private Image _image;
+        protected String _name;
+        protected String _shortInfo;
+        protected String _adress;
+        protected String _fullInfo;
+        protected double _distanceFromUser;
+        protected double _mapLocation;
+        protected Image _image;
 
-        public Image iSighting(String _name, String _shortInfo, String _adress, String _fullInfo, double _distanceFromUser, double _mapLocation, Image _image);
+      //  public Image iSightings(String _name, String _shortInfo, String _adress, String _fullInfo, double _distanceFromUser, double _mapLocation, Image _image);
     }
 }
