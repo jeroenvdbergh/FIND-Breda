@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{975dbaff-0951-4920-9f10-c7584321ca07}</ProjectGuid>
+    <ProjectGuid>{975DBAFF-0951-4920-9F10-C7584321CA07}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>FIND_Breda</RootNamespace>
@@ -85,10 +85,39 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Control.cs" />
+    <Compile Include="GPSHandler\Route.cs" />
+    <Compile Include="GPSHandler\GPSHandler.cs" />
+    <Compile Include="GPSHandler\Map.cs" />
+    <Compile Include="GPSHandler\VVVRoute.cs" />
+    <Compile Include="InputHandler.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Screen\PlannedRouteScreen.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Screen\FeedbackScreen.cs" />
+    <Compile Include="Screen\InfoScreen.cs" />
+    <Compile Include="Screen\IntroScreen.cs" />
+    <Compile Include="Screen\iScreen.cs" />
+    <Compile Include="Screen\MainScreen.cs" />
+    <Compile Include="Screen\MapScreen.cs" />
+    <Compile Include="Screen\NavigationScreen.cs" />
+    <Compile Include="Screen\NewRouteScreen.cs" />
+    <Compile Include="Screen\PreviewScreen.cs" />
+    <Compile Include="Screen\SightingScreen.cs" />
+    <Compile Include="Screen\View.cs" />
+    <Compile Include="Sighting\Cafe.cs" />
+    <Compile Include="Sighting\Dutch.cs" />
+    <Compile Include="Sighting\English.cs" />
+    <Compile Include="Sighting\iLanguage.cs" />
+    <Compile Include="Sighting\iSighting.cs" />
+    <Compile Include="Sighting\Model.cs" />
+    <Compile Include="Sighting\Monument.cs" />
+    <Compile Include="Sighting\Museum.cs" />
+    <Compile Include="Sighting\Restaurant.cs" />
+    <Compile Include="Sighting\Toilet.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -113,14 +142,12 @@
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
-  
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
     <VisualStudioVersion>12.0</VisualStudioVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(TargetPlatformIdentifier)' == '' ">
     <TargetPlatformIdentifier>WindowsPhoneApp</TargetPlatformIdentifier>
   </PropertyGroup>
-
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
