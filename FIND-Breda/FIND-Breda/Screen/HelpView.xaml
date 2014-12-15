@@ -9,8 +9,12 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <TextBox HorizontalAlignment="Left" Margin="10,131,0,0" TextWrapping="Wrap" Text="Hier komt de uitleg van de applicatie" VerticalAlignment="Top" Height="499" Width="380" TextChanged="TextBox_TextChanged"/>
         <TextBlock Margin="106,34,106,0" TextWrapping="Wrap" Text="Info &amp; Help" VerticalAlignment="Top" Height="58" Width="188" FontSize="36"/>
+        <TextBlock Margin="10,109,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="521" Width="380" FontSize="36" HorizontalAlignment="Left">
+        	<Run FontSize="24" Text="Hier komt de uitleg van de applicatie"/>
+        	<LineBreak/>
+        	<Run/>
+        </TextBlock>
 
     </Grid>
 </Page>
