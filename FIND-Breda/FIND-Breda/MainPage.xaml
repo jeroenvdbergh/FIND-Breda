@@ -10,7 +10,9 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <Button Content="Help / Info" HorizontalAlignment="Left" Margin="65,338,0,0" VerticalAlignment="Top" Width="261" Click="Button_Click"/>
+        <Button x:Name="HelpButton" Content="Help / Info" HorizontalAlignment="Left" Margin="65,338,0,0" VerticalAlignment="Top" Width="261" Click="Button_Click"/>
+        <Button x:Name="PlannedRouteButton" Content="Voorgeplande route kiezen" HorizontalAlignment="Left" Margin="65,32,0,0" VerticalAlignment="Top" Width="261" Click="PlannedRouteButton_Click"/>
+        <Button x:Name="MapButton" Content="Kaart" HorizontalAlignment="Left" Margin="65,110,0,0" VerticalAlignment="Top" Width="261" Click="MapButton_Click"/>
 
     </Grid>
 </Page>

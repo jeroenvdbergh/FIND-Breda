@@ -52,5 +52,20 @@ namespace FIND_Breda
         {
             Frame.Navigate(typeof(HelpView));
         }
+
+        private void PlannedRouteButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void MapButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BezienswaardighedenButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
