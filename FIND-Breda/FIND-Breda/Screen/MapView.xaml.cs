@@ -13,6 +13,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Windows.Devices.Geolocation;
+using Windows.UI.Xaml.Controls.Maps;
 
 namespace FIND_Breda.Screen
 {
@@ -28,7 +29,7 @@ namespace FIND_Breda.Screen
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
         }
-
+       
         private async void button1_Click(
             object sender, RoutedEventArgs e)
         {
@@ -41,6 +42,8 @@ namespace FIND_Breda.Screen
             textLatitude.Text = "Latitude: " + pos.Coordinate.Point.Position.Latitude.ToString();
             textLongitude.Text = "Longitude: " + pos.Coordinate.Point.Position.Longitude.ToString();
             textAccuracy.Text = "Accuracy: " + pos.Coordinate.Accuracy.ToString();
+
+            await map.TrySetViewAsync(pos.Coordinate.Point, 16D);
         }
     }
 }

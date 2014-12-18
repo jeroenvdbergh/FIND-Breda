@@ -1,19 +1,22 @@
 ﻿<Page
-    x:Class="FIND_Breda.Screen.MapView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:FIND_Breda.Screen"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:Maps="using:Windows.UI.Xaml.Controls.Maps"
+    x:Class="FIND_Breda.Screen.MapView"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Button Content="Get Location Async" Click="button1_Click" 
-            HorizontalAlignment="Left" Margin="10,141,0,0" Name="button1" VerticalAlignment="Top" />
-        <TextBlock Margin="14,220,0,0" Text="Latitude" Name="textLatitude" />
-        <TextBlock Margin="14,260,0,0" Text="Longitude" Name="textLongitude" />
-        <TextBlock Margin="14,300,0,0" Text="Accuracy" Name="textAccuracy" />
+			HorizontalAlignment="Left" Margin="120,482,0,0" x:Name="button1" VerticalAlignment="Top" />
+        <TextBlock Margin="10,587,4,-367" Text="Latitude" x:Name="textLatitude" />
+        <TextBlock Margin="10,577,4,-317" Text="Longitude" x:Name="textLongitude" />
+        <TextBlock Margin="10,567,4,-267" Text="Accuracy" x:Name="textAccuracy" />
+
+        <Maps:MapControl Name="map" HorizontalAlignment="Left" MapServiceToken="mapservicetoken" Margin="31,10,0,0" VerticalAlignment="Top" Height="477"/>
 
     </Grid>
 </Page>
