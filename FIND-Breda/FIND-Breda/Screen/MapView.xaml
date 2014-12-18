@@ -8,7 +8,12 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid>
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Button Content="Get Location Async" Click="button1_Click" 
+            HorizontalAlignment="Left" Margin="10,141,0,0" Name="button1" VerticalAlignment="Top" />
+        <TextBlock Margin="14,220,0,0" Text="Latitude" Name="textLatitude" />
+        <TextBlock Margin="14,260,0,0" Text="Longitude" Name="textLongitude" />
+        <TextBlock Margin="14,300,0,0" Text="Accuracy" Name="textAccuracy" />
 
     </Grid>
 </Page>
