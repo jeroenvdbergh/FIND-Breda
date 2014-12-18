@@ -34,7 +34,7 @@ namespace FIND_Breda
         {
             if (_mainPage == null)
             {
-                Debug.WriteLine("instance");
+                Debug.WriteLine("instance"); //DEBUG
                 this._isDutch = true;
                 this.InitializeComponent();
                 this.NavigationCacheMode = NavigationCacheMode.Required;

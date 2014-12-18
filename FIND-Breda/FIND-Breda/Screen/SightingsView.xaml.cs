@@ -46,6 +46,7 @@ namespace FIND_Breda.Screen
         /// This parameter is typically used to configure the page.</param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            // Hier kan je de text van buttons o.i.d. aanpassen
             if (MainPage.instance._isDutch)
                 SightingsLabel.Text = "Bezienswaardigheden";
             else

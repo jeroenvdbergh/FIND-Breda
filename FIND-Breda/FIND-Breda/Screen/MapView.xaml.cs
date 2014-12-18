@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Windows.Devices.Geolocation;
 using Windows.UI.Xaml.Controls.Maps;
+using Windows.Phone.UI.Input;
 
 namespace FIND_Breda.Screen
 {
@@ -24,15 +25,27 @@ namespace FIND_Breda.Screen
         {
             this.InitializeComponent();
             this.NavigationCacheMode = NavigationCacheMode.Required;
+            HardwareButtons.BackPressed += HardwareButtons_BackPressed;
+        }
+        void HardwareButtons_BackPressed(object sender, BackPressedEventArgs e)
+        {
+            if (Frame.CanGoBack)
+            {
+                e.Handled = true;
+                Frame.GoBack();
+            }
         }
 
-        
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            // Hier kan je de text van buttons o.i.d. aanpassen
+            if (MainPage.instance._isDutch)
+                GetLocationAsyncButton.Content = "Geef locatie async";
+            else
+                GetLocationAsyncButton.Content = "Get location async";
         }
-       
-        private async void button1_Click(
-            object sender, RoutedEventArgs e)
+
+        private async void GetLocationAsyncButton_Click(object sender, RoutedEventArgs e)
         {
             if (geo == null)
             {
