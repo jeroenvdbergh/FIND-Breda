@@ -16,7 +16,7 @@
         <TextBlock Margin="10,577,4,-317" Text="Longitude" x:Name="textLongitude" />
         <TextBlock Margin="10,567,4,-267" Text="Accuracy" x:Name="textAccuracy" />
 
-        <Maps:MapControl Name="map" HorizontalAlignment="Left" MapServiceToken="mapservicetoken" Margin="31,10,0,0" VerticalAlignment="Top" Height="477"/>
+        <Maps:MapControl Name="map" HorizontalAlignment="Left" Margin="31,10,0,0" VerticalAlignment="Top" Height="477"/>
 
     </Grid>
 </Page>
