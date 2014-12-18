@@ -14,6 +14,8 @@
         <Button x:Name="PlannedRouteButton" Content="Voorgeplande route kiezen" HorizontalAlignment="Left" Margin="65,128,0,0" VerticalAlignment="Top" Width="261" Click="PlannedRouteButton_Click"/>
         <Button x:Name="MapButton" Content="Kaart" HorizontalAlignment="Stretch" Margin="65,212,74,0" VerticalAlignment="Top" Click="MapButton_Click"/>
         <Button x:Name="BezienswaardighedenButton" Content="Bezienswaardigheden" HorizontalAlignment="Stretch" Margin="65,299,74,0" VerticalAlignment="Top" Width="261" Click="BezienswaardighedenButton_Click"/>
+        <Button x:Name="DutchLanguageButton" Content="Dutch" HorizontalAlignment="Left" Margin="10,1,0,0" VerticalAlignment="Top" Height="45" Width="73" MinWidth="1" MinHeight="1" FontSize="12" Click="DutchLanguageButton_Click"/>
+        <Button x:Name="EnglishLanguageButton" Content="English" HorizontalAlignment="Left" Margin="88,1,0,0" VerticalAlignment="Top" Height="45" Width="73" MinWidth="1" MinHeight="1" FontSize="12" Click="EnglishLanguageButton_Click"/>
 
     </Grid>
 </Page>

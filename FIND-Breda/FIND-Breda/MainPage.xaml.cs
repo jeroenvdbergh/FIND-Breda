@@ -67,5 +67,21 @@ namespace FIND_Breda
         {
 
         }
+
+        private void DutchLanguageButton_Click(object sender, RoutedEventArgs e)
+        {
+            BezienswaardighedenButton.Content = "Bezienswaardigheden";
+            PlannedRouteButton.Content = "Voorgeplande route kiezen";
+            MapButton.Content = "Kaart";
+            HelpButton.Content = "Help / Info";
+        }
+
+        private void EnglishLanguageButton_Click(object sender, RoutedEventArgs e)
+        {
+            BezienswaardighedenButton.Content = "Sightings";
+            PlannedRouteButton.Content = "Choose planned route";
+            MapButton.Content = "Map";
+            HelpButton.Content = "Help / Info";
+        }
     }
 }
