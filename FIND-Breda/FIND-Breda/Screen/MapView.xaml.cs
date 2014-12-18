@@ -22,6 +22,7 @@ namespace FIND_Breda.Screen
         public MapView()
         {
             this.InitializeComponent();
+            this.NavigationCacheMode = NavigationCacheMode.Required;
         }
 
         

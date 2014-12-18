@@ -21,16 +21,17 @@ namespace FIND_Breda.Screen
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class HelpView : Page
+    public sealed partial class SightingsView : Page
     {
-        public HelpView()
+        public SightingsView()
         {
             this.InitializeComponent();
+
             HardwareButtons.BackPressed += HardwareButtons_BackPressed;
             this.NavigationCacheMode = NavigationCacheMode.Required;
         }
 
-        void HardwareButtons_BackPressed(object sender, BackPressedEventArgs e)
+        private void HardwareButtons_BackPressed(object sender, BackPressedEventArgs e)
         {
             if (Frame.CanGoBack)
             {
@@ -38,7 +39,6 @@ namespace FIND_Breda.Screen
                 Frame.GoBack();
             }
         }
-
         /// <summary>
         /// Invoked when this page is about to be displayed in a Frame.
         /// </summary>
@@ -46,9 +46,12 @@ namespace FIND_Breda.Screen
         /// This parameter is typically used to configure the page.</param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            if (MainPage.instance._isDutch)
+                SightingsLabel.Text = "Bezienswaardigheden";
+            else
+                SightingsLabel.Text = "Sightings";
         }
-
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        private void SightingsLabel_SelectionChanged(object sender, RoutedEventArgs e)
         {
 
         }

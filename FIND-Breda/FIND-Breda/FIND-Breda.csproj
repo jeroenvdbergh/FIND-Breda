@@ -85,6 +85,10 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Common\NavigationHelper.cs" />
+    <Compile Include="Common\ObservableDictionary.cs" />
+    <Compile Include="Common\RelayCommand.cs" />
+    <Compile Include="Common\SuspensionManager.cs" />
     <Compile Include="Control.cs" />
     <Compile Include="GPSHandler\Route.cs" />
     <Compile Include="GPSHandler\GPSHandler.cs" />
@@ -99,6 +103,9 @@
     </Compile>
     <Compile Include="Screen\MapView.xaml.cs">
       <DependentUpon>MapView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Screen\SightingsView.xaml.cs">
+      <DependentUpon>SightingsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Screen\View.cs" />
     <Compile Include="Sighting\Cafe.cs" />
@@ -140,6 +147,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Screen\MapView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Screen\SightingsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

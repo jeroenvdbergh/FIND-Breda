@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Windows.UI.Xaml.Controls.Maps;
 using FIND_Breda.Screen;
+using System.Diagnostics;
 
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=391641
@@ -25,11 +26,35 @@ namespace FIND_Breda
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        public bool _isDutch { get; set; }
+        private static MainPage _mainPage = null;
+        private static readonly object _padlock = new object();
+
         public MainPage()
         {
-            this.InitializeComponent();
+            if (_mainPage == null)
+            {
+                Debug.WriteLine("instance");
+                this._isDutch = true;
+                this.InitializeComponent();
+                this.NavigationCacheMode = NavigationCacheMode.Required;
+                _mainPage = this;
+            }
+        }
 
-            this.NavigationCacheMode = NavigationCacheMode.Required;
+        public static MainPage instance
+        {
+            get
+            {
+                lock (_padlock)
+                {
+                    if (_mainPage == null)
+                    {
+                        _mainPage = new MainPage();
+                    }
+                    return _mainPage;
+                }
+            }
         }
 
         /// <summary>
@@ -65,12 +90,14 @@ namespace FIND_Breda
 
         private void BezienswaardighedenButton_Click(object sender, RoutedEventArgs e)
         {
-
+            Frame.Navigate(typeof(SightingsView));
         }
 
         private void DutchLanguageButton_Click(object sender, RoutedEventArgs e)
         {
-            BezienswaardighedenButton.Content = "Bezienswaardigheden";
+            this._isDutch = true;
+
+            SightingsButton.Content = "Bezienswaardigheden";
             PlannedRouteButton.Content = "Voorgeplande route kiezen";
             MapButton.Content = "Kaart";
             HelpButton.Content = "Help / Info";
@@ -78,7 +105,9 @@ namespace FIND_Breda
 
         private void EnglishLanguageButton_Click(object sender, RoutedEventArgs e)
         {
-            BezienswaardighedenButton.Content = "Sightings";
+            this._isDutch = false;
+
+            SightingsButton.Content = "Sightings";
             PlannedRouteButton.Content = "Choose planned route";
             MapButton.Content = "Map";
             HelpButton.Content = "Help / Info";
