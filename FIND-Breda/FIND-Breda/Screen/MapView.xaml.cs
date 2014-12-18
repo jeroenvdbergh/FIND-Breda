@@ -12,28 +12,35 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-
-// The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkID=390556
+using Windows.Devices.Geolocation;
 
 namespace FIND_Breda.Screen
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
-    public sealed partial class MapView : Page
+    public partial class MapView : Page
     {
+        Geolocator geo = null;
         public MapView()
         {
             this.InitializeComponent();
         }
 
-        /// <summary>
-        /// Invoked when this page is about to be displayed in a Frame.
-        /// </summary>
-        /// <param name="e">Event data that describes how this page was reached.
-        /// This parameter is typically used to configure the page.</param>
+        
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+        }
+
+        private async void button1_Click(
+            object sender, RoutedEventArgs e)
+        {
+            if (geo == null)
+            {
+                geo = new Geolocator();
+            }
+
+            Geoposition pos = await geo.GetGeopositionAsync();
+            textLatitude.Text = "Latitude: " + pos.Coordinate.Point.Position.Latitude.ToString();
+            textLongitude.Text = "Longitude: " + pos.Coordinate.Point.Position.Longitude.ToString();
+            textAccuracy.Text = "Accuracy: " + pos.Coordinate.Accuracy.ToString();
         }
     }
 }
