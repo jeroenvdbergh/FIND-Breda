@@ -60,7 +60,7 @@ namespace FIND_Breda
 
         private void MapButton_Click(object sender, RoutedEventArgs e)
         {
-
+            Frame.Navigate(typeof(MapView));
         }
 
         private void BezienswaardighedenButton_Click(object sender, RoutedEventArgs e)
