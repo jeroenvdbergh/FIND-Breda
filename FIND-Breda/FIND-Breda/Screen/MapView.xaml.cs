@@ -36,28 +36,69 @@ namespace FIND_Breda.Screen
             }
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            // Hier kan je de text van buttons o.i.d. aanpassen
-            if (MainPage.instance._isDutch)
-                GetLocationAsyncButton.Content = "Geef locatie async";
-            else
-                GetLocationAsyncButton.Content = "Get location async";
-        }
-
-        private async void GetLocationAsyncButton_Click(object sender, RoutedEventArgs e)
+        protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
             if (geo == null)
             {
                 geo = new Geolocator();
             }
+            Geoposition pos = await geo.GetGeopositionAsync();
+            var lat = pos.Coordinate.Point.Position.Latitude;
+            var lon = pos.Coordinate.Point.Position.Longitude;
 
+            // Hier kan je de text van buttons o.i.d. aanpassen
+            if (MainPage.instance._isDutch)
+                GetLocationAsyncButton.Content = "Geef locatie async";
+            else
+                GetLocationAsyncButton.Content = "Get location async";
+
+            // TODO: Map center zetten op je huidige locatie
+            map.Center = new Geopoint(new BasicGeoposition()
+               {
+                   //Latitude = 51.5876935784736,
+                   //Longitude = 4.77448171225132
+
+                   Latitude = 51.5940,
+                   Longitude = 4.7795
+
+                   //Latitude = lat,
+                   //Longitude = lon
+
+               });
+            map.ZoomLevel = 15;
+
+            // de bezienswaardigheden weergeven
+            displaySightings();
+        }
+
+        private async void GetLocationAsyncButton_Click(object sender, RoutedEventArgs e)
+        {
             Geoposition pos = await geo.GetGeopositionAsync();
             textLatitude.Text = "Latitude: " + pos.Coordinate.Point.Position.Latitude.ToString();
             textLongitude.Text = "Longitude: " + pos.Coordinate.Point.Position.Longitude.ToString();
-            textAccuracy.Text = "Accuracy: " + pos.Coordinate.Accuracy.ToString();
+            textAccuracy.Text = "Accuracy: " + pos.Coordinate.Accuracy.ToString() + " Zoomlvl: " + map.ZoomLevel;
 
             await map.TrySetViewAsync(pos.Coordinate.Point, 16D);
+        }
+        private void displaySightings()
+        {
+            MapIcon sighting1 = new MapIcon();
+            sighting1.Location = new Geopoint(new BasicGeoposition()
+            {
+                Latitude = 51.5940,
+                Longitude = 4.7795
+            });
+            sighting1.Title = "VVV";
+            map.MapElements.Add(sighting1);
+
+            MapIcon sighting2 = new MapIcon();
+            sighting2.Location = new Geopoint(new BasicGeoposition()
+            {
+                Latitude = 51.5936,
+                Longitude = 4.7795
+            });
+            sighting2.Title = "Liefdeszuster";
+            map.MapElements.Add(sighting2);
         }
     }
 }
