@@ -15,6 +15,7 @@ using Windows.UI.Xaml.Navigation;
 using Windows.UI.Xaml.Controls.Maps;
 using FIND_Breda.Screen;
 using System.Diagnostics;
+using Windows.UI;
 
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=391641
@@ -97,6 +98,9 @@ namespace FIND_Breda
         {
             this._isDutch = true;
 
+            this.DutchLanguageButton.Background = new SolidColorBrush(Colors.DarkGray);
+             this.EnglishLanguageButton.Background = new SolidColorBrush(Colors.Black);
+
             SightingsButton.Content = "Bezienswaardigheden";
             PlannedRouteButton.Content = "Voorgeplande route kiezen";
             MapButton.Content = "Kaart";
@@ -106,6 +110,8 @@ namespace FIND_Breda
         private void EnglishLanguageButton_Click(object sender, RoutedEventArgs e)
         {
             this._isDutch = false;
+            this.DutchLanguageButton.Background = new SolidColorBrush(Colors.Black);
+            this.EnglishLanguageButton.Background = new SolidColorBrush(Colors.DarkGray);
 
             SightingsButton.Content = "Sightings";
             PlannedRouteButton.Content = "Choose planned route";
