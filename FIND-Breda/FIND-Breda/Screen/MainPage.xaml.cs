@@ -16,6 +16,8 @@ using Windows.UI.Xaml.Controls.Maps;
 using FIND_Breda.Screen;
 using System.Diagnostics;
 using Windows.UI;
+using FIND_Breda.GPSHandler;
+using Windows.UI.Popups;
 
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=391641
@@ -28,6 +30,7 @@ namespace FIND_Breda
     public sealed partial class MainPage : Page
     {
         public bool _isDutch { get; set; }
+        private MessageDialog _msgbox;
         private static MainPage _mainPage = null;
         private static readonly object _padlock = new object();
 
@@ -35,7 +38,7 @@ namespace FIND_Breda
         {
             if (_mainPage == null)
             {
-                Debug.WriteLine("instance"); //DEBUG
+                Debug.WriteLine("mainpage instance"); //DEBUG
                 this._isDutch = true;
                 this.InitializeComponent();
                 this.NavigationCacheMode = NavigationCacheMode.Required;
@@ -89,9 +92,18 @@ namespace FIND_Breda
             Frame.Navigate(typeof(MapView));
         }
 
-        private void BezienswaardighedenButton_Click(object sender, RoutedEventArgs e)
+        private async void SightingsButton_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(SightingsView));
+            if (MapView.instance != null)
+                Frame.Navigate(typeof(SightingsView));
+            else
+            {
+                if (this._isDutch == true)
+                    _msgbox = new MessageDialog("Open de kaart eerst!");
+                else
+                    _msgbox = new MessageDialog("Open the map first!");
+                await _msgbox.ShowAsync();
+            }
         }
 
         private void DutchLanguageButton_Click(object sender, RoutedEventArgs e)
@@ -99,7 +111,7 @@ namespace FIND_Breda
             this._isDutch = true;
 
             this.DutchLanguageButton.Background = new SolidColorBrush(Colors.DarkGray);
-             this.EnglishLanguageButton.Background = new SolidColorBrush(Colors.Black);
+            this.EnglishLanguageButton.Background = new SolidColorBrush(Colors.Black);
 
             SightingsButton.Content = "Bezienswaardigheden";
             PlannedRouteButton.Content = "Voorgeplande route kiezen";
