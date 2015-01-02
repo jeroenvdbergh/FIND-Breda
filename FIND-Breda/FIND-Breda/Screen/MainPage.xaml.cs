@@ -77,14 +77,18 @@ namespace FIND_Breda
             // this event is handled for you.
         }
 
-        private void HelpButton_Click(object sender, RoutedEventArgs e)
+        private async void PlannedRouteButton_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(HelpView));
-        }
-
-        private void PlannedRouteButton_Click(object sender, RoutedEventArgs e)
-        {
-
+            if (MapView.instance != null)
+                Frame.Navigate(typeof(RouteView));
+            else
+            {
+                if (this._isDutch == true)
+                    _msgbox = new MessageDialog("Je moet de kaart eerst laden!");
+                else
+                    _msgbox = new MessageDialog("You have to load the map first!");
+                await _msgbox.ShowAsync();
+            }
         }
 
         private void MapButton_Click(object sender, RoutedEventArgs e)
@@ -99,11 +103,16 @@ namespace FIND_Breda
             else
             {
                 if (this._isDutch == true)
-                    _msgbox = new MessageDialog("Open de kaart eerst!");
+                    _msgbox = new MessageDialog("Je moet de kaart eerst laden!");
                 else
-                    _msgbox = new MessageDialog("Open the map first!");
+                    _msgbox = new MessageDialog("You have to load the map first!");
                 await _msgbox.ShowAsync();
             }
+        }
+
+        private void HelpButton_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(HelpView));
         }
 
         private void DutchLanguageButton_Click(object sender, RoutedEventArgs e)
