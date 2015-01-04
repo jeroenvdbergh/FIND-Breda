@@ -90,10 +90,12 @@
     <Compile Include="Common\RelayCommand.cs" />
     <Compile Include="Common\SuspensionManager.cs" />
     <Compile Include="Control.cs" />
-    <Compile Include="GPSHandler\Route.cs" />
-    <Compile Include="GPSHandler\GPSHandler.cs" />
-    <Compile Include="GPSHandler\Map.cs" />
-    <Compile Include="GPSHandler\VVVRoute.cs" />
+    <Compile Include="Model\Enums.cs" />
+    <Compile Include="Model\LanguageModel.cs" />
+    <Compile Include="Model\Route.cs" />
+    <Compile Include="Model\GPSHandler.cs" />
+    <Compile Include="Model\Map.cs" />
+    <Compile Include="Model\VVVRoute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Screen\HelpView.xaml.cs">
       <DependentUpon>HelpView.xaml</DependentUpon>

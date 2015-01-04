@@ -16,20 +16,13 @@ using Windows.UI.Xaml.Controls.Maps;
 using FIND_Breda.Screen;
 using System.Diagnostics;
 using Windows.UI;
-using FIND_Breda.GPSHandler;
+using FIND_Breda.Model;
 using Windows.UI.Popups;
-
-
-// The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=391641
 
 namespace FIND_Breda
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
     public sealed partial class MainPage : Page
     {
-        public bool _isDutch { get; set; }
         private MessageDialog _msgbox;
         private static MainPage _mainPage = null;
         private static readonly object _padlock = new object();
@@ -39,7 +32,6 @@ namespace FIND_Breda
             if (_mainPage == null)
             {
                 Debug.WriteLine("mainpage instance"); //DEBUG
-                this._isDutch = true;
                 this.InitializeComponent();
                 this.NavigationCacheMode = NavigationCacheMode.Required;
                 _mainPage = this;
@@ -61,34 +53,13 @@ namespace FIND_Breda
             }
         }
 
-        /// <summary>
-        /// Invoked when this page is about to be displayed in a Frame.
-        /// </summary>
-        /// <param name="e">Event data that describes how this page was reached.
-        /// This parameter is typically used to configure the page.</param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            // TODO: Prepare page for display here.
-
-            // TODO: If your application contains multiple pages, ensure that you are
-            // handling the hardware Back button by registering for the
-            // Windows.Phone.UI.Input.HardwareButtons.BackPressed event.
-            // If you are using the NavigationHelper provided by some templates,
-            // this event is handled for you.
         }
 
-        private async void PlannedRouteButton_Click(object sender, RoutedEventArgs e)
+        private void PlannedRouteButton_Click(object sender, RoutedEventArgs e)
         {
-            if (MapView.instance != null)
-                Frame.Navigate(typeof(RouteView));
-            else
-            {
-                if (this._isDutch == true)
-                    _msgbox = new MessageDialog("Je moet de kaart eerst laden!");
-                else
-                    _msgbox = new MessageDialog("You have to load the map first!");
-                await _msgbox.ShowAsync();
-            }
+            Frame.Navigate(typeof(RouteView));
         }
 
         private void MapButton_Click(object sender, RoutedEventArgs e)
@@ -102,10 +73,7 @@ namespace FIND_Breda
                 Frame.Navigate(typeof(SightingsView));
             else
             {
-                if (this._isDutch == true)
-                    _msgbox = new MessageDialog("Je moet de kaart eerst laden!");
-                else
-                    _msgbox = new MessageDialog("You have to load the map first!");
+                _msgbox = new MessageDialog(LanguageModel.instance.getText(Text.loadmapfirst));
                 await _msgbox.ShowAsync();
             }
         }
@@ -117,27 +85,28 @@ namespace FIND_Breda
 
         private void DutchLanguageButton_Click(object sender, RoutedEventArgs e)
         {
-            this._isDutch = true;
+            LanguageModel.instance.setLanguage(Model.Language.dutch);
 
             this.DutchLanguageButton.Background = new SolidColorBrush(Colors.DarkGray);
             this.EnglishLanguageButton.Background = new SolidColorBrush(Colors.Black);
 
-            SightingsButton.Content = "Bezienswaardigheden";
-            PlannedRouteButton.Content = "Voorgeplande route kiezen";
-            MapButton.Content = "Kaart";
-            HelpButton.Content = "Help / Info";
+            PlannedRouteButton.Content = LanguageModel.instance.getText(Text.plannedroutebutton);
+            MapButton.Content = LanguageModel.instance.getText(Text.mapbutton);
+            SightingsButton.Content = LanguageModel.instance.getText(Text.sightingbutton);
+            HelpButton.Content = LanguageModel.instance.getText(Text.helpbutton);
         }
 
         private void EnglishLanguageButton_Click(object sender, RoutedEventArgs e)
         {
-            this._isDutch = false;
+            LanguageModel.instance.setLanguage(Model.Language.english);
+
             this.DutchLanguageButton.Background = new SolidColorBrush(Colors.Black);
             this.EnglishLanguageButton.Background = new SolidColorBrush(Colors.DarkGray);
 
-            SightingsButton.Content = "Sightings";
-            PlannedRouteButton.Content = "Choose planned route";
-            MapButton.Content = "Map";
-            HelpButton.Content = "Help / Info";
+            PlannedRouteButton.Content = LanguageModel.instance.getText(Text.plannedroutebutton);
+            MapButton.Content = LanguageModel.instance.getText(Text.mapbutton);
+            SightingsButton.Content = LanguageModel.instance.getText(Text.sightingbutton);
+            HelpButton.Content = LanguageModel.instance.getText(Text.helpbutton);
         }
     }
 }

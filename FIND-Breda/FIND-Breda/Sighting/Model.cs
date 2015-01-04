@@ -1,4 +1,4 @@
-﻿using FIND_Breda.GPSHandler;
+﻿using FIND_Breda.Model;
 using FIND_Breda.Screen;
 using System;
 using System.Collections.Generic;

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FIND_Breda.GPSHandler
+namespace FIND_Breda.Model
 {
     public class Map
     {

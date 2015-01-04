@@ -8,13 +8,15 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid>
-        <TextBlock Margin="106,34,106,0" TextWrapping="Wrap" Text="Info &amp; Help" VerticalAlignment="Top" Height="58" Width="188" FontSize="36"/>
-        <TextBlock Margin="10,109,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="521" Width="380" FontSize="36" HorizontalAlignment="Left">
-        	<Run FontSize="24" Text="Hier komt de uitleg van de applicatie"/>
+    <Grid x:Name="LayoutRoot">
+
+        <TextBlock x:Name="HelpLabel" Margin="106,34,106,0" TextWrapping="Wrap" Text="Help &amp; Info" VerticalAlignment="Top" Height="58" Width="188" FontSize="36"/>
+        <TextBlock x:Name="HelpTextBlock" Margin="10,109,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="521" Width="380" FontSize="18" HorizontalAlignment="Left">
+        	<Run Text="Hier komt de uitleg van de applicatie"/>
         	<LineBreak/>
         	<Run/>
         </TextBlock>
+
 
     </Grid>
 </Page>

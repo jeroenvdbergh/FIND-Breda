@@ -18,7 +18,7 @@ using Windows.UI.Xaml.Controls.Maps;
 using Windows.Phone.UI.Input;
 using System.Diagnostics;
 using FIND_Breda.Common;
-using FIND_Breda.GPSHandler;
+using FIND_Breda.Model;
 using Windows.Storage.Streams;
 using Windows.Services.Maps;
 using Windows.UI;
@@ -72,25 +72,13 @@ namespace FIND_Breda.Screen
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            /* Hier kan je de text van buttons o.i.d. aanpassen */
-            if (MainPage.instance._isDutch)
-            {
-                GetLocationAsyncButton.Content = "Geef locatie async";
-                Aerial_Checkbox.Content = "Lucht weergave";
-                AerialWithRoads_Checkbox.Content = "Lucht+wegen weergave";
-                Dark_Checkbox.Content = "Donker thema";
-                Traffic_Checkbox.Content = "Verkeer";
-                Pedestrian_Checkbox.Content = "Voetganger";
-            }
-            else
-            {
-                GetLocationAsyncButton.Content = "Get location async";
-                Aerial_Checkbox.Content = "Aerial view";
-                AerialWithRoads_Checkbox.Content = "Aerial+roads view";
-                Dark_Checkbox.Content = "Dark theme";
-                Traffic_Checkbox.Content = "Traffic";
-                Pedestrian_Checkbox.Content = "Walker";
-            }
+            GetLocationAsyncButton.Content = LanguageModel.instance.getText(Text.getlocationbutton);
+            Aerial_Checkbox.Content = LanguageModel.instance.getText(Text.aerialcheckbox);
+            AerialWithRoads_Checkbox.Content = LanguageModel.instance.getText(Text.aerialwithroadscheckbox);
+            Dark_Checkbox.Content = LanguageModel.instance.getText(Text.darkthemecheckbox);
+            Traffic_Checkbox.Content = LanguageModel.instance.getText(Text.trafficcheckbox);
+            Pedestrian_Checkbox.Content = LanguageModel.instance.getText(Text.pedestriancheckbox);
+
             this.navigationHelper.OnNavigatedTo(e);
         }
 
@@ -214,7 +202,7 @@ namespace FIND_Breda.Screen
             }
             else
             {
-                throw new Exception("route fail");
+                throw new Exception(routeResult.Status.ToString());
             }
         }
 
