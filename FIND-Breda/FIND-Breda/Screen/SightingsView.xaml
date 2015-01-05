@@ -7,13 +7,24 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <StackPanel HorizontalAlignment="Stretch" Margin="0">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock x:Name="SightingsLabel" Grid.Row="0" TextWrapping="Wrap" Text="Bezienswaardigheden"  FontSize="36" VerticalAlignment="Top" FontWeight="Bold"/>
+            <CheckBox x:Name="MonumentsCheckBox" Grid.Row="1" Content="Monumenten" HorizontalAlignment="Left" VerticalAlignment="Top" Click="MonumentsCheckBox_Click" Margin="0,50,0,0"/>
+            <CheckBox x:Name="BuildingsCheckBox" Grid.Row="2" Content="Gebouwen" HorizontalAlignment="Left" VerticalAlignment="Top" Click="BuildingsCheckBox_Click"/>
+            <CheckBox x:Name="MarketCheckBox" Grid.Row="3" Content="Markten" HorizontalAlignment="Left"  VerticalAlignment="Top" Click="MarketCheckBox_Click"/>
+            <CheckBox x:Name="RemainingCheckBox" Grid.Row="4" Content="Overig" HorizontalAlignment="Left" VerticalAlignment="Top" Click="RemainingCheckBox_Click"/>
 
-    <Grid>
-        <TextBlock x:Name="SightingsLabel" Margin="10,10,10,0" TextWrapping="Wrap" Text="Bezienswaardigheden" Height="32" FontSize="24" VerticalAlignment="Top"/>
-        <CheckBox x:Name="MonumentsCheckBox" Content="Monumenten" HorizontalAlignment="Left" Margin="10,75,0,0" VerticalAlignment="Top" Click="MonumentsCheckBox_Click"/>
-        <CheckBox x:Name="BuildingsCheckBox" Content="Gebouwen" HorizontalAlignment="Left" Margin="10,129,0,0" VerticalAlignment="Top" Click="BuildingsCheckBox_Click"/>
-        <CheckBox x:Name="MarketCheckBox" Content="Markten" HorizontalAlignment="Left" Margin="10,183,0,0" VerticalAlignment="Top" Click="MarketCheckBox_Click"/>
-        <CheckBox x:Name="RemainingCheckBox" Content="Overig" HorizontalAlignment="Left" Margin="10,237,0,0" VerticalAlignment="Top" Click="RemainingCheckBox_Click"/>
-
-    </Grid>
+        </Grid>
+    </StackPanel>
 </Page>
