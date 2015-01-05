@@ -38,6 +38,7 @@ namespace FIND_Breda
                 Window.Current.SizeChanged += Current_SizeChanged;
                 _mainPage = this;
             }
+            Model.DatabaseConnection db = new Model.DatabaseConnection();
         }
 
 
