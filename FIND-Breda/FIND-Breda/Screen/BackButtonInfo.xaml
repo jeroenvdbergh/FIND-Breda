@@ -9,8 +9,8 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <TextBlock x:Name="BackButtonTextBlock" Margin="113,34,113,0" TextWrapping="Wrap" Text="Terugknop" VerticalAlignment="Top" Height="58" FontSize="36"/>
-        <TextBlock x:Name="BackButtonInfo1" Margin="29,97,30,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="355" FontSize="22">
+        <TextBlock x:Name="BackButtonInfoLabel" Margin="101,34,96,0" Text="Terug-knop" VerticalAlignment="Top" HorizontalAlignment="Center" Height="58" FontSize="36" FontWeight="Bold" Width="203"/>
+        <TextBlock x:Name="BackButtonInfoTextBlock" Margin="29,97,30,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="355" FontSize="22">
         	<Run Text="Met de terugknop kunt u naar de vorige pagina gaan. Deze knop kunt"/>
         	<Run Text=" u linksonder op de telefoon vinden."/>
         </TextBlock>

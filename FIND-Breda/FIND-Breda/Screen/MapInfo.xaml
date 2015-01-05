@@ -9,8 +9,8 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <TextBlock x:Name="MapInfoTextBlock" Margin="154,34,154,0" TextWrapping="Wrap" Text="Kaart" VerticalAlignment="Top" Height="58" FontSize="36"/>
-        <TextBlock x:Name="MapInfo1" Margin="30,97,30,0" TextWrapping="Wrap" Text="Voor de kaart wordt BING maps gebruikt. " VerticalAlignment="Top" Height="223" FontSize="22"/>
+        <TextBlock x:Name="MapInfoLabel" Margin="154,34,154,0" HorizontalAlignment="Center" Text="Kaart" VerticalAlignment="Top" Height="58" FontSize="36" FontWeight="Bold"/>
+        <TextBlock x:Name="MapInfoTextBlock" Margin="30,97,30,0" TextWrapping="Wrap" Text="Voor de kaart wordt BING maps gebruikt. " VerticalAlignment="Top" Height="223" FontSize="22"/>
 
     </Grid>
 </Page>

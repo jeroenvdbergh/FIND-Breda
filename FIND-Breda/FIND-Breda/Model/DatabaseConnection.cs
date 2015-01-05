@@ -4,22 +4,89 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SQLitePCL;
+using System.Diagnostics;
 
 namespace FIND_Breda.Model
 {
-    class DatabaseConnection
+    public class DatabaseConnection
     {
-        SQLiteConnection connection;
+        private SQLiteConnection _connection;
+        private List<string> waypoints = new List<string>();
+
+        private static DatabaseConnection _databaseConnection = null;
+        private static readonly object _padlock = new object();
 
         public DatabaseConnection()
         {
             createDatabase();
             insertRecords();
+            saveRecords();
+
+            _databaseConnection = this;
         }
 
-        public void createDatabase()
+        public static DatabaseConnection instance
         {
-            connection = new SQLiteConnection("database.db");
+            get
+            {
+                lock (_padlock)
+                {
+                    if (_databaseConnection == null)
+                    {
+                        _databaseConnection = new DatabaseConnection();
+                    }
+                    return _databaseConnection;
+                }
+            }
+        }
+
+        /* Parameters: int row, moet liggen tussen de 1-45
+         * Returned een string van de database met de informatie van die row
+         * Formaat: ID@NAAM@LON@LAT@OPMERKING@ADRES
+         */
+        public string getRecord(int row)
+        {
+            string query = @"SELECT * FROM Sight WHERE Id =" + row.ToString();
+            string result = String.Empty;
+            using (var statement = _connection.Prepare(query))
+            {
+                statement.Step();
+                result = statement[0].ToString() + "@" + statement[1].ToString() + "@" + statement[2].ToString() + "@" + statement[3].ToString() + "@" + statement[4].ToString() + "@" + statement[5].ToString();
+            }
+            return result;
+        }
+
+        /* Geeft een List van string terug met alle waypoints */
+        public List<string> getWaypoints()
+        {
+            return waypoints;
+        }
+
+        /*
+         * Haalt alle rijen informatie van de database op en slaat ze op in een List van string
+         */
+        private void saveRecords()
+        {
+            string query = @"SELECT COUNT(*) FROM Sight";
+            string result = String.Empty;
+            using (var statement = _connection.Prepare(query))
+            {
+                statement.Step();
+                result = statement[0].ToString();
+            }
+            int rows = Int32.Parse(result);
+            int x = 1;
+            while (x <= rows)
+            {
+                waypoints.Add(getRecord(x));
+                x++;
+            }
+        }
+
+        #region Database initializeren
+        private void createDatabase()
+        {
+            _connection = new SQLiteConnection("database.db");
 
             string query = @"CREATE TABLE IF NOT EXISTS
                                 Sight      (Id           INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
@@ -30,17 +97,17 @@ namespace FIND_Breda.Model
                                             Address      VARCHAR(255)
                             );";
 
-            using (var statement = connection.Prepare(query))
+            using (var statement = _connection.Prepare(query))
             {
                 statement.Step();
             }
         }
 
-        public void insertRecord(int ID, string name, double longitude, double latitude, string description, string address)
+        private void insertRecord(int ID, string name, double longitude, double latitude, string description, string address)
         {
             try
             {
-                using (var record = connection.Prepare("INSERT INTO Sight (Id, Name, Longitude, Latitude, Description, Address) VALUES (?,?,?,?,?,?)"))
+                using (var record = _connection.Prepare("INSERT INTO Sight (Id, Name, Longitude, Latitude, Description, Address) VALUES (?,?,?,?,?,?)"))
                 {
                     record.Bind(1, ID);
                     record.Bind(2, name);
@@ -59,19 +126,8 @@ namespace FIND_Breda.Model
             }
         }
 
-        public string selectAll()
-        {
-            string query = @"SELECT * FROM Sight";
-            string result = "";
-            using (var statement = connection.Prepare(query))
-            {
-                statement.Step();
-                result = statement[0].ToString() + "@" + statement[1].ToString() + "@" + statement[2].ToString() + "@" + statement[3].ToString() + "@" + statement[4].ToString() + "@" + statement[5].ToString();
-            }
-            return result;
-        }
 
-        public void insertRecords()
+        private void insertRecords()
         {
             //insertRecord(1, "VVV", 51.356467, 4.467650, "Hier is het VVV gevestigd", "Willemstraat");
             // insertRecord(2, "Kasteel van Breda", 51.354367, 4.465700, "Hier is het Kasteel van Breda gevestigd", "Kasteelplein");
@@ -124,5 +180,6 @@ namespace FIND_Breda.Model
             insertRecord(45, "Einde stadswandeling", 51.353700, 4.465750, "Eindpunt", "Kasteelplein");
 
         }
+        #endregion
     }
 }

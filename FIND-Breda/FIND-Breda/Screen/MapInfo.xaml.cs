@@ -56,20 +56,11 @@ namespace FIND_Breda.Screen
         {
         }
 
-        void HardwareButtons_BackPressed(object sender, BackPressedEventArgs e)
-        {
-            if (Frame.CanGoBack)
-            {
-                e.Handled = true;
-                Frame.GoBack();
-            }
-        }
-
         #region NavigationHelper registration
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            MapInfoTextBlock.Text = LanguageModel.instance.getText(Text.MapInfoButton);
-            MapInfo1.Text = LanguageModel.instance.getText(Text.MapInfo);
+            MapInfoLabel.Text = LanguageModel.instance.getText(Text.MapInfoButton);
+            MapInfoTextBlock.Text = LanguageModel.instance.getText(Text.MapInfo);
             this.navigationHelper.OnNavigatedTo(e);
         }
         #endregion

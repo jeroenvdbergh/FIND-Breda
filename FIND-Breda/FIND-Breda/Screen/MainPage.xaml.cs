@@ -27,6 +27,7 @@ namespace FIND_Breda
         private MessageDialog _msgbox;
         private static MainPage _mainPage = null;
         private static readonly object _padlock = new object();
+        private DatabaseConnection _database;
 
         public MainPage()
         {
@@ -37,10 +38,9 @@ namespace FIND_Breda
                 this.NavigationCacheMode = NavigationCacheMode.Required;
                 Window.Current.SizeChanged += Current_SizeChanged;
                 _mainPage = this;
+                _database = DatabaseConnection.instance;
             }
-            Model.DatabaseConnection db = new Model.DatabaseConnection();
         }
-
 
         public static MainPage instance
         {

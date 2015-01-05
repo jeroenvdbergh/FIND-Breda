@@ -33,7 +33,6 @@ namespace FIND_Breda.Screen
         public SightingInfo()
         {
             this.InitializeComponent();
-            HardwareButtons.BackPressed += HardwareButtons_BackPressed;
             this.navigationHelper = new NavigationHelper(this);
             this.navigationHelper.LoadState += this.NavigationHelper_LoadState;
             this.navigationHelper.SaveState += this.NavigationHelper_SaveState;
@@ -56,21 +55,12 @@ namespace FIND_Breda.Screen
         private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e)
         {
         }
-        
-        void HardwareButtons_BackPressed(object sender, BackPressedEventArgs e)
-        {
-            if (Frame.CanGoBack)
-            {
-                e.Handled = true;
-                Frame.GoBack();
-            }
-        }
 
         #region NavigationHelper registration
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            SightingTextBlock.Text = LanguageModel.instance.getText(Text.SightingInfoButton);
-            SightingInfo1.Text = LanguageModel.instance.getText(Text.SightingInfo);
+            SightingLabel.Text = LanguageModel.instance.getText(Text.SightingInfoButton);
+            SightingTextBlock.Text = LanguageModel.instance.getText(Text.SightingInfo);
             this.navigationHelper.OnNavigatedTo(e);
         }
         #endregion

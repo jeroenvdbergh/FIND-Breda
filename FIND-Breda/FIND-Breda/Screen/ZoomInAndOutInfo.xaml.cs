@@ -25,19 +25,18 @@ namespace FIND_Breda.Screen
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class Legend : Page
+    public sealed partial class ZoomInAndOutInfo : Page
     {
         private NavigationHelper navigationHelper;
         private ObservableDictionary defaultViewModel = new ObservableDictionary();
 
-        public Legend()
+        public ZoomInAndOutInfo()
         {
             this.InitializeComponent();
             this.navigationHelper = new NavigationHelper(this);
             this.navigationHelper.LoadState += this.NavigationHelper_LoadState;
             this.navigationHelper.SaveState += this.NavigationHelper_SaveState;
         }
-
         public NavigationHelper NavigationHelper
         {
             get { return this.navigationHelper; }
@@ -56,24 +55,11 @@ namespace FIND_Breda.Screen
         {
         }
 
-        void HardwareButtons_BackPressed(object sender, BackPressedEventArgs e)
-        {
-            if (Frame.CanGoBack)
-            {
-                e.Handled = true;
-                Frame.GoBack();
-            }
-        }
-
-        private void TextBlock_SelectionChanged(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         #region NavigationHelper registration
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            LegendTextBlock.Text = LanguageModel.instance.getText(Text.LegendButton);
+            ZoomInAndOutLabel.Text = LanguageModel.instance.getText(Text.ZoomInAndOutButton);
+            ZoomInAndOutTextBlock.Text = LanguageModel.instance.getText(Text.ZoomInAndOutInfo);
             this.navigationHelper.OnNavigatedTo(e);
         }
         #endregion
