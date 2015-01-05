@@ -64,7 +64,7 @@ namespace FIND_Breda
 
         private void MapButton_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(MapView));
+            Frame.Navigate(typeof(MapView), this.ToString());
         }
 
         private async void SightingsButton_Click(object sender, RoutedEventArgs e)

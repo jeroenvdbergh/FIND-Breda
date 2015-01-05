@@ -55,9 +55,6 @@ namespace FIND_Breda.Screen
             this._mapControl = map;
             _mapView = this;
 
-            /* De kaart goedzetten op basis van je locatie */
-            setToCurrentLocation();
-
             /* Alle bezienswaardigheden weergeven */
             displaySightings();
         }
@@ -72,6 +69,12 @@ namespace FIND_Breda.Screen
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            /* De kaart goedzetten op basis van je locatie alleen als je vanaf de mainpage komt */
+            string prevpage = e.Parameter as string;
+            if (prevpage.Contains("MainPage"))
+            {
+                setToCurrentLocation();
+            }
             GetLocationAsyncButton.Content = LanguageModel.instance.getText(Text.getlocationbutton);
             Aerial_Checkbox.Content = LanguageModel.instance.getText(Text.aerialcheckbox);
             AerialWithRoads_Checkbox.Content = LanguageModel.instance.getText(Text.aerialwithroadscheckbox);
