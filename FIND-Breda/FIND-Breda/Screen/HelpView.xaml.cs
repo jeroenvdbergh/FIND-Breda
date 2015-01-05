@@ -58,11 +58,37 @@ namespace FIND_Breda.Screen
             this.navigationHelper.OnNavigatedTo(e);
         }
 
+        private void ZoomInAndOutButton_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(ZoomInAndOut));
+        }
+
+        private void MapInfoButton_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(MapInfo));
+        }
+
+        private void BackButtonInfoButton_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(BackButtonInfo));
+        }
+
+        private void LegendButton_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(Legend));
+        }
+
+        private void SightingInfoButton_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(SightingInfo));
+        }
+
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
             this.navigationHelper.OnNavigatedFrom(e);
         }
 
         #endregion
+
     }
 }

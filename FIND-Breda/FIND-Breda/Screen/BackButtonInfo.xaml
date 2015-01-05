@@ -1,0 +1,19 @@
+﻿<Page
+    x:Class="FIND_Breda.Screen.BackButtonInfo"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:FIND_Breda.Screen"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <TextBlock Margin="113,34,113,0" TextWrapping="Wrap" Text="Terugknop" VerticalAlignment="Top" Height="58" FontSize="36"/>
+        <TextBlock Margin="29,97,30,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="355" FontSize="22">
+        	<Run Text="Met de terugknop kunt u naar de vorige pagina gaan. Deze knop kunt"/>
+        	<Run Text=" u linksonder op de telefoon vinden."/>
+        </TextBlock>
+
+    </Grid>
+</Page>

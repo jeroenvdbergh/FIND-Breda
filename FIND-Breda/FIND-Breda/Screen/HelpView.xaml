@@ -8,6 +8,15 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
+
+    <Grid>
+        <TextBlock Margin="106,34,106,0" TextWrapping="Wrap" Text="Info &amp; Help" VerticalAlignment="Top" Height="58" Width="188" FontSize="36"/>
+        <Button Content="In/ uitzoomen" HorizontalAlignment="Left" Margin="106,87,0,0" VerticalAlignment="Top" Width="188" Click="ZoomInAndOutButton_Click"/>
+        <Button Content="Terugknop" HorizontalAlignment="Left" Margin="106,146,0,0" VerticalAlignment="Top" Width="188" Click="BackButtonInfoButton_Click"/>
+        <Button Content="Kaart" HorizontalAlignment="Left" Margin="106,204,0,0" VerticalAlignment="Top" Width="188" Click="MapInfoButton_Click"/>
+        <Button Content="Legenda" HorizontalAlignment="Left" Margin="106,267,0,0" VerticalAlignment="Top" Width="188" Click="LegendButton_Click"/>
+        <Button Content="Bezienswaardigheid" HorizontalAlignment="Left" Margin="106,326,0,0" VerticalAlignment="Top" Click="SightingInfoButton_Click"/>
+
     <Grid x:Name="LayoutRoot">
 
         <TextBlock x:Name="HelpLabel" Margin="106,34,106,0" TextWrapping="Wrap" Text="Help &amp; Info" VerticalAlignment="Top" Height="58" Width="188" FontSize="36"/>
@@ -16,7 +25,6 @@
         	<LineBreak/>
         	<Run/>
         </TextBlock>
-
-
+    </Grid>
     </Grid>
 </Page>
