@@ -40,21 +40,6 @@ namespace FIND_Breda
             }
         }
 
-        /* Methode om de button layout aan te passen aan de hand van de orientation */
-        private void Current_SizeChanged(object sender, Windows.UI.Core.WindowSizeChangedEventArgs e)
-        {
-            string CurrentViewState = ApplicationView.GetForCurrentView().Orientation.ToString();
-
-            if (CurrentViewState == "Portrait")
-            {
-                this.MenuGrid.Height = 566;
-            }
-
-            if (CurrentViewState == "Landscape")
-            {
-                this.MenuGrid.Height = 350;
-            }
-        }
 
         public static MainPage instance
         {
@@ -68,6 +53,22 @@ namespace FIND_Breda
                     }
                     return _mainPage;
                 }
+            }
+        }
+
+        /* Methode om de button layout aan te passen aan de hand van de orientation */
+        private void Current_SizeChanged(object sender, Windows.UI.Core.WindowSizeChangedEventArgs e)
+        {
+            string CurrentViewState = ApplicationView.GetForCurrentView().Orientation.ToString();
+
+            if (CurrentViewState == "Portrait")
+            {
+                this.MenuGrid.Height = 566;
+            }
+
+            if (CurrentViewState == "Landscape")
+            {
+                this.MenuGrid.Height = 350;
             }
         }
 
