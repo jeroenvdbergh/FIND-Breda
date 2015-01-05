@@ -17,14 +17,6 @@
         <Button Content="Legenda" HorizontalAlignment="Left" Margin="106,267,0,0" VerticalAlignment="Top" Width="188" Click="LegendButton_Click"/>
         <Button Content="Bezienswaardigheid" HorizontalAlignment="Left" Margin="106,326,0,0" VerticalAlignment="Top" Click="SightingInfoButton_Click"/>
 
-    <Grid x:Name="LayoutRoot">
-
-        <TextBlock x:Name="HelpLabel" Margin="106,34,106,0" TextWrapping="Wrap" Text="Help &amp; Info" VerticalAlignment="Top" Height="58" Width="188" FontSize="36"/>
-        <TextBlock x:Name="HelpTextBlock" Margin="10,109,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="521" Width="380" FontSize="18" HorizontalAlignment="Left">
-        	<Run Text="Hier komt de uitleg van de applicatie"/>
-        	<LineBreak/>
-        	<Run/>
-        </TextBlock>
-    </Grid>
+    <Grid x:Name="LayoutRoot"/>
     </Grid>
 </Page>
