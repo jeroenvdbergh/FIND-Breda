@@ -8,28 +8,31 @@
     x:Class="FIND_Breda.Screen.MapView"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Button Content="Get Location Async" Click="GetLocationAsyncButton_Click" HorizontalAlignment="Left" Margin="207,482,0,0" x:Name="GetLocationAsyncButton" VerticalAlignment="Top" RenderTransformOrigin="-0.12,0.976" />
-        <TextBlock Margin="207,537,-193,-317" Text="Latitude" x:Name="textLatitude" />
-        <TextBlock Margin="207,552,-193,-292" Text="Longitude" x:Name="textLongitude" />
-        <TextBlock Margin="207,566,-193,-266" Text="Accuracy" x:Name="textAccuracy" />
-
-        <Maps:MapControl Name="map" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="477" Width="380"/>
-
-        <Viewbox Margin="7,394,10,153">
-            <StackPanel Orientation= "Vertical" Margin="10,0" Background="Black" Opacity="0.7" >
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0"    >
-                    <CheckBox Margin="4,0" x:Name="Aerial_Checkbox" Checked="Aerial_Checked" Unchecked="Map_NoStyle" Content="Aerial view"/>
+    <Grid Name="ContentPanel" Margin="10 0 10 0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Maps:MapControl Name="map" Grid.Row="0" Grid.ColumnSpan="3" Grid.RowSpan="2" Height="400"/>
+        <ScrollViewer Name="SettingsScrollViewer" Grid.Column="0" Grid.Row="2">
+            <Viewbox >
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="0,0"    >
+                    <CheckBox Margin="4,0" x:Name="Aerial_Checkbox" Checked="Aerial_Checked" Unchecked="Map_NoStyle" Content="Aerial view" FontSize="18"/>
                     <CheckBox Margin="4,0" x:Name="AerialWithRoads_Checkbox" Checked="AerialWithRoads_Checked" Unchecked="Map_NoStyle" Content="Aerial with roads view"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0"    >
-                    <CheckBox Margin="4,0" x:Name="Dark_Checkbox" Checked="Dark_Checked" Unchecked="Dark_Unchecked" Content="Dark" />
                     <CheckBox Margin="4,0" x:Name="Traffic_Checkbox" Checked="Traffic_Checked" Unchecked="Traffic_Unchecked" Content="Traffic"/>
+                    <CheckBox Margin="4,0" x:Name="Dark_Checkbox" Checked="Dark_Checked" Unchecked="Dark_Unchecked" Content="Dark" />
                     <CheckBox Margin="4,0" x:Name="Pedestrian_Checkbox" Checked="Pedestrian_Checked" Unchecked="Pedestrian_Unchecked" Content="Pedestrian"/>
                 </StackPanel>
-            </StackPanel>
-        </Viewbox>
-        <TextBlock x:Name="RouteTextBlock" HorizontalAlignment="Left" Margin="10,492,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="138" Width="192" Text="Route:"/>
+            </Viewbox>
+        </ScrollViewer>
+        <ScrollViewer Name="RouteScrollViewer" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Width="200">
+            <TextBlock Name="RouteTextBlock" Text="Route:@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" Margin="20,0,0,0"/>
+        </ScrollViewer>
     </Grid>
 </Page>

@@ -24,6 +24,8 @@ using Windows.Services.Maps;
 using Windows.UI;
 using Windows.UI.Xaml.Documents;
 using System.Threading.Tasks;
+using Windows.UI.ViewManagement;
+using Windows.Devices.Sensors;
 
 namespace FIND_Breda.Screen
 {
@@ -36,6 +38,7 @@ namespace FIND_Breda.Screen
         public MapControl _mapControl { get; set; }
         public static MapView _mapView = null;
         public static readonly object _padlock = new object();
+        private SimpleOrientationSensor _simpleorientation = SimpleOrientationSensor.GetDefault();
 
         /* Twee test bezienswaardigheden, later uit een databse halen */
         public MapIcon _sighting1 { get; set; }
@@ -50,7 +53,11 @@ namespace FIND_Breda.Screen
             this.navigationHelper.LoadState += this.NavigationHelper_LoadState;
             this.navigationHelper.SaveState += this.NavigationHelper_SaveState;
             this.NavigationCacheMode = NavigationCacheMode.Required;
-            //map.Language = "fr-FR";
+            Window.Current.SizeChanged += Current_SizeChanged;
+
+            /* Layout goed zetten op landscape als de device al op landscape stond */
+            if (_simpleorientation.GetCurrentOrientation() == SimpleOrientation.Rotated90DegreesCounterclockwise)
+                this.setToLandscape();
 
             this._mapControl = map;
             _mapView = this;
@@ -67,6 +74,63 @@ namespace FIND_Breda.Screen
             }
         }
 
+        /* Methode om de layout aan te passen aan de hand van de orientation */
+        private void Current_SizeChanged(object sender, Windows.UI.Core.WindowSizeChangedEventArgs e)
+        {
+            string CurrentViewState = ApplicationView.GetForCurrentView().Orientation.ToString();
+
+            if (CurrentViewState == "Portrait")
+            {
+
+                Grid.SetRow(map, 0);
+                Grid.SetColumn(map, 0);
+                Grid.SetRowSpan(map, 2);
+                Grid.SetColumnSpan(map, 3);
+
+                Grid.SetRow(SettingsScrollViewer, 2);
+                Grid.SetColumn(SettingsScrollViewer, 0);
+                Grid.SetRowSpan(SettingsScrollViewer, 1);
+                Grid.SetColumnSpan(SettingsScrollViewer, 1);
+                Aerial_Checkbox.Margin = new Thickness(4, 0, 4, 0);
+                AerialWithRoads_Checkbox.Margin = new Thickness(4, 0, 4, 0);
+                Traffic_Checkbox.Margin = new Thickness(4, 0, 4, 0);
+                Dark_Checkbox.Margin = new Thickness(4, 0, 4, 0);
+                Pedestrian_Checkbox.Margin = new Thickness(4, 0, 4, 0);
+
+                Grid.SetRow(RouteScrollViewer, 2);
+                Grid.SetColumn(RouteScrollViewer, 1);
+                Grid.SetColumnSpan(RouteScrollViewer, 2);
+                Grid.SetRowSpan(RouteScrollViewer, 1);
+            }
+
+            if (CurrentViewState == "Landscape")
+            {
+                setToLandscape();
+            }
+        }
+        private void setToLandscape()
+        {
+            Grid.SetRow(map, 0);
+            Grid.SetColumn(map, 0);
+            Grid.SetRowSpan(map, 3);
+            Grid.SetColumnSpan(map, 2);
+
+            Grid.SetRow(SettingsScrollViewer, 0);
+            Grid.SetColumn(SettingsScrollViewer, 2);
+            Grid.SetRowSpan(SettingsScrollViewer, 1);
+            Grid.SetColumnSpan(SettingsScrollViewer, 1);
+            Aerial_Checkbox.Margin = new Thickness(4, 0, 4, -25);
+            AerialWithRoads_Checkbox.Margin = new Thickness(4, 0, 4, -25);
+            Traffic_Checkbox.Margin = new Thickness(4, 0, 4, -25);
+            Dark_Checkbox.Margin = new Thickness(4, 0, 4, -25);
+            Pedestrian_Checkbox.Margin = new Thickness(4, 0, 4, -25);
+
+
+            Grid.SetRow(RouteScrollViewer, 1);
+            Grid.SetColumn(RouteScrollViewer, 2);
+            Grid.SetColumnSpan(RouteScrollViewer, 1);
+            Grid.SetRowSpan(RouteScrollViewer, 1);
+        }
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             /* De kaart goedzetten op basis van je locatie alleen als je vanaf de mainpage komt */
@@ -75,7 +139,7 @@ namespace FIND_Breda.Screen
             {
                 setToCurrentLocation();
             }
-            GetLocationAsyncButton.Content = LanguageModel.instance.getText(Text.getlocationbutton);
+            //GetLocationAsyncButton.Content = LanguageModel.instance.getText(Text.getlocationbutton);
             Aerial_Checkbox.Content = LanguageModel.instance.getText(Text.aerialcheckbox);
             AerialWithRoads_Checkbox.Content = LanguageModel.instance.getText(Text.aerialwithroadscheckbox);
             Dark_Checkbox.Content = LanguageModel.instance.getText(Text.darkthemecheckbox);
@@ -95,9 +159,9 @@ namespace FIND_Breda.Screen
                 NormalizedAnchorPoint = new Point() { X = 0.32, Y = 0.78 },
             };
 
-            textLatitude.Text = "latitude: " + location.Coordinate.Point.Position.Latitude.ToString();
-            textLongitude.Text = "longitude: " + location.Coordinate.Point.Position.Longitude.ToString();
-            textAccuracy.Text = "accuracy: " + location.Coordinate.Accuracy.ToString() + " zoomlvl: " + map.ZoomLevel;
+            // textLatitude.Text = "latitude: " + location.Coordinate.Point.Position.Latitude.ToString();
+            //  textLongitude.Text = "longitude: " + location.Coordinate.Point.Position.Longitude.ToString();
+            // textAccuracy.Text = "accuracy: " + location.Coordinate.Accuracy.ToString() + " zoomlvl: " + map.ZoomLevel;
 
             map.MapElements.Add(pin);
             await map.TrySetViewAsync(location.Coordinate.Point, 15, 0, 0, MapAnimationKind.Bow);
