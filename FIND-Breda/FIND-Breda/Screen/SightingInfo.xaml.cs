@@ -26,6 +26,7 @@ namespace FIND_Breda.Screen
         public SightingInfo()
         {
             this.InitializeComponent();
+            HardwareButtons.BackPressed += HardwareButtons_BackPressed;
         }
 
         /// <summary>
