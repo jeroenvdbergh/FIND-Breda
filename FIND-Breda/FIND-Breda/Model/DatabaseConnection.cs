@@ -15,6 +15,7 @@ namespace FIND_Breda.Model
         public DatabaseConnection()
         {
             createDatabase();
+            insertRecords();
         }
 
         public void createDatabase()
@@ -68,6 +69,14 @@ namespace FIND_Breda.Model
                 statement.Step();
                 string x = statement[0].ToString();
             }
+        }
+
+        public void insertRecords()
+        {
+            insertRecord(1, "VVV", 51.356467, 4.467650, "Hier is het VVV gevestigd", "Willemstraat");
+            insertRecord(2, "Kasteel van Breda", 51.354367, 4.465700, "Hier is het Kasteel van Breda gevestigd", "Kasteelplein");
+            insertRecord(3, "VVV", 51.356467, 4.467650, "Hier is het VVV gevestigd", "Willemstraat");
+            insertRecord(4, "Kasteel van Breda", 51.354367, 4.465700, "Hier is het Kasteel van Breda gevestigd", "Kasteelplein");
         }
     }
 }
