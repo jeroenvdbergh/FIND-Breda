@@ -9,8 +9,8 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <TextBlock Margin="42,34,42,0" TextWrapping="Wrap" Text="Bezienswaardigheid" VerticalAlignment="Top" Height="58" FontSize="36"/>
-        <TextBlock Margin="30,97,30,0" TextWrapping="Wrap" Text="Alle bezienswaardigheden zijn geleverd door AGS." VerticalAlignment="Top" Height="222" FontSize="22"/>
+        <TextBlock x:Name="SightingTextBlock" Margin="42,34,42,0" TextWrapping="Wrap" Text="Bezienswaardigheid" VerticalAlignment="Top" Height="58" FontSize="36"/>
+        <TextBlock x:Name="SightingInfo1" Margin="30,97,30,0" TextWrapping="Wrap" Text="Alle bezienswaardigheden zijn geleverd door AGS." VerticalAlignment="Top" Height="222" FontSize="22"/>
 
     </Grid>
 </Page>

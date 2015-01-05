@@ -59,8 +59,17 @@ namespace FIND_Breda.Model
             this._dutch.Add(Text.buildingscheckbox, "Gebouwen");
             this._dutch.Add(Text.marketcheckbox, "Markten");
             this._dutch.Add(Text.remainingcheckbox, "Overig");
-            this._dutch.Add(Text.helptextblock, "Hier komt de beschrijving van de app");
+            this._dutch.Add(Text.helptextblock, "Info & Help");
             this._dutch.Add(Text.loadmapfirst, "Je moet de kaart eerst laden!");
+            this._dutch.Add(Text.ZoomInAndOutButton, "In/ uitzoomen");
+            this._dutch.Add(Text.BackButtonButton, "Terugknop");
+            this._dutch.Add(Text.MapInfoButton, "Kaart");
+            this._dutch.Add(Text.LegendButton, "Legenda");
+            this._dutch.Add(Text.SightingInfoButton, "Bezienswaardigheid");
+            this._dutch.Add(Text.ZoomInAndOutInfo, "U kunt door uw  duim en wijsvinger uit elkaar te schijven, de kaart inzoomen. Om uit te zoomen moet u uw duim en wijsvinger naar elkaar schuiven.");
+            this._dutch.Add(Text.BackButtonInfo, "Met de terugknop kunt u naar de vorige pagina gaan. Deze knop kunt u linksonder op de telefoon vinden.");
+            this._dutch.Add(Text.MapInfo, "Voor de kaart wordt BING maps gebruikt.");
+            this._dutch.Add(Text.SightingInfo, "Alle bezienswaardigheden zijn geleverd door AGS.");
 
             this._english.Add(Text.dutchlanguagebutton, "Dutch");
             this._english.Add(Text.englishlanguagebutton, "English");
@@ -80,8 +89,17 @@ namespace FIND_Breda.Model
             this._english.Add(Text.buildingscheckbox, "Buildings");
             this._english.Add(Text.marketcheckbox, "Marketplaces");
             this._english.Add(Text.remainingcheckbox, "Other sightings");
-            this._english.Add(Text.helptextblock, "Here will be the description of the app");
+            this._english.Add(Text.helptextblock, "Info & Help");
             this._english.Add(Text.loadmapfirst, "You have to load the map first!");
+            this._english.Add(Text.ZoomInAndOutButton, "Zoom in/ out");
+            this._english.Add(Text.BackButtonButton, "Backbutton");
+            this._english.Add(Text.MapInfoButton, "Map");
+            this._english.Add(Text.LegendButton, "Legend");
+            this._english.Add(Text.SightingInfoButton, "Sighting");
+            this._english.Add(Text.ZoomInAndOutInfo, "Zoom in: You must slide your thump and forefinger apart. Zoom out: You must slide your thump and forefinger to each other.");
+            this._english.Add(Text.BackButtonInfo, "With the backbutton you can go back to the previous page. You can find this button in the bottom left.");
+            this._english.Add(Text.MapInfo, "BING maps is used for this map.");
+            this._english.Add(Text.SightingInfo, "All sightings are delivered by AGS.");
         }
 
         /* Methode om de taal te veranderen */

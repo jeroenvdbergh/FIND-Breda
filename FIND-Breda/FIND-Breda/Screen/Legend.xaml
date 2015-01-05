@@ -9,7 +9,7 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <TextBlock Margin="130,34,130,0" TextWrapping="Wrap" Text="Legenda" VerticalAlignment="Top" Height="58" FontSize="36" RenderTransformOrigin="0.529,0.238" SelectionChanged="TextBlock_SelectionChanged"/>
+        <TextBlock x:Name="LegendTextBlock" Margin="130,34,130,0" TextWrapping="Wrap" Text="Legenda" VerticalAlignment="Top" Height="58" FontSize="36" RenderTransformOrigin="0.529,0.238" SelectionChanged="TextBlock_SelectionChanged"/>
 
     </Grid>
 </Page>

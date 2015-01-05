@@ -32,6 +32,18 @@ namespace FIND_Breda.Model
         marketcheckbox,
         remainingcheckbox,
         helptextblock,
-        loadmapfirst
+        loadmapfirst,
+        ZoomInAndOutButton,
+        BackButtonButton,
+        MapInfoButton,
+        LegendButton,
+        SightingInfoButton,
+        ZoomInAndOutInfo,
+        BackButtonInfo,
+        MapInfo,
+        SightingInfo
+
+
+
     }
 }

@@ -55,6 +55,11 @@ namespace FIND_Breda.Screen
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             HelpTextBlock.Text = LanguageModel.instance.getText(Text.helptextblock);
+            ZoomInAndOutButton.Content = LanguageModel.instance.getText(Text.ZoomInAndOutButton);
+            BackButtonButton.Content = LanguageModel.instance.getText(Text.BackButtonButton);
+            MapInfoButton.Content = LanguageModel.instance.getText(Text.MapInfoButton);
+            LegendButton.Content = LanguageModel.instance.getText(Text.LegendButton);
+            SightingInfoButton.Content = LanguageModel.instance.getText(Text.SightingInfoButton);
             this.navigationHelper.OnNavigatedTo(e);
         }
 
