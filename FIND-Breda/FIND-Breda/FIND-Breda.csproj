@@ -118,10 +118,16 @@
     <Compile Include="Screen\RouteView.xaml.cs">
       <DependentUpon>RouteView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Screen\SightingInfo.xaml.cs">
+      <DependentUpon>SightingInfo.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Screen\SightingsView.xaml.cs">
       <DependentUpon>SightingsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Screen\View.cs" />
+    <Compile Include="Screen\ZoomInAndOut.xaml.cs">
+      <DependentUpon>ZoomInAndOut.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Sighting\Cafe.cs" />
     <Compile Include="Sighting\Dutch.cs" />
     <Compile Include="Sighting\English.cs" />
@@ -180,9 +186,17 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Screen\SightingInfo.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Screen\SightingsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Screen\ZoomInAndOut.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">

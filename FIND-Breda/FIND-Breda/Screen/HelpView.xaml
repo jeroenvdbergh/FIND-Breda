@@ -10,7 +10,7 @@
 
 
     <Grid>
-        <TextBlock Margin="106,34,106,0" TextWrapping="Wrap" Text="Info &amp; Help" VerticalAlignment="Top" Height="58" Width="188" FontSize="36"/>
+        <TextBlock x:Name="HelpTextBlock" Margin="106,34,106,0" TextWrapping="Wrap" Text="Info &amp; Help" VerticalAlignment="Top" Height="58" Width="188" FontSize="36"/>
         <Button Content="In/ uitzoomen" HorizontalAlignment="Left" Margin="106,87,0,0" VerticalAlignment="Top" Width="188" Click="ZoomInAndOutButton_Click"/>
         <Button Content="Terugknop" HorizontalAlignment="Left" Margin="106,146,0,0" VerticalAlignment="Top" Width="188" Click="BackButtonInfoButton_Click"/>
         <Button Content="Kaart" HorizontalAlignment="Left" Margin="106,204,0,0" VerticalAlignment="Top" Width="188" Click="MapInfoButton_Click"/>
