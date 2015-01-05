@@ -8,15 +8,36 @@
     xmlns:Maps="using:Windows.UI.Xaml.Controls.Maps"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <StackPanel HorizontalAlignment="Stretch" Margin="0">
+        <Grid HorizontalAlignment="Left" VerticalAlignment="Top">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="DutchLanguageButton" Grid.Column="0" Content="Dutch" HorizontalAlignment="Left" VerticalAlignment="Top" Height="45" Width="73" MinWidth="1" MinHeight="1" FontSize="12" Click="DutchLanguageButton_Click" Background="DarkGray"/>
 
-    <Grid>
-        <Button x:Name="HelpButton" Content="Help &amp; info" HorizontalAlignment="Stretch" Margin="65,387,74,0" VerticalAlignment="Top" Width="261" Click="HelpButton_Click"/>
-        <Button x:Name="PlannedRouteButton" Content="Voorgeplande route kiezen" HorizontalAlignment="Left" Margin="65,128,0,0" VerticalAlignment="Top" Width="261" Click="PlannedRouteButton_Click"/>
-        <Button x:Name="MapButton" Content="Kaart" HorizontalAlignment="Stretch" Margin="65,212,74,0" VerticalAlignment="Top" Click="MapButton_Click"/>
-        <Button x:Name="SightingsButton" Content="Bezienswaardigheden" HorizontalAlignment="Stretch" Margin="65,299,74,0" VerticalAlignment="Top" Width="261" Click="SightingsButton_Click"/>
-        <Button x:Name="DutchLanguageButton" Content="Dutch" HorizontalAlignment="Left" Margin="10,1,0,0" VerticalAlignment="Top" Height="45" Width="73" MinWidth="1" MinHeight="1" FontSize="12" Click="DutchLanguageButton_Click" Background="DarkGray"/>
-        <Button x:Name="EnglishLanguageButton" Content="English" HorizontalAlignment="Left" Margin="88,1,0,0" VerticalAlignment="Top" Height="45" Width="73" MinWidth="1" MinHeight="1" FontSize="12" Click="EnglishLanguageButton_Click" Background="Black"/>
-        <Popup/>
+            <Button x:Name="EnglishLanguageButton" Grid.Column="1" Content="English" HorizontalAlignment="Left" VerticalAlignment="Top" Height="45" Width="73" MinWidth="1" MinHeight="1" FontSize="12" Click="EnglishLanguageButton_Click" Background="Black" Margin="10 0 0 0"/>
 
-    </Grid>
+        </Grid>
+
+        <Grid x:Name="MenuGrid" Height="566">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="PlannedRouteButton" Grid.Row="0"  Content="Voorgeplande route kiezen" HorizontalAlignment="Center" VerticalAlignment="Center" Width="260" Click="PlannedRouteButton_Click" Grid.Column="1" />
+            <Button x:Name="MapButton" Grid.Row="1" Content="Kaart" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="260" Click="MapButton_Click" Grid.Column="1"/>
+            <Button x:Name="SightingsButton" Grid.Row="2" Content="Bezienswaardigheden" HorizontalAlignment="Center" VerticalAlignment="Center" Width="260" Click="SightingsButton_Click" Grid.Column="1" />
+            <Button x:Name="HelpButton" Grid.Row="3" Content="Help &amp; info" HorizontalAlignment="Center" VerticalAlignment="Center" Width="260" Click="HelpButton_Click" Grid.Column="1"/>
+
+        </Grid>
+    </StackPanel>
 </Page>

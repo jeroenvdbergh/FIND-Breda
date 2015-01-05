@@ -18,6 +18,7 @@ using System.Diagnostics;
 using Windows.UI;
 using FIND_Breda.Model;
 using Windows.UI.Popups;
+using Windows.UI.ViewManagement;
 
 namespace FIND_Breda
 {
@@ -34,7 +35,24 @@ namespace FIND_Breda
                 Debug.WriteLine("mainpage instance"); //DEBUG
                 this.InitializeComponent();
                 this.NavigationCacheMode = NavigationCacheMode.Required;
+                Window.Current.SizeChanged += Current_SizeChanged;
                 _mainPage = this;
+            }
+        }
+
+        /* Methode om de button layout aan te passen aan de hand van de orientation */
+        private void Current_SizeChanged(object sender, Windows.UI.Core.WindowSizeChangedEventArgs e)
+        {
+            string CurrentViewState = ApplicationView.GetForCurrentView().Orientation.ToString();
+
+            if (CurrentViewState == "Portrait")
+            {
+                this.MenuGrid.Height = 566;
+            }
+
+            if (CurrentViewState == "Landscape")
+            {
+                this.MenuGrid.Height = 350;
             }
         }
 
