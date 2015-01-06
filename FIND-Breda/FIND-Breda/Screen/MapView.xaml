@@ -19,7 +19,7 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Maps:MapControl Name="map" Grid.Row="0" Grid.ColumnSpan="3" Grid.RowSpan="2" Height="400"/>
+        <Maps:MapControl Name="map" Grid.Row="0" Grid.ColumnSpan="3" Grid.RowSpan="2" Height="400" MapServiceToken="Zxf8UmCg_ux0pq1PSZd8GA"/>
         <ScrollViewer Name="SettingsScrollViewer" Grid.Column="0" Grid.Row="2">
             <Viewbox >
                 <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="0,0"    >
