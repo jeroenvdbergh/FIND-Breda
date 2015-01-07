@@ -99,6 +99,7 @@
     <Compile Include="Model\Route.cs" />
     <Compile Include="Model\GPSHandler.cs" />
     <Compile Include="Model\Map.cs" />
+    <Compile Include="Model\Sight.cs" />
     <Compile Include="Model\VVVRoute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Screen\BackButtonInfo.xaml.cs">
