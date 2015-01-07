@@ -55,7 +55,7 @@ namespace FIND_Breda.Screen
             this.NavigationCacheMode = NavigationCacheMode.Required;
             Window.Current.SizeChanged += Current_SizeChanged;
             _sightings = new Dictionary<string, MapIcon>();
-
+            
             /* Layout goed zetten op landscape als de device al op landscape stond */
             if (_simpleorientation.GetCurrentOrientation() == SimpleOrientation.Rotated90DegreesCounterclockwise)
                 this.setToLandscape();
@@ -130,7 +130,7 @@ namespace FIND_Breda.Screen
             Grid.SetRow(RouteScrollViewer, 1);
             Grid.SetColumn(RouteScrollViewer, 2);
             Grid.SetColumnSpan(RouteScrollViewer, 1);
-            Grid.SetRowSpan(RouteScrollViewer, 1);
+            Grid.SetRowSpan(RouteScrollViewer, 2);
         }
         #endregion
 
@@ -209,41 +209,33 @@ namespace FIND_Breda.Screen
         /* De route van breda */
         public async void SetRouteDirectionsBreda()
         {
-            string beginLocation = "Willemstraat 17 Breda"; // Begin stadswandeling (VVV-Breda), volgens bestand
-            string endLocation = "Reigerstraat 2 Breda";    // Einde stadswandeling volgens bestand
-
-            // Locatie van begin en eindpunt ophalen
-            MapLocationFinderResult result = await MapLocationFinder.FindLocationsAsync(beginLocation, map.Center);
-            MapLocation begin = result.Locations.First();
-
-            result = await MapLocationFinder.FindLocationsAsync(endLocation, map.Center);
-            MapLocation end = result.Locations.First();
 
             /* Sla een lijst op met waypoints waar je langs moet komen.
-             * Deze waypoints moeten via de database opgehaald worden.
+             * Deze waypoints worden via de database opgehaald.
              * Deze lijst van waypoints geef je mee in de MapRouteFinder.GetWalkingRouteFromWaypointsAsync() methode 
              */
             List<Geopoint> waypoints = new List<Geopoint>();
-            // waypoints.Add(begin.Point);
-            /* Hier voeg je alle bezienswaardigheden toe aan de route */
-            foreach (var item in DatabaseConnection.instance.getSightings())
-            {
-                string tempadress = item.Address;
 
-                MapLocationFinderResult tempresult = await MapLocationFinder.FindLocationsAsync(tempadress, map.Center);
-                MapLocation temppoint = tempresult.Locations.First();
-                waypoints.Add(temppoint.Point);
+            /* Hier voeg je alle bezienswaardigheden toe aan de route */
+            foreach (var sighting in DatabaseConnection.instance.getSightings())
+            {
+                var temploc = new Geopoint(new BasicGeoposition()
+                {
+                    Latitude = sighting.Latitude,
+                    Longitude = sighting.Longitude
+                });
+                waypoints.Add(temploc);
             }
-           // waypoints.Add(end.Point);
-            
+
             /* Haalt de route op en slaat deze op in een variable genaamd routeResult, aan deze variable vraag je de info */
             MapRouteFinderResult routeResult = await MapRouteFinder.GetWalkingRouteFromWaypointsAsync(waypoints);
 
             /* Als het programma succesvol de route heeft opgehaald */
             if (routeResult.Status == MapRouteFinderStatus.Success)
             {
+                RouteTextBlock.Text = String.Empty;
                 int seconds = routeResult.Route.EstimatedDuration.Seconds;
-                RouteTextBlock.Inlines.Add(new Run() { Text = LanguageModel.instance.getText(Text.time) + " " + string.Format("{0:00}:{1:00}:{2:00}",seconds/3600,(seconds/60)%60,seconds%60) });
+                RouteTextBlock.Inlines.Add(new Run() { Text = LanguageModel.instance.getText(Text.time) + " " + string.Format("{0:00}:{1:00}:{2:00}", seconds / 3600, (seconds / 60) % 60, seconds % 60) });
                 RouteTextBlock.Inlines.Add(new LineBreak());
                 RouteTextBlock.Inlines.Add(new Run() { Text = LanguageModel.instance.getText(Text.totaldistance) + " " + routeResult.Route.LengthInMeters.ToString("0") });
                 RouteTextBlock.Inlines.Add(new LineBreak());

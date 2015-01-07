@@ -102,8 +102,8 @@ namespace FIND_Breda.Model
             this._english.Add(Text.BackButtonInfo, "With the backbutton you can go back to the previous page. You can find this button in the bottom left.");
             this._english.Add(Text.MapInfo, "BING maps is used for this map.");
             this._english.Add(Text.SightingInfo, "All sightings are delivered by AGS.");
-            this._dutch.Add(Text.time, "Time:");
-            this._dutch.Add(Text.totaldistance, "Total distance(m):");
+            this._english.Add(Text.time, "Time:");
+            this._english.Add(Text.totaldistance, "Total distance(m):");
         }
 
         /* Methode om de taal te veranderen */
