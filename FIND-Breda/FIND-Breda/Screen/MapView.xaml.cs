@@ -26,6 +26,7 @@ using Windows.UI.Xaml.Documents;
 using System.Threading.Tasks;
 using Windows.UI.ViewManagement;
 using Windows.Devices.Sensors;
+using Windows.UI.Xaml.Shapes;
 
 namespace FIND_Breda.Screen
 {
@@ -44,6 +45,9 @@ namespace FIND_Breda.Screen
         public MapIcon _sighting1 { get; set; }
         public MapIcon _sighting2 { get; set; }
 
+        public Dictionary<string, MapIcon> _sightings { get; set; }
+
+
         public MapView()
         {
             Debug.WriteLine("mapview instance"); //DEBUG
@@ -54,6 +58,7 @@ namespace FIND_Breda.Screen
             this.navigationHelper.SaveState += this.NavigationHelper_SaveState;
             this.NavigationCacheMode = NavigationCacheMode.Required;
             Window.Current.SizeChanged += Current_SizeChanged;
+            _sightings = new Dictionary<string, MapIcon>();
 
             /* Layout goed zetten op landscape als de device al op landscape stond */
             if (_simpleorientation.GetCurrentOrientation() == SimpleOrientation.Rotated90DegreesCounterclockwise)
@@ -188,23 +193,19 @@ namespace FIND_Breda.Screen
 
         private void displaySightings()
         {
-            _sighting1 = new MapIcon();
-            _sighting1.Location = new Geopoint(new BasicGeoposition()
+            string name = "sighting";
+            for (int i = 0; i < DatabaseConnection.instance.getSightings().Count; i++)
             {
-                Latitude = 51.5940,
-                Longitude = 4.7795
-            });
-            _sighting1.Title = "VVV";
-            map.MapElements.Add(_sighting1);
-
-            _sighting2 = new MapIcon();
-            _sighting2.Location = new Geopoint(new BasicGeoposition()
-            {
-                Latitude = 51.5936,
-                Longitude = 4.7795
-            });
-            _sighting2.Title = "Liefdeszuster";
-            map.MapElements.Add(_sighting2);
+                MapIcon tempMapIcon = new MapIcon();
+                tempMapIcon.Location = new Geopoint(new BasicGeoposition()
+                {
+                    Latitude = DatabaseConnection.instance.getSighting(i).Latitude,
+                    Longitude = DatabaseConnection.instance.getSighting(i).Longitude
+                });
+                tempMapIcon.Title = DatabaseConnection.instance.getSighting(i).Name;
+                _sightings.Add(String.Format(name + "{0}", i.ToString()), tempMapIcon);
+                map.MapElements.Add(tempMapIcon);
+            }
         }
 
         /* De route van breda */
@@ -225,25 +226,32 @@ namespace FIND_Breda.Screen
              * Deze lijst van waypoints geef je mee in de MapRouteFinder.GetWalkingRouteFromWaypointsAsync() methode 
              */
             List<Geopoint> waypoints = new List<Geopoint>();
-            waypoints.Add(begin.Point);
-            /* Hier tussen voeg je de bezienswaardigheden toe
-             * vb. van een bezienswaardigheid: 
-             * var sighting1 = new Geopoint(new BasicGeoposition() { Latitude = 51.5940, Longitude = 4.7795 });
-             * waypoints.Add(sighting1);
-             */
-            waypoints.Add(end.Point);
+            // waypoints.Add(begin.Point);
+            /* Hier voeg je alle bezienswaardigheden toe aan de route */
+            foreach (var item in DatabaseConnection.instance.getSightings())
+            {
+                string tempadress = item.Address;
+
+                MapLocationFinderResult tempresult = await MapLocationFinder.FindLocationsAsync(tempadress, map.Center);
+                MapLocation temppoint = tempresult.Locations.First();
+                waypoints.Add(temppoint.Point);
+            }
+           // waypoints.Add(end.Point);
+            
             /* Haalt de route op en slaat deze op in een variable genaamd routeResult, aan deze variable vraag je de info */
             MapRouteFinderResult routeResult = await MapRouteFinder.GetWalkingRouteFromWaypointsAsync(waypoints);
-
-            Debug.WriteLine(routeResult.Status); // DEBUG
 
             /* Als het programma succesvol de route heeft opgehaald */
             if (routeResult.Status == MapRouteFinderStatus.Success)
             {
-                RouteTextBlock.Inlines.Add(new Run() { Text = routeResult.Route.EstimatedDuration.TotalMinutes.ToString() });
+                int seconds = routeResult.Route.EstimatedDuration.Seconds;
+                RouteTextBlock.Inlines.Add(new Run() { Text = "Tijd: " + string.Format("{0:00}:{1:00}:{2:00}",seconds/3600,(seconds/60)%60,seconds%60) });
                 RouteTextBlock.Inlines.Add(new LineBreak());
-                RouteTextBlock.Inlines.Add(new Run() { Text = routeResult.Route.LengthInMeters.ToString() });
+                RouteTextBlock.Inlines.Add(new Run() { Text = "Totale afstand(m): " + routeResult.Route.LengthInMeters.ToString("0") });
                 RouteTextBlock.Inlines.Add(new LineBreak());
+                RouteTextBlock.Inlines.Add(new Run() { Text = "Route:" });
+                RouteTextBlock.Inlines.Add(new LineBreak());
+
                 /* Print de routebeschrijving in een textblock */
                 foreach (MapRouteLeg leg in routeResult.Route.Legs)
                 {
@@ -251,7 +259,7 @@ namespace FIND_Breda.Screen
                     {
                         RouteTextBlock.Inlines.Add(new Run()
                         {
-                            Text = maneuver.InstructionText + " (" + maneuver.LengthInMeters + "m)"
+                            Text = "- " + maneuver.InstructionText + " (" + maneuver.LengthInMeters + "m)"
                         });
                         RouteTextBlock.Inlines.Add(new LineBreak());
                     }

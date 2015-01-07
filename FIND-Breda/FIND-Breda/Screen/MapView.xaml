@@ -19,7 +19,9 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Maps:MapControl Name="map" Grid.Row="0" Grid.ColumnSpan="3" Grid.RowSpan="2" Height="400" MapServiceToken="Zxf8UmCg_ux0pq1PSZd8GA"/>
+        <Maps:MapControl Name="map" Grid.Row="0" Grid.ColumnSpan="3" Grid.RowSpan="2" Height="400" MapServiceToken="Zxf8UmCg_ux0pq1PSZd8GA">
+           
+        </Maps:MapControl>
         <ScrollViewer Name="SettingsScrollViewer" Grid.Column="0" Grid.Row="2">
             <Viewbox >
                 <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="0,0"    >
@@ -32,7 +34,7 @@
             </Viewbox>
         </ScrollViewer>
         <ScrollViewer Name="RouteScrollViewer" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Width="200">
-            <TextBlock Name="RouteTextBlock" Text="Route:@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" Margin="20,0,0,0"/>
+            <TextBlock Name="RouteTextBlock" Margin="20,0,0,0" TextWrapping="WrapWholeWords"/>
         </ScrollViewer>
     </Grid>
 </Page>

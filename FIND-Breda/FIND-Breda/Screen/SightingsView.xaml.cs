@@ -73,6 +73,13 @@ namespace FIND_Breda.Screen
             RemainingCheckBox.Content = LanguageModel.instance.getText(Text.remainingcheckbox);
         }
 
+        /* TODO: sightings aan en uit kunnen zetten
+         * Bijvoorbeeld sighting1 is het VVV gebouw:
+         * MapView.instance._sightings["sighting1"].Visible = true; in BuildingsCheckBox_Click als de checkbox aangeklikt is
+         * en 
+         * MapView.instance._sightings["sighting1"].Visible = false; in BuildingsCheckBox_Click als de checkbox niet aangeklikt is
+         * Dit doen voor alle 45 sightings, staat op volgorde volgens het document
+         */
         private void MonumentsCheckBox_Click(object sender, RoutedEventArgs e)
         {
             if (MonumentsCheckBox.IsChecked == true)
@@ -80,6 +87,7 @@ namespace FIND_Breda.Screen
                 //  MapView.instance._mapControl.Opacity = 1;
                 MapView.instance._sighting1.Visible = true;
                 MapView.instance._sighting2.Visible = true;
+                MapView.instance._sightings["sighting1"].Visible = true;
             }
             else
             {

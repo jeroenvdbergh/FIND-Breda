@@ -28,6 +28,7 @@ namespace FIND_Breda.Model
             connection.CreateTable<Sight>();
 
             retrievedSights = connection.Table<Sight>().ToList<Sight>();
+            _databaseConnection = this;
         }
 
         public static DatabaseConnection instance
@@ -48,6 +49,11 @@ namespace FIND_Breda.Model
         public List<Sight> getSightings()
         {
             return this.retrievedSights;
+        }
+
+        public Sight getSighting(int index)
+        {
+            return this.retrievedSights[index];
         }
     }
 }
