@@ -3,80 +3,51 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SQLitePCL;
+using SQLite;
+using System.Diagnostics;
+using System.IO;
+using Windows.Storage;
+using System.Diagnostics;
 
 namespace FIND_Breda.Model
 {
-    class DatabaseConnection
+    public class DatabaseConnection
     {
 
-        SQLiteConnection connection;
+        public static string path = Path.Combine(Path.Combine(ApplicationData.Current.LocalFolder.Path, "database"));
+        private SQLiteConnection connection;
+        private List<Sight> retrievedSights;
+
+        private static DatabaseConnection _databaseConnection = null;
+        private static readonly object _padlock = new object();
 
         public DatabaseConnection()
         {
-            createDatabase();
-            insertRecords();
+            connection = new SQLiteConnection(path);
+
+            connection.CreateTable<Sight>();
+
+            retrievedSights = connection.Table<Sight>().ToList<Sight>();
         }
 
-        public void createDatabase()
+        public static DatabaseConnection instance
         {
-            connection = new SQLiteConnection("database.db");
-
-            string query = @"CREATE TABLE IF NOT EXISTS
-                                Sight      (Id           INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-                                            Name         VARCHAR(255),
-                                            Longitude    DECIMAL(5),
-                                            Latitude     DECIMAL(5),
-                                            Description  VARCHAR(255),
-                                            Address      VARCHAR(255)
-                            );";
-
-            using (var statement = connection.Prepare(query))
+            get
             {
-                statement.Step();
-            }
-        }
-
-        public void insertRecord(int ID, string name, double longitude, double latitude, string description, string address)
-        {
-            try
-            {
-                using (var record = connection.Prepare("INSERT INTO Sight (Id, Name, Longitude, Latitude, Description, Address) VALUES (?,?,?,?,?,?)"))
+                lock (_padlock)
                 {
-                    record.Bind(1, ID);
-                    record.Bind(2, name);
-                    record.Bind(3, longitude);
-                    record.Bind(4, latitude);
-                    record.Bind(5, description);
-                    record.Bind(6, address);
-                    record.Step();
+                    if (_databaseConnection == null)
+                    {
+                        _databaseConnection = new DatabaseConnection();
+                    }
+                    return _databaseConnection;
                 }
-
-
-            }
-            catch (Exception e)
-            {
-                //afhandelen
             }
         }
 
-        public void testMethod()
+        public List<Sight> getSightings()
         {
-            string query = @"SELECT Name FROM Sight";
-
-            using (var statement = connection.Prepare(query))
-            {
-                statement.Step();
-                string x = statement[0].ToString();
-            }
-        }
-
-        public void insertRecords()
-        {
-            insertRecord(1, "VVV", 51.356467, 4.467650, "Hier is het VVV gevestigd", "Willemstraat");
-            insertRecord(2, "Kasteel van Breda", 51.354367, 4.465700, "Hier is het Kasteel van Breda gevestigd", "Kasteelplein");
-            insertRecord(3, "VVV", 51.356467, 4.467650, "Hier is het VVV gevestigd", "Willemstraat");
-            insertRecord(4, "Kasteel van Breda", 51.354367, 4.465700, "Hier is het Kasteel van Breda gevestigd", "Kasteelplein");
+            return this.retrievedSights;
         }
     }
 }

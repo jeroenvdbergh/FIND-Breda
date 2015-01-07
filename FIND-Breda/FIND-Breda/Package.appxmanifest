@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest" xmlns:m2="http://schemas.microsoft.com/appx/2013/manifest" xmlns:m3="http://schemas.microsoft.com/appx/2014/manifest" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest">
   <Identity Name="7a5ee128-9c01-4337-8df3-47be286bcc27" Publisher="CN=jeroen" Version="1.0.0.0" />
-  <mp:PhoneIdentity PhoneProductId="7a5ee128-9c01-4337-8df3-47be286bcc27" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
+  <mp:PhoneIdentity PhoneProductId="10341f94-6a96-4be1-836e-c24faff66c3b" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>FIND-Breda</DisplayName>
     <PublisherDisplayName>jeroen</PublisherDisplayName>

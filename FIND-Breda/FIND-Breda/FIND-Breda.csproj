@@ -99,6 +99,7 @@
     <Compile Include="Model\Route.cs" />
     <Compile Include="Model\GPSHandler.cs" />
     <Compile Include="Model\Map.cs" />
+    <Compile Include="Model\Sight.cs" />
     <Compile Include="Model\VVVRoute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Screen\BackButtonInfo.xaml.cs">
@@ -107,8 +108,8 @@
     <Compile Include="Screen\HelpView.xaml.cs">
       <DependentUpon>HelpView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Screen\Legend.xaml.cs">
-      <DependentUpon>Legend.xaml</DependentUpon>
+    <Compile Include="Screen\LegendInfo.xaml.cs">
+      <DependentUpon>LegendInfo.xaml</DependentUpon>
     </Compile>
     <Compile Include="Screen\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
@@ -129,8 +130,8 @@
       <DependentUpon>SightingsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Screen\View.cs" />
-    <Compile Include="Screen\ZoomInAndOut.xaml.cs">
-      <DependentUpon>ZoomInAndOut.xaml</DependentUpon>
+    <Compile Include="Screen\ZoomInAndOutInfo.xaml.cs">
+      <DependentUpon>ZoomInAndOutInfo.xaml</DependentUpon>
     </Compile>
     <Compile Include="Sighting\Cafe.cs" />
     <Compile Include="Sighting\Dutch.cs" />
@@ -172,7 +173,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Screen\Legend.xaml">
+    <Page Include="Screen\LegendInfo.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -200,7 +201,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Screen\ZoomInAndOut.xaml">
+    <Page Include="Screen\ZoomInAndOutInfo.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

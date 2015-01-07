@@ -68,8 +68,8 @@ namespace FIND_Breda.Screen
         #region NavigationHelper registration
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            BackButtonTextBlock.Text = LanguageModel.instance.getText(Text.BackButtonButton);
-            BackButtonInfo1.Text = LanguageModel.instance.getText(Text.BackButtonInfo);
+            BackButtonInfoLabel.Text = LanguageModel.instance.getText(Text.BackButtonButton);
+            BackButtonInfoTextBlock.Text = LanguageModel.instance.getText(Text.BackButtonInfo);
             this.navigationHelper.OnNavigatedTo(e);
         }
         #endregion

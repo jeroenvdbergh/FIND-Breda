@@ -1,5 +1,5 @@
 ﻿<Page
-    x:Class="FIND_Breda.Screen.Legend"
+    x:Class="FIND_Breda.Screen.LegendInfo"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:FIND_Breda.Screen"
@@ -9,7 +9,7 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <TextBlock x:Name="LegendTextBlock" Margin="130,34,130,0" TextWrapping="Wrap" Text="Legenda" VerticalAlignment="Top" Height="58" FontSize="36" RenderTransformOrigin="0.529,0.238" SelectionChanged="TextBlock_SelectionChanged"/>
+        <TextBlock x:Name="LegendTextBlock" Margin="138,34,102,0" Text="Legenda" VerticalAlignment="Top" Height="47" FontSize="36" RenderTransformOrigin="0.529,0.238" SelectionChanged="TextBlock_SelectionChanged" FontWeight="Bold" HorizontalAlignment="Center"/>
 
     </Grid>
 </Page>

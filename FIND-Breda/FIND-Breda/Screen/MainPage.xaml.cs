@@ -19,6 +19,7 @@ using Windows.UI;
 using FIND_Breda.Model;
 using Windows.UI.Popups;
 using Windows.UI.ViewManagement;
+using Windows.Devices.Sensors;
 
 namespace FIND_Breda
 {
@@ -27,7 +28,7 @@ namespace FIND_Breda
         private MessageDialog _msgbox;
         private static MainPage _mainPage = null;
         private static readonly object _padlock = new object();
-
+        private DatabaseConnection _database;
         public MainPage()
         {
             if (_mainPage == null)
@@ -36,11 +37,11 @@ namespace FIND_Breda
                 this.InitializeComponent();
                 this.NavigationCacheMode = NavigationCacheMode.Required;
                 Window.Current.SizeChanged += Current_SizeChanged;
-                _mainPage = this;
-            }
-            Model.DatabaseConnection db = new Model.DatabaseConnection();
-        }
 
+                _mainPage = this;
+                _database = DatabaseConnection.instance;
+            }
+        }
 
         public static MainPage instance
         {

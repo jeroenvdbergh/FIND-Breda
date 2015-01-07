@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.Devices.Sensors;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Graphics.Display;
@@ -65,7 +66,7 @@ namespace FIND_Breda.Screen
 
         private void ZoomInAndOutButton_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(ZoomInAndOut));
+            Frame.Navigate(typeof(ZoomInAndOutInfo));
         }
 
         private void MapInfoButton_Click(object sender, RoutedEventArgs e)
@@ -80,7 +81,7 @@ namespace FIND_Breda.Screen
 
         private void LegendButton_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(Legend));
+            Frame.Navigate(typeof(LegendInfo));
         }
 
         private void SightingInfoButton_Click(object sender, RoutedEventArgs e)
