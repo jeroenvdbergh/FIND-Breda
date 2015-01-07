@@ -20,10 +20,10 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <TextBlock x:Name="SightingsLabel" Grid.Row="0" TextWrapping="Wrap" Text="Bezienswaardigheden"  FontSize="36" VerticalAlignment="Top" FontWeight="Bold"/>
-            <CheckBox x:Name="MonumentsCheckBox" Grid.Row="1" Content="Monumenten" HorizontalAlignment="Left" VerticalAlignment="Top" Click="MonumentsCheckBox_Click" Margin="0,50,0,0"/>
-            <CheckBox x:Name="BuildingsCheckBox" Grid.Row="2" Content="Gebouwen" HorizontalAlignment="Left" VerticalAlignment="Top" Click="BuildingsCheckBox_Click"/>
-            <CheckBox x:Name="MarketCheckBox" Grid.Row="3" Content="Markten" HorizontalAlignment="Left"  VerticalAlignment="Top" Click="MarketCheckBox_Click"/>
-            <CheckBox x:Name="RemainingCheckBox" Grid.Row="4" Content="Overig" HorizontalAlignment="Left" VerticalAlignment="Top" Click="RemainingCheckBox_Click"/>
+            <CheckBox x:Name="MonumentsCheckBox" IsChecked="true" Grid.Row="1" Content="Monumenten" HorizontalAlignment="Left" VerticalAlignment="Top" Click="MonumentsCheckBox_Click" Margin="0,50,0,0"/>
+            <CheckBox x:Name="BuildingsCheckBox" IsChecked="true" Grid.Row="2" Content="Gebouwen" HorizontalAlignment="Left" VerticalAlignment="Top" Click="BuildingsCheckBox_Click"/>
+            <CheckBox x:Name="MarketCheckBox" IsChecked="true" Grid.Row="3" Content="Markten" HorizontalAlignment="Left"  VerticalAlignment="Top" Click="MarketCheckBox_Click"/>
+            <CheckBox x:Name="RemainingCheckBox" IsChecked="true" Grid.Row="4" Content="Overig" HorizontalAlignment="Left" VerticalAlignment="Top" Click="RemainingCheckBox_Click"/>
 
         </Grid>
     </StackPanel>

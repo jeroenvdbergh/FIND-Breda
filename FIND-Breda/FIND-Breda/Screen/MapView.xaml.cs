@@ -41,10 +41,6 @@ namespace FIND_Breda.Screen
         public static readonly object _padlock = new object();
         private SimpleOrientationSensor _simpleorientation = SimpleOrientationSensor.GetDefault();
 
-        /* Twee test bezienswaardigheden, later uit een databse halen */
-        public MapIcon _sighting1 { get; set; }
-        public MapIcon _sighting2 { get; set; }
-
         public Dictionary<string, MapIcon> _sightings { get; set; }
 
 
@@ -79,7 +75,7 @@ namespace FIND_Breda.Screen
             }
         }
 
-        /* Methode om de layout aan te passen aan de hand van de orientation */
+        #region /* Methodes om de layout aan te passen aan de hand van de orientation */
         private void Current_SizeChanged(object sender, Windows.UI.Core.WindowSizeChangedEventArgs e)
         {
             string CurrentViewState = ApplicationView.GetForCurrentView().Orientation.ToString();
@@ -136,6 +132,8 @@ namespace FIND_Breda.Screen
             Grid.SetColumnSpan(RouteScrollViewer, 1);
             Grid.SetRowSpan(RouteScrollViewer, 1);
         }
+        #endregion
+
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             /* De kaart goedzetten op basis van je locatie alleen als je vanaf de mainpage komt */
@@ -245,9 +243,9 @@ namespace FIND_Breda.Screen
             if (routeResult.Status == MapRouteFinderStatus.Success)
             {
                 int seconds = routeResult.Route.EstimatedDuration.Seconds;
-                RouteTextBlock.Inlines.Add(new Run() { Text = "Tijd: " + string.Format("{0:00}:{1:00}:{2:00}",seconds/3600,(seconds/60)%60,seconds%60) });
+                RouteTextBlock.Inlines.Add(new Run() { Text = LanguageModel.instance.getText(Text.time) + " " + string.Format("{0:00}:{1:00}:{2:00}",seconds/3600,(seconds/60)%60,seconds%60) });
                 RouteTextBlock.Inlines.Add(new LineBreak());
-                RouteTextBlock.Inlines.Add(new Run() { Text = "Totale afstand(m): " + routeResult.Route.LengthInMeters.ToString("0") });
+                RouteTextBlock.Inlines.Add(new Run() { Text = LanguageModel.instance.getText(Text.totaldistance) + " " + routeResult.Route.LengthInMeters.ToString("0") });
                 RouteTextBlock.Inlines.Add(new LineBreak());
                 RouteTextBlock.Inlines.Add(new Run() { Text = "Route:" });
                 RouteTextBlock.Inlines.Add(new LineBreak());

@@ -70,6 +70,8 @@ namespace FIND_Breda.Model
             this._dutch.Add(Text.BackButtonInfo, "Met de terugknop kunt u naar de vorige pagina gaan. Deze knop kunt u linksonder op de telefoon vinden.");
             this._dutch.Add(Text.MapInfo, "Voor de kaart wordt BING maps gebruikt.");
             this._dutch.Add(Text.SightingInfo, "Alle bezienswaardigheden zijn geleverd door AGS.");
+            this._dutch.Add(Text.time, "Tijd:");
+            this._dutch.Add(Text.totaldistance, "Totale afstand(m):");
 
             this._english.Add(Text.dutchlanguagebutton, "Dutch");
             this._english.Add(Text.englishlanguagebutton, "English");
@@ -100,6 +102,8 @@ namespace FIND_Breda.Model
             this._english.Add(Text.BackButtonInfo, "With the backbutton you can go back to the previous page. You can find this button in the bottom left.");
             this._english.Add(Text.MapInfo, "BING maps is used for this map.");
             this._english.Add(Text.SightingInfo, "All sightings are delivered by AGS.");
+            this._dutch.Add(Text.time, "Time:");
+            this._dutch.Add(Text.totaldistance, "Total distance(m):");
         }
 
         /* Methode om de taal te veranderen */
@@ -125,10 +129,12 @@ namespace FIND_Breda.Model
                 case Language.english:
                     result = _english[text];
                     break;
+
                 case Language.dutch:
                 default:
                     result = _dutch[text];
                     break;
+
             }
             return result;
         }

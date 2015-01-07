@@ -33,13 +33,8 @@ namespace FIND_Breda.Screen
             this.navigationHelper.SaveState += this.NavigationHelper_SaveState;
 
             this.NavigationCacheMode = NavigationCacheMode.Required;
-
-            MarketCheckBox.IsChecked = true;
-            MonumentsCheckBox.IsChecked = true;
-            RemainingCheckBox.IsChecked = true;
-            BuildingsCheckBox.IsChecked = true;
         }
-
+        #region Navigationhelpers
         public NavigationHelper NavigationHelper
         {
             get { return this.navigationHelper; }
@@ -64,36 +59,57 @@ namespace FIND_Breda.Screen
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            this.navigationHelper.OnNavigatedTo(e);
-
             SightingsLabel.Text = LanguageModel.instance.getText(Text.sightingslabel);
             MonumentsCheckBox.Content = LanguageModel.instance.getText(Text.monumentscheckbox);
             BuildingsCheckBox.Content = LanguageModel.instance.getText(Text.buildingscheckbox);
             MarketCheckBox.Content = LanguageModel.instance.getText(Text.marketcheckbox);
             RemainingCheckBox.Content = LanguageModel.instance.getText(Text.remainingcheckbox);
+            this.navigationHelper.OnNavigatedTo(e);
+        }
+        #endregion
+
+        /* Methode om mapicons aan en uit te zetten
+         * toggleMapIconVisibility(new int[] { 0, 1,2,3,4 },true)
+         *                                          ^          ^
+         *                                    nummers van      true = aan, false = uit
+         *                                de bezienswaardig-
+         *                                       heden
+         */
+        private void toggleMapIconVisibility(int[] icons, bool boolean)
+        {
+            string name = "sighting";
+            for (int i = 0; i < MapView.instance._sightings.Count; i++)
+            {
+                for (int j = 0; j < icons.Length; j++)
+                {
+                    string dynamicvar = String.Format(name + "{0}", i.ToString());
+                    if (dynamicvar.Contains(icons[j].ToString()))
+                    {
+                        MapView.instance._sightings[dynamicvar].Visible = boolean;
+                        // Debug.WriteLine(MapView.instance._sightings["sighting1"] + "@" +  dynamicvar);
+                        Debug.WriteLine("Toggled " + dynamicvar + " " + boolean);
+                    }
+                }
+            }
         }
 
         /* TODO: sightings aan en uit kunnen zetten
-         * Bijvoorbeeld sighting1 is het VVV gebouw:
-         * MapView.instance._sightings["sighting1"].Visible = true; in BuildingsCheckBox_Click als de checkbox aangeklikt is
-         * en 
-         * MapView.instance._sightings["sighting1"].Visible = false; in BuildingsCheckBox_Click als de checkbox niet aangeklikt is
+         * Bijvoorbeeld sighting0 is het VVV gebouw
+         * in BuildingsCheckBox_Click als de checkbox aangeklikt is doe je:
+         * toggleMapIconVisibility(new int[] { 0, 1,2,3,4 },true)
+         * 0 is vvv building, 1 is voor een ander gebouw, 2 nog een gebouw etc...
          * Dit doen voor alle 45 sightings, staat op volgorde volgens het document
+         * Bij 0 begint het, dus sighting0 is eerste bezienswaardigheid namelijk vvv
          */
         private void MonumentsCheckBox_Click(object sender, RoutedEventArgs e)
         {
             if (MonumentsCheckBox.IsChecked == true)
             {
-                //  MapView.instance._mapControl.Opacity = 1;
-                MapView.instance._sighting1.Visible = true;
-                MapView.instance._sighting2.Visible = true;
-                MapView.instance._sightings["sighting1"].Visible = true;
+                toggleMapIconVisibility(new int[] { 0 }, true);
             }
             else
             {
-                // MapView.instance._mapControl.Opacity = 0;
-                MapView.instance._sighting1.Visible = false;
-                MapView.instance._sighting2.Visible = false;
+                toggleMapIconVisibility(new int[] { 0 }, false);
             }
         }
 
@@ -101,11 +117,11 @@ namespace FIND_Breda.Screen
         {
             if (BuildingsCheckBox.IsChecked == true)
             {
-
+                toggleMapIconVisibility(new int[] { 0 }, true);
             }
             else
             {
-
+                toggleMapIconVisibility(new int[] { 0 }, false);
             }
         }
 
@@ -113,11 +129,11 @@ namespace FIND_Breda.Screen
         {
             if (MarketCheckBox.IsChecked == true)
             {
-
+                toggleMapIconVisibility(new int[] { 0 }, true);
             }
             else
             {
-
+                toggleMapIconVisibility(new int[] { 0 }, false);
             }
         }
 
@@ -125,11 +141,11 @@ namespace FIND_Breda.Screen
         {
             if (RemainingCheckBox.IsChecked == true)
             {
-
+                toggleMapIconVisibility(new int[] { 0 }, true);
             }
             else
             {
-
+                toggleMapIconVisibility(new int[] { 0 }, false);
             }
         }
     }
