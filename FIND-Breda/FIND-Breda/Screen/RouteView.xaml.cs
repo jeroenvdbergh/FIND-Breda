@@ -70,7 +70,7 @@ namespace FIND_Breda.Screen
 
         private void BredaRouteButton_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(MapView),this.ToString());
+            Frame.Navigate(typeof(MapView), this.ToString());
             MapView._mapView.SetRouteDirectionsBreda();
         }
 

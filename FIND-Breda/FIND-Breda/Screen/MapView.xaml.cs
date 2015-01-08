@@ -47,6 +47,7 @@ namespace FIND_Breda.Screen
 
         public Dictionary<string, MapIcon> _sightings { get; set; }
         private Ellipse _ellipse;
+        public bool _started { get; set; }
 
         public MapView()
         {
@@ -59,7 +60,7 @@ namespace FIND_Breda.Screen
             this.NavigationCacheMode = NavigationCacheMode.Required;
             Window.Current.SizeChanged += Current_SizeChanged;
             _sightings = new Dictionary<string, MapIcon>();
-
+            _started = false;
             /* Layout goed zetten op landscape als de device al op landscape stond */
             if (_simpleorientation.GetCurrentOrientation() == SimpleOrientation.Rotated90DegreesCounterclockwise)
                 this.setToLandscape();
@@ -137,10 +138,6 @@ namespace FIND_Breda.Screen
         }
         #endregion
 
-        private void addellipse()
-        {
-
-        }
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             /* De kaart goedzetten op basis van je locatie alleen als je vanaf de mainpage komt */
@@ -148,14 +145,17 @@ namespace FIND_Breda.Screen
             if (prevpage.Contains("MainPage"))
             {
                 ShowToastNotification(LanguageModel.instance.getText(Text.gettinglocationmessage));
-                setToCurrentLocation();
             }
             else if (prevpage.Contains("RouteView"))
             {
                 /* Alle bezienswaardigheden weergeven */
-                displaySightings();
-                setToCurrentLocation();
+                if (!_started)
+                {
+                    displaySightings(true);
+                    _started = true;
+                }
             }
+            setToCurrentLocation();
 
             //GetLocationAsyncButton.Content = LanguageModel.instance.getText(Text.getlocationbutton);
             Aerial_Checkbox.Content = LanguageModel.instance.getText(Text.aerialcheckbox);
@@ -173,9 +173,6 @@ namespace FIND_Breda.Screen
                 _geo = new Geolocator() { DesiredAccuracy = PositionAccuracy.High, ReportInterval = 1000 };
 
             var location = await getLocationAsync();
-            //await map.TrySetViewAsync(location.Coordinate.Point, 15, 0, 0, MapAnimationKind.Bow);
-            //Geopoint breda = new Geopoint(new BasicGeoposition() { Latitude = 51.5940, Longitude = 4.7795 });
-            //await map.TrySetViewAsync(breda, 15, 0, 0, MapAnimationKind.Bow);
             await map.TrySetViewAsync(location.Coordinate.Point, 18, 0, 0, MapAnimationKind.Linear);
 
             _geo.PositionChanged += new TypedEventHandler<Geolocator, PositionChangedEventArgs>(geo_PositionChanged);
@@ -183,9 +180,9 @@ namespace FIND_Breda.Screen
 
         private async void geo_PositionChanged(Geolocator sender, PositionChangedEventArgs e)
         {
-            var location = await getLocationAsync();
-            this.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+            this.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
             {
+                var location = await getLocationAsync();
                 map.Children.Remove(_ellipse);
                 _ellipse = new Ellipse();
 
@@ -194,9 +191,8 @@ namespace FIND_Breda.Screen
                 _ellipse.Height = 10;
                 map.Children.Add(_ellipse);
                 MapControl.SetLocation(_ellipse, location.Coordinate.Point);
+                await map.TrySetViewAsync(location.Coordinate.Point, map.ZoomLevel, 0, 0, MapAnimationKind.Linear);
             });
-            await map.TrySetViewAsync(location.Coordinate.Point, map.ZoomLevel, 0, 0, MapAnimationKind.Linear);
-
         }
 
         /* Methode om je locatie te geven 
@@ -208,20 +204,32 @@ namespace FIND_Breda.Screen
             return await _geo.GetGeopositionAsync();
         }
 
-        private void displaySightings()
+        private void displaySightings(bool on)
         {
+
             string name = "sighting";
-            for (int i = 0; i < DatabaseConnection.instance.getSightings().Count; i++)
+            if (on == false)
             {
-                MapIcon tempMapIcon = new MapIcon();
-                tempMapIcon.Location = new Geopoint(new BasicGeoposition()
+                for (int i = 0; i < DatabaseConnection.instance.getSightings().Count; i++)
                 {
-                    Latitude = DatabaseConnection.instance.getSighting(i).Latitude,
-                    Longitude = DatabaseConnection.instance.getSighting(i).Longitude
-                });
-                tempMapIcon.Title = DatabaseConnection.instance.getSighting(i).Name;
-                _sightings.Add(String.Format(name + "{0}", i.ToString()), tempMapIcon);
-                map.MapElements.Add(tempMapIcon);
+                    map.MapElements.Remove(_sightings[String.Format(name + "{0}", i.ToString())]);
+                }
+                _sightings.Clear();
+            }
+            else
+            {
+                for (int i = 0; i < DatabaseConnection.instance.getSightings().Count; i++)
+                {
+                    MapIcon tempMapIcon = new MapIcon();
+                    tempMapIcon.Location = new Geopoint(new BasicGeoposition()
+                    {
+                        Latitude = DatabaseConnection.instance.getSighting(i).Latitude,
+                        Longitude = DatabaseConnection.instance.getSighting(i).Longitude
+                    });
+                    tempMapIcon.Title = DatabaseConnection.instance.getSighting(i).Name;
+                    _sightings.Add(String.Format(name + "{0}", i.ToString()), tempMapIcon);
+                    map.MapElements.Add(tempMapIcon);
+                }
             }
         }
 
@@ -305,7 +313,7 @@ namespace FIND_Breda.Screen
             toastTextElements[0].AppendChild(toastXml.CreateTextNode(message));
 
             // Set image
-          // Images must be less than 200 KB in size and smaller than 1024 x 1024 pixels.
+            // Images must be less than 200 KB in size and smaller than 1024 x 1024 pixels.
             XmlNodeList toastImageAttributes = toastXml.GetElementsByTagName("image");
             ((XmlElement)toastImageAttributes[0]).SetAttribute("src", "ms-appx:///Images/logo-80px-80px.png");
             ((XmlElement)toastImageAttributes[0]).SetAttribute("alt", "logo");
