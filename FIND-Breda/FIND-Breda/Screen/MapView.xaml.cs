@@ -28,6 +28,8 @@ using Windows.UI.ViewManagement;
 using Windows.Devices.Sensors;
 using Windows.UI.Core;
 using Windows.UI.Xaml.Shapes;
+using Windows.UI.Notifications;
+using Windows.Data.Xml.Dom;
 
 namespace FIND_Breda.Screen
 {
@@ -44,7 +46,7 @@ namespace FIND_Breda.Screen
         private SimpleOrientationSensor _simpleorientation = SimpleOrientationSensor.GetDefault();
 
         public Dictionary<string, MapIcon> _sightings { get; set; }
-
+        private Ellipse _ellipse;
 
         public MapView()
         {
@@ -57,7 +59,7 @@ namespace FIND_Breda.Screen
             this.NavigationCacheMode = NavigationCacheMode.Required;
             Window.Current.SizeChanged += Current_SizeChanged;
             _sightings = new Dictionary<string, MapIcon>();
-            
+
             /* Layout goed zetten op landscape als de device al op landscape stond */
             if (_simpleorientation.GetCurrentOrientation() == SimpleOrientation.Rotated90DegreesCounterclockwise)
                 this.setToLandscape();
@@ -66,9 +68,6 @@ namespace FIND_Breda.Screen
 
             this._mapControl = map;
             _mapView = this;
-
-            /* Alle bezienswaardigheden weergeven */
-            displaySightings();
         }
 
         public static MapView instance
@@ -138,14 +137,26 @@ namespace FIND_Breda.Screen
         }
         #endregion
 
+        private void addellipse()
+        {
+
+        }
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             /* De kaart goedzetten op basis van je locatie alleen als je vanaf de mainpage komt */
             string prevpage = e.Parameter as string;
             if (prevpage.Contains("MainPage"))
             {
+                ShowToastNotification(LanguageModel.instance.getText(Text.gettinglocationmessage));
                 setToCurrentLocation();
             }
+            else if (prevpage.Contains("RouteView"))
+            {
+                /* Alle bezienswaardigheden weergeven */
+                displaySightings();
+                setToCurrentLocation();
+            }
+
             //GetLocationAsyncButton.Content = LanguageModel.instance.getText(Text.getlocationbutton);
             Aerial_Checkbox.Content = LanguageModel.instance.getText(Text.aerialcheckbox);
             AerialWithRoads_Checkbox.Content = LanguageModel.instance.getText(Text.aerialwithroadscheckbox);
@@ -156,62 +167,36 @@ namespace FIND_Breda.Screen
             this.navigationHelper.OnNavigatedTo(e);
         }
 
-        //private async void GetLocationAsyncButton_Click(object sender, RoutedEventArgs e)
-        //{
-        //    var location = await getLocationAsync();
-        //    var pin = new MapIcon()
-        //    {
-        //        Location = location.Coordinate.Point,
-        //        Title = "you are here!",
-        //        NormalizedAnchorPoint = new Point() { X = 0.32, Y = 0.78 },
-        //    };
-
-        //    // textLatitude.Text = "latitude: " + location.Coordinate.Point.Position.Latitude.ToString();
-        //    //  textLongitude.Text = "longitude: " + location.Coordinate.Point.Position.Longitude.ToString();
-        //    // textAccuracy.Text = "accuracy: " + location.Coordinate.Accuracy.ToString() + " zoomlvl: " + map.ZoomLevel;
-
-        //    map.MapElements.Add(pin);
-        //    await map.TrySetViewAsync(location.Coordinate.Point, 15, 0, 0, MapAnimationKind.Bow);
-        //}
-
         private async void setToCurrentLocation()
         {
             if (_geo == null)
-                _geo = new Geolocator() { DesiredAccuracy = PositionAccuracy.High, ReportInterval = 1000};
-            
+                _geo = new Geolocator() { DesiredAccuracy = PositionAccuracy.High, ReportInterval = 1000 };
+
             var location = await getLocationAsync();
             //await map.TrySetViewAsync(location.Coordinate.Point, 15, 0, 0, MapAnimationKind.Bow);
             //Geopoint breda = new Geopoint(new BasicGeoposition() { Latitude = 51.5940, Longitude = 4.7795 });
             //await map.TrySetViewAsync(breda, 15, 0, 0, MapAnimationKind.Bow);
             await map.TrySetViewAsync(location.Coordinate.Point, 18, 0, 0, MapAnimationKind.Linear);
 
-            /* location with anchorpoint*/
-            //var pin = new MapIcon()
-            //{
-            //    Location = location.Coordinate.Point,
-            //    Title = "You're here!",
-            //    NormalizedAnchorPoint = new Point() { X = 0.32, Y = 0.78 },
-            //};
-            //map.MapElements.Add(pin);
-            
             _geo.PositionChanged += new TypedEventHandler<Geolocator, PositionChangedEventArgs>(geo_PositionChanged);
         }
 
-        async private void geo_PositionChanged(Geolocator sender, PositionChangedEventArgs e)
+        private async void geo_PositionChanged(Geolocator sender, PositionChangedEventArgs e)
         {
             var location = await getLocationAsync();
-            await map.TrySetViewAsync(location.Coordinate.Point, 18, 0, 0, MapAnimationKind.Linear);
+            this.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+            {
+                map.Children.Remove(_ellipse);
+                _ellipse = new Ellipse();
 
-            //Ellipse myCircle = new Ellipse();
-            //myCircle.Fill = new SolidColorBrush(Colors.Blue);
-            //myCircle.Height = 20;
-            //myCircle.Width = 20;
-            //myCircle.Opacity = 50;
+                _ellipse.Fill = new SolidColorBrush(Colors.Red);
+                _ellipse.Width = 10;
+                _ellipse.Height = 10;
+                map.Children.Add(_ellipse);
+                MapControl.SetLocation(_ellipse, location.Coordinate.Point);
+            });
+            await map.TrySetViewAsync(location.Coordinate.Point, map.ZoomLevel, 0, 0, MapAnimationKind.Linear);
 
-            //MapOverlay myLocationOverlay = new MapOverlay();
-            //myLocationOverlay.Content = myCircle;
-            //myLocationOverlay.PositionOrigin = new Point(0.5, 0.5);
-            //myLocationOverlay.GeoCoordinate = location;
         }
 
         /* Methode om je locatie te geven 
@@ -303,6 +288,36 @@ namespace FIND_Breda.Screen
             {
                 throw new Exception(routeResult.Status.ToString());
             }
+        }
+        private void ShowToastNotification(String message)
+        {
+            ToastTemplateType toastTemplate = ToastTemplateType.ToastImageAndText01;
+            XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(toastTemplate);
+
+            // Set Text
+            XmlNodeList toastTextElements = toastXml.GetElementsByTagName("text");
+            toastTextElements[0].AppendChild(toastXml.CreateTextNode(message));
+
+            // Set image
+          // Images must be less than 200 KB in size and smaller than 1024 x 1024 pixels.
+            XmlNodeList toastImageAttributes = toastXml.GetElementsByTagName("image");
+            ((XmlElement)toastImageAttributes[0]).SetAttribute("src", "ms-appx:///Images/logo-80px-80px.png");
+            ((XmlElement)toastImageAttributes[0]).SetAttribute("alt", "logo");
+
+            // toast duration
+            IXmlNode toastNode = toastXml.SelectSingleNode("/toast");
+            ((XmlElement)toastNode).SetAttribute("duration", "short");
+
+            // toast navigation
+            var toastNavigationUriString = "#/MainPage.xaml?param1=12345";
+            var toastElement = ((XmlElement)toastXml.SelectSingleNode("/toast"));
+            toastElement.SetAttribute("launch", toastNavigationUriString);
+
+            // Create the toast notification based on the XML content you've specified.
+            ToastNotification toast = new ToastNotification(toastXml);
+
+            // Send your toast notification.
+            ToastNotificationManager.CreateToastNotifier().Show(toast);
         }
 
         #region Map settings om de map aan te passen

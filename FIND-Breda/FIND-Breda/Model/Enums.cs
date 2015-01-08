@@ -44,6 +44,7 @@ namespace FIND_Breda.Model
         MapInfo,
         SightingInfo,
         time,
-        totaldistance
+        totaldistance,
+        gettinglocationmessage
     }
 }
