@@ -26,11 +26,8 @@ using Windows.UI.Xaml.Documents;
 using System.Threading.Tasks;
 using Windows.UI.ViewManagement;
 using Windows.Devices.Sensors;
-<<<<<<< HEAD
 using Windows.UI.Core;
-=======
 using Windows.UI.Xaml.Shapes;
->>>>>>> ad9bfa6940b9432b7a3c562324334c199c888c64
 
 namespace FIND_Breda.Screen
 {
