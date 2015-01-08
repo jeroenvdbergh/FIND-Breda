@@ -45,6 +45,7 @@ namespace FIND_Breda.Model
         SightingInfo,
         time,
         totaldistance,
-        gettinglocationmessage
+        gettinglocationmessage,
+        removeroutebutton
     }
 }

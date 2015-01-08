@@ -140,7 +140,6 @@ namespace FIND_Breda.Screen
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            /* De kaart goedzetten op basis van je locatie alleen als je vanaf de mainpage komt */
             string prevpage = e.Parameter as string;
             if (prevpage.Contains("MainPage"))
             {
@@ -155,18 +154,19 @@ namespace FIND_Breda.Screen
                     _started = true;
                 }
             }
-            setToCurrentLocation();
+         //   setToCurrentLocation();
 
-            //GetLocationAsyncButton.Content = LanguageModel.instance.getText(Text.getlocationbutton);
             Aerial_Checkbox.Content = LanguageModel.instance.getText(Text.aerialcheckbox);
             AerialWithRoads_Checkbox.Content = LanguageModel.instance.getText(Text.aerialwithroadscheckbox);
             Dark_Checkbox.Content = LanguageModel.instance.getText(Text.darkthemecheckbox);
             Traffic_Checkbox.Content = LanguageModel.instance.getText(Text.trafficcheckbox);
             Pedestrian_Checkbox.Content = LanguageModel.instance.getText(Text.pedestriancheckbox);
+            RemoveRouteButton.Content = LanguageModel.instance.getText(Text.removeroutebutton);
 
             this.navigationHelper.OnNavigatedTo(e);
         }
 
+        /* Mapview op je huidige positie zetten */
         private async void setToCurrentLocation()
         {
             if (_geo == null)
@@ -178,6 +178,7 @@ namespace FIND_Breda.Screen
             _geo.PositionChanged += new TypedEventHandler<Geolocator, PositionChangedEventArgs>(geo_PositionChanged);
         }
 
+        /* Eventhandler voor je locatie updaten */
         private async void geo_PositionChanged(Geolocator sender, PositionChangedEventArgs e)
         {
             this.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
@@ -204,6 +205,7 @@ namespace FIND_Breda.Screen
             return await _geo.GetGeopositionAsync();
         }
 
+        /* Methode om mapicons aan en uit te zetten */
         private void displaySightings(bool on)
         {
 
@@ -232,8 +234,18 @@ namespace FIND_Breda.Screen
                 }
             }
         }
+        private void RemoveRouteButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (_started)
+            {
+                RouteTextBlock.Text = String.Empty;
+                map.Routes.Clear();
+                displaySightings(false);
+                _started = false;
+            }
+        }
 
-        /* De route van breda */
+        #region /* De route van breda */
         public async void SetRouteDirectionsBreda()
         {
 
@@ -297,12 +309,9 @@ namespace FIND_Breda.Screen
                 throw new Exception(routeResult.Status.ToString());
             }
         }
+        #endregion
 
-        public void RemoveRoute()
-        {
-            RouteTextBlock.Text = String.Empty;
-            map.Routes.Clear();
-        }
+        #region /* Methode om notificatie te sturen */
         private void ShowToastNotification(String message)
         {
             ToastTemplateType toastTemplate = ToastTemplateType.ToastImageAndText01;
@@ -333,6 +342,7 @@ namespace FIND_Breda.Screen
             // Send your toast notification.
             ToastNotificationManager.CreateToastNotifier().Show(toast);
         }
+        #endregion
 
         #region Map settings om de map aan te passen
         private void Dark_Checked(object sender, RoutedEventArgs e)
@@ -400,5 +410,6 @@ namespace FIND_Breda.Screen
             this.navigationHelper.OnNavigatedFrom(e);
         }
         #endregion
+
     }
 }

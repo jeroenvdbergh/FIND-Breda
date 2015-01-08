@@ -30,6 +30,7 @@
                     <CheckBox Margin="4,0" x:Name="Traffic_Checkbox" Checked="Traffic_Checked" Unchecked="Traffic_Unchecked" Content="Traffic"/>
                     <CheckBox Margin="4,0" x:Name="Dark_Checkbox" Checked="Dark_Checked" Unchecked="Dark_Unchecked" Content="Dark" />
                     <CheckBox Margin="4,0" x:Name="Pedestrian_Checkbox" Checked="Pedestrian_Checked" Unchecked="Pedestrian_Unchecked" Content="Pedestrian"/>
+                    <Button x:Name="RemoveRouteButton" Content="Verwijder route" Click="RemoveRouteButton_Click"/>
                 </StackPanel>
             </Viewbox>
         </ScrollViewer>
