@@ -26,7 +26,11 @@ using Windows.UI.Xaml.Documents;
 using System.Threading.Tasks;
 using Windows.UI.ViewManagement;
 using Windows.Devices.Sensors;
+<<<<<<< HEAD
 using Windows.UI.Core;
+=======
+using Windows.UI.Xaml.Shapes;
+>>>>>>> ad9bfa6940b9432b7a3c562324334c199c888c64
 
 namespace FIND_Breda.Screen
 {
@@ -42,9 +46,8 @@ namespace FIND_Breda.Screen
         public static readonly object _padlock = new object();
         private SimpleOrientationSensor _simpleorientation = SimpleOrientationSensor.GetDefault();
 
-        /* Twee test bezienswaardigheden, later uit een databse halen */
-        public MapIcon _sighting1 { get; set; }
-        public MapIcon _sighting2 { get; set; }
+        public Dictionary<string, MapIcon> _sightings { get; set; }
+
 
         public MapView()
         {
@@ -56,7 +59,8 @@ namespace FIND_Breda.Screen
             this.navigationHelper.SaveState += this.NavigationHelper_SaveState;
             this.NavigationCacheMode = NavigationCacheMode.Required;
             Window.Current.SizeChanged += Current_SizeChanged;
-
+            _sightings = new Dictionary<string, MapIcon>();
+            
             /* Layout goed zetten op landscape als de device al op landscape stond */
             if (_simpleorientation.GetCurrentOrientation() == SimpleOrientation.Rotated90DegreesCounterclockwise)
                 this.setToLandscape();
@@ -78,7 +82,7 @@ namespace FIND_Breda.Screen
             }
         }
 
-        /* Methode om de layout aan te passen aan de hand van de orientation */
+        #region /* Methodes om de layout aan te passen aan de hand van de orientation */
         private void Current_SizeChanged(object sender, Windows.UI.Core.WindowSizeChangedEventArgs e)
         {
             string CurrentViewState = ApplicationView.GetForCurrentView().Orientation.ToString();
@@ -133,8 +137,10 @@ namespace FIND_Breda.Screen
             Grid.SetRow(RouteScrollViewer, 1);
             Grid.SetColumn(RouteScrollViewer, 2);
             Grid.SetColumnSpan(RouteScrollViewer, 1);
-            Grid.SetRowSpan(RouteScrollViewer, 1);
+            Grid.SetRowSpan(RouteScrollViewer, 2);
         }
+        #endregion
+
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             /* De kaart goedzetten op basis van je locatie alleen als je vanaf de mainpage komt */
@@ -222,62 +228,57 @@ namespace FIND_Breda.Screen
 
         private void displaySightings()
         {
-            _sighting1 = new MapIcon();
-            _sighting1.Location = new Geopoint(new BasicGeoposition()
+            string name = "sighting";
+            for (int i = 0; i < DatabaseConnection.instance.getSightings().Count; i++)
             {
-                Latitude = 51.5940,
-                Longitude = 4.7795
-            });
-            _sighting1.Title = "VVV";
-            map.MapElements.Add(_sighting1);
-
-            _sighting2 = new MapIcon();
-            _sighting2.Location = new Geopoint(new BasicGeoposition()
-            {
-                Latitude = 51.5936,
-                Longitude = 4.7795
-            });
-            _sighting2.Title = "Liefdeszuster";
-            map.MapElements.Add(_sighting2);
+                MapIcon tempMapIcon = new MapIcon();
+                tempMapIcon.Location = new Geopoint(new BasicGeoposition()
+                {
+                    Latitude = DatabaseConnection.instance.getSighting(i).Latitude,
+                    Longitude = DatabaseConnection.instance.getSighting(i).Longitude
+                });
+                tempMapIcon.Title = DatabaseConnection.instance.getSighting(i).Name;
+                _sightings.Add(String.Format(name + "{0}", i.ToString()), tempMapIcon);
+                map.MapElements.Add(tempMapIcon);
+            }
         }
 
         /* De route van breda */
         public async void SetRouteDirectionsBreda()
         {
-            string beginLocation = "Willemstraat 17 Breda"; // Begin stadswandeling (VVV-Breda), volgens bestand
-            string endLocation = "Reigerstraat 2 Breda";    // Einde stadswandeling volgens bestand
-
-            // Locatie van begin en eindpunt ophalen
-            MapLocationFinderResult result = await MapLocationFinder.FindLocationsAsync(beginLocation, map.Center);
-            MapLocation begin = result.Locations.First();
-
-            result = await MapLocationFinder.FindLocationsAsync(endLocation, map.Center);
-            MapLocation end = result.Locations.First();
 
             /* Sla een lijst op met waypoints waar je langs moet komen.
-             * Deze waypoints moeten via de database opgehaald worden.
+             * Deze waypoints worden via de database opgehaald.
              * Deze lijst van waypoints geef je mee in de MapRouteFinder.GetWalkingRouteFromWaypointsAsync() methode 
              */
             List<Geopoint> waypoints = new List<Geopoint>();
-            waypoints.Add(begin.Point);
-            /* Hier tussen voeg je de bezienswaardigheden toe
-             * vb. van een bezienswaardigheid: 
-             * var sighting1 = new Geopoint(new BasicGeoposition() { Latitude = 51.5940, Longitude = 4.7795 });
-             * waypoints.Add(sighting1);
-             */
-            waypoints.Add(end.Point);
+
+            /* Hier voeg je alle bezienswaardigheden toe aan de route */
+            foreach (var sighting in DatabaseConnection.instance.getSightings())
+            {
+                var temploc = new Geopoint(new BasicGeoposition()
+                {
+                    Latitude = sighting.Latitude,
+                    Longitude = sighting.Longitude
+                });
+                waypoints.Add(temploc);
+            }
+
             /* Haalt de route op en slaat deze op in een variable genaamd routeResult, aan deze variable vraag je de info */
             MapRouteFinderResult routeResult = await MapRouteFinder.GetWalkingRouteFromWaypointsAsync(waypoints);
-
-            Debug.WriteLine(routeResult.Status); // DEBUG
 
             /* Als het programma succesvol de route heeft opgehaald */
             if (routeResult.Status == MapRouteFinderStatus.Success)
             {
-                RouteTextBlock.Inlines.Add(new Run() { Text = routeResult.Route.EstimatedDuration.TotalMinutes.ToString() });
+                RouteTextBlock.Text = String.Empty;
+                int seconds = routeResult.Route.EstimatedDuration.Seconds;
+                RouteTextBlock.Inlines.Add(new Run() { Text = LanguageModel.instance.getText(Text.time) + " " + string.Format("{0:00}:{1:00}:{2:00}", seconds / 3600, (seconds / 60) % 60, seconds % 60) });
                 RouteTextBlock.Inlines.Add(new LineBreak());
-                RouteTextBlock.Inlines.Add(new Run() { Text = routeResult.Route.LengthInMeters.ToString() });
+                RouteTextBlock.Inlines.Add(new Run() { Text = LanguageModel.instance.getText(Text.totaldistance) + " " + routeResult.Route.LengthInMeters.ToString("0") });
                 RouteTextBlock.Inlines.Add(new LineBreak());
+                RouteTextBlock.Inlines.Add(new Run() { Text = "Route:" });
+                RouteTextBlock.Inlines.Add(new LineBreak());
+
                 /* Print de routebeschrijving in een textblock */
                 foreach (MapRouteLeg leg in routeResult.Route.Legs)
                 {
@@ -285,7 +286,7 @@ namespace FIND_Breda.Screen
                     {
                         RouteTextBlock.Inlines.Add(new Run()
                         {
-                            Text = maneuver.InstructionText + " (" + maneuver.LengthInMeters + "m)"
+                            Text = "- " + maneuver.InstructionText + " (" + maneuver.LengthInMeters + "m)"
                         });
                         RouteTextBlock.Inlines.Add(new LineBreak());
                     }

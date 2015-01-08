@@ -29,6 +29,7 @@ namespace FIND_Breda
         private static MainPage _mainPage = null;
         private static readonly object _padlock = new object();
         private DatabaseConnection _database;
+
         public MainPage()
         {
             if (_mainPage == null)

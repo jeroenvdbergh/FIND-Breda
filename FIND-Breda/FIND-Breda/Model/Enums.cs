@@ -38,11 +38,12 @@ namespace FIND_Breda.Model
         MapInfoButton,
         LegendButton,
         SightingInfoButton,
-
         ZoomInAndOutLabel,
         ZoomInAndOutInfo,
         BackButtonInfo,
         MapInfo,
-        SightingInfo
+        SightingInfo,
+        time,
+        totaldistance
     }
 }
