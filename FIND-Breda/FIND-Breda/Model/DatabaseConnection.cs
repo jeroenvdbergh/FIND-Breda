@@ -7,7 +7,6 @@ using SQLite;
 using System.Diagnostics;
 using System.IO;
 using Windows.Storage;
-using System.Diagnostics;
 
 namespace FIND_Breda.Model
 {

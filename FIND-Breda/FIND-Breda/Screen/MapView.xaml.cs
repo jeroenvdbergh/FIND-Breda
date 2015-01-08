@@ -26,6 +26,7 @@ using Windows.UI.Xaml.Documents;
 using System.Threading.Tasks;
 using Windows.UI.ViewManagement;
 using Windows.Devices.Sensors;
+using Windows.UI.Core;
 
 namespace FIND_Breda.Screen
 {
@@ -35,6 +36,7 @@ namespace FIND_Breda.Screen
         private ObservableDictionary defaultViewModel = new ObservableDictionary();
 
         private Geolocator _geo = null;
+        private CoreDispatcher _cd;
         public MapControl _mapControl { get; set; }
         public static MapView _mapView = null;
         public static readonly object _padlock = new object();
@@ -58,6 +60,8 @@ namespace FIND_Breda.Screen
             /* Layout goed zetten op landscape als de device al op landscape stond */
             if (_simpleorientation.GetCurrentOrientation() == SimpleOrientation.Rotated90DegreesCounterclockwise)
                 this.setToLandscape();
+
+            _cd = Window.Current.CoreWindow.Dispatcher;
 
             this._mapControl = map;
             _mapView = this;
@@ -149,32 +153,62 @@ namespace FIND_Breda.Screen
             this.navigationHelper.OnNavigatedTo(e);
         }
 
-        private async void GetLocationAsyncButton_Click(object sender, RoutedEventArgs e)
-        {
-            var location = await getLocationAsync();
-            var pin = new MapIcon()
-            {
-                Location = location.Coordinate.Point,
-                Title = "you are here!",
-                NormalizedAnchorPoint = new Point() { X = 0.32, Y = 0.78 },
-            };
+        //private async void GetLocationAsyncButton_Click(object sender, RoutedEventArgs e)
+        //{
+        //    var location = await getLocationAsync();
+        //    var pin = new MapIcon()
+        //    {
+        //        Location = location.Coordinate.Point,
+        //        Title = "you are here!",
+        //        NormalizedAnchorPoint = new Point() { X = 0.32, Y = 0.78 },
+        //    };
 
-            // textLatitude.Text = "latitude: " + location.Coordinate.Point.Position.Latitude.ToString();
-            //  textLongitude.Text = "longitude: " + location.Coordinate.Point.Position.Longitude.ToString();
-            // textAccuracy.Text = "accuracy: " + location.Coordinate.Accuracy.ToString() + " zoomlvl: " + map.ZoomLevel;
+        //    // textLatitude.Text = "latitude: " + location.Coordinate.Point.Position.Latitude.ToString();
+        //    //  textLongitude.Text = "longitude: " + location.Coordinate.Point.Position.Longitude.ToString();
+        //    // textAccuracy.Text = "accuracy: " + location.Coordinate.Accuracy.ToString() + " zoomlvl: " + map.ZoomLevel;
 
-            map.MapElements.Add(pin);
-            await map.TrySetViewAsync(location.Coordinate.Point, 15, 0, 0, MapAnimationKind.Bow);
-        }
+        //    map.MapElements.Add(pin);
+        //    await map.TrySetViewAsync(location.Coordinate.Point, 15, 0, 0, MapAnimationKind.Bow);
+        //}
 
         private async void setToCurrentLocation()
         {
             if (_geo == null)
-                _geo = new Geolocator() { DesiredAccuracy = PositionAccuracy.High };
+                _geo = new Geolocator() { DesiredAccuracy = PositionAccuracy.High, ReportInterval = 1000};
+            
             var location = await getLocationAsync();
-            await map.TrySetViewAsync(location.Coordinate.Point, 15, 0, 0, MapAnimationKind.Bow);
-            // Geopoint breda = new Geopoint(new BasicGeoposition() { Latitude = 51.5940, Longitude = 4.7795 });
-            // await map.TrySetViewAsync(breda, 15, 0, 0, MapAnimationKind.Bow);
+            //await map.TrySetViewAsync(location.Coordinate.Point, 15, 0, 0, MapAnimationKind.Bow);
+            //Geopoint breda = new Geopoint(new BasicGeoposition() { Latitude = 51.5940, Longitude = 4.7795 });
+            //await map.TrySetViewAsync(breda, 15, 0, 0, MapAnimationKind.Bow);
+            await map.TrySetViewAsync(location.Coordinate.Point, 18, 0, 0, MapAnimationKind.Linear);
+
+            /* location with anchorpoint*/
+            //var pin = new MapIcon()
+            //{
+            //    Location = location.Coordinate.Point,
+            //    Title = "You're here!",
+            //    NormalizedAnchorPoint = new Point() { X = 0.32, Y = 0.78 },
+            //};
+            //map.MapElements.Add(pin);
+            
+            _geo.PositionChanged += new TypedEventHandler<Geolocator, PositionChangedEventArgs>(geo_PositionChanged);
+        }
+
+        async private void geo_PositionChanged(Geolocator sender, PositionChangedEventArgs e)
+        {
+            var location = await getLocationAsync();
+            await map.TrySetViewAsync(location.Coordinate.Point, 18, 0, 0, MapAnimationKind.Linear);
+
+            //Ellipse myCircle = new Ellipse();
+            //myCircle.Fill = new SolidColorBrush(Colors.Blue);
+            //myCircle.Height = 20;
+            //myCircle.Width = 20;
+            //myCircle.Opacity = 50;
+
+            //MapOverlay myLocationOverlay = new MapOverlay();
+            //myLocationOverlay.Content = myCircle;
+            //myLocationOverlay.PositionOrigin = new Point(0.5, 0.5);
+            //myLocationOverlay.GeoCoordinate = location;
         }
 
         /* Methode om je locatie te geven 
