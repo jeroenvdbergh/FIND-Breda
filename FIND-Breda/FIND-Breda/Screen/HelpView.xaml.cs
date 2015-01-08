@@ -96,5 +96,10 @@ namespace FIND_Breda.Screen
 
         #endregion
 
+        private void Contact_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(FeedbackView));
+        }
+
     }
 }
