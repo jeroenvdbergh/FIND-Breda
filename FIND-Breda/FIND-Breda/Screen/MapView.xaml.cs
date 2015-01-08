@@ -289,6 +289,12 @@ namespace FIND_Breda.Screen
                 throw new Exception(routeResult.Status.ToString());
             }
         }
+
+        public void RemoveRoute()
+        {
+            RouteTextBlock.Text = String.Empty;
+            map.Routes.Clear();
+        }
         private void ShowToastNotification(String message)
         {
             ToastTemplateType toastTemplate = ToastTemplateType.ToastImageAndText01;

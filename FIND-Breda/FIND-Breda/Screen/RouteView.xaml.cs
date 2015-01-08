@@ -73,5 +73,10 @@ namespace FIND_Breda.Screen
             Frame.Navigate(typeof(MapView),this.ToString());
             MapView._mapView.SetRouteDirectionsBreda();
         }
+
+        private void RemoveRouteButton_Click(object sender, RoutedEventArgs e)
+        {
+            MapView._mapView.RemoveRoute();
+        }
     }
 }
