@@ -19,7 +19,9 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Maps:MapControl Name="map" Grid.Row="0" Grid.ColumnSpan="3" Grid.RowSpan="2" Height="400" MapServiceToken="Zxf8UmCg_ux0pq1PSZd8GA"/>
+        <Maps:MapControl Name="map" Grid.Row="0" Grid.ColumnSpan="3" Grid.RowSpan="2" Height="400" MapServiceToken="Zxf8UmCg_ux0pq1PSZd8GA">
+
+        </Maps:MapControl>
         <ScrollViewer Name="SettingsScrollViewer" Grid.Column="0" Grid.Row="2">
             <Viewbox >
                 <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="0,0"    >
@@ -28,11 +30,14 @@
                     <CheckBox Margin="4,0" x:Name="Traffic_Checkbox" Checked="Traffic_Checked" Unchecked="Traffic_Unchecked" Content="Traffic"/>
                     <CheckBox Margin="4,0" x:Name="Dark_Checkbox" Checked="Dark_Checked" Unchecked="Dark_Unchecked" Content="Dark" />
                     <CheckBox Margin="4,0" x:Name="Pedestrian_Checkbox" Checked="Pedestrian_Checked" Unchecked="Pedestrian_Unchecked" Content="Pedestrian"/>
+                    <Button x:Name="RemoveRouteButton" Content="Verwijder route" Click="RemoveRouteButton_Click"/>
                 </StackPanel>
             </Viewbox>
         </ScrollViewer>
-        <ScrollViewer Name="RouteScrollViewer" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Width="200">
-            <TextBlock Name="RouteTextBlock" Text="Route:@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" Margin="20,0,0,0"/>
+        <ScrollViewer Name="RouteScrollViewer" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Width="200" Margin="0" HorizontalAlignment="Center">
+            <Border BorderBrush="Gray" BorderThickness="2" Grid.Row="0">
+                <TextBlock Name="RouteTextBlock" Margin="10,0,0,0" TextWrapping="WrapWholeWords"/>
+            </Border>
         </ScrollViewer>
     </Grid>
 </Page>

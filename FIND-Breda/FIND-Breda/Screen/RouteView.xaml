@@ -18,6 +18,7 @@
             </Grid.ColumnDefinitions>
             <TextBlock x:Name="RouteLabel" Grid.Row="0" TextWrapping="Wrap" Text="Lijst van routes" FontSize="36" VerticalAlignment="Top" HorizontalAlignment="Center" FontWeight="Bold"/>
             <Button x:Name="BredaRouteButton" Grid.Row="1" Content="Breda" HorizontalAlignment="Center" Width="200" VerticalAlignment="Top" Click="BredaRouteButton_Click" Margin="0,50,0,0"/>
+            
         </Grid>
 
     </StackPanel>

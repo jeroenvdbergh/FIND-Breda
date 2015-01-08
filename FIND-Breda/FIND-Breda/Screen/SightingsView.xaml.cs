@@ -33,13 +33,8 @@ namespace FIND_Breda.Screen
             this.navigationHelper.SaveState += this.NavigationHelper_SaveState;
 
             this.NavigationCacheMode = NavigationCacheMode.Required;
-
-            MarketCheckBox.IsChecked = true;
-            MonumentsCheckBox.IsChecked = true;
-            RemainingCheckBox.IsChecked = true;
-            BuildingsCheckBox.IsChecked = true;
         }
-
+        #region Navigationhelpers
         public NavigationHelper NavigationHelper
         {
             get { return this.navigationHelper; }
@@ -64,28 +59,43 @@ namespace FIND_Breda.Screen
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            this.navigationHelper.OnNavigatedTo(e);
-
             SightingsLabel.Text = LanguageModel.instance.getText(Text.sightingslabel);
             MonumentsCheckBox.Content = LanguageModel.instance.getText(Text.monumentscheckbox);
             BuildingsCheckBox.Content = LanguageModel.instance.getText(Text.buildingscheckbox);
             MarketCheckBox.Content = LanguageModel.instance.getText(Text.marketcheckbox);
             RemainingCheckBox.Content = LanguageModel.instance.getText(Text.remainingcheckbox);
+            this.navigationHelper.OnNavigatedTo(e);
+        }
+        #endregion
+
+        /* Methode om mapicons aan en uit te zetten */
+        private void toggleMapIconVisibility(int[] icons, bool boolean)
+        {
+            string name = "sighting";
+            for (int i = 0; i < MapView.instance._sightings.Count; i++)
+            {
+                for (int j = 0; j < icons.Length; j++)
+                {
+                    string dynamicvar = String.Format(name + "{0}", i.ToString());
+                    if (dynamicvar.Contains(icons[j].ToString()))
+                    {
+                        MapView.instance._sightings[dynamicvar].Visible = boolean;
+                        // Debug.WriteLine(MapView.instance._sightings["sighting1"] + "@" +  dynamicvar);
+                        Debug.WriteLine("Toggled " + dynamicvar + " " + boolean);
+                    }
+                }
+            }
         }
 
         private void MonumentsCheckBox_Click(object sender, RoutedEventArgs e)
         {
             if (MonumentsCheckBox.IsChecked == true)
             {
-                //  MapView.instance._mapControl.Opacity = 1;
-                MapView.instance._sighting1.Visible = true;
-                MapView.instance._sighting2.Visible = true;
+                toggleMapIconVisibility(new int[] { 1, 2, 3, 8, 14, 17, 24, 25 }, true);
             }
             else
             {
-                // MapView.instance._mapControl.Opacity = 0;
-                MapView.instance._sighting1.Visible = false;
-                MapView.instance._sighting2.Visible = false;
+                toggleMapIconVisibility(new int[] { 1, 2, 3, 8, 14, 17, 24, 25 }, false);
             }
         }
 
@@ -93,11 +103,11 @@ namespace FIND_Breda.Screen
         {
             if (BuildingsCheckBox.IsChecked == true)
             {
-
+                toggleMapIconVisibility(new int[] { 0, 7, 9, 13, 18, 19, 20, 21, 22, 23, 27 }, true);
             }
             else
             {
-
+                toggleMapIconVisibility(new int[] { 0, 7, 9, 13, 18, 19, 20, 21, 22, 23, 27 }, false);
             }
         }
 
@@ -105,11 +115,11 @@ namespace FIND_Breda.Screen
         {
             if (MarketCheckBox.IsChecked == true)
             {
-
+                toggleMapIconVisibility(new int[] { 11, 12, 16 }, true);
             }
             else
             {
-
+                toggleMapIconVisibility(new int[] { 11, 12, 16 }, false);
             }
         }
 
@@ -117,11 +127,11 @@ namespace FIND_Breda.Screen
         {
             if (RemainingCheckBox.IsChecked == true)
             {
-
+                toggleMapIconVisibility(new int[] { 4, 5, 6, 10, 11, 15, 26, 28 }, true);
             }
             else
             {
-
+                toggleMapIconVisibility(new int[] { 4, 5, 6, 10, 11, 15, 26, 28 }, false);
             }
         }
     }

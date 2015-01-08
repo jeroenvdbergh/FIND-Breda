@@ -62,7 +62,7 @@ namespace FIND_Breda.Model
             this._dutch.Add(Text.helptextblock, "Info & Help");
             this._dutch.Add(Text.loadmapfirst, "Je moet de kaart eerst laden!");
             this._dutch.Add(Text.ZoomInAndOutButton, "In/uitzoomen");
-            this._dutch.Add(Text.BackButtonButton, "Terug-knop");
+            this._dutch.Add(Text.BackButtonButton, "Terugknop");
             this._dutch.Add(Text.MapInfoButton, "Kaart");
             this._dutch.Add(Text.LegendButton, "Legenda");
             this._dutch.Add(Text.SightingInfoButton, "Bezienswaardigheid");
@@ -70,6 +70,10 @@ namespace FIND_Breda.Model
             this._dutch.Add(Text.BackButtonInfo, "Met de terugknop kunt u naar de vorige pagina gaan. Deze knop kunt u linksonder op de telefoon vinden.");
             this._dutch.Add(Text.MapInfo, "Voor de kaart wordt BING maps gebruikt.");
             this._dutch.Add(Text.SightingInfo, "Alle bezienswaardigheden zijn geleverd door AGS.");
+            this._dutch.Add(Text.time, "Tijd:");
+            this._dutch.Add(Text.totaldistance, "Totale afstand(m):");
+            this._dutch.Add(Text.gettinglocationmessage, "Locatie ophalen kan even duren");
+            this._dutch.Add(Text.removeroutebutton, "Verwijder route");
 
             this._english.Add(Text.dutchlanguagebutton, "Dutch");
             this._english.Add(Text.englishlanguagebutton, "English");
@@ -92,7 +96,7 @@ namespace FIND_Breda.Model
             this._english.Add(Text.helptextblock, "Info & Help");
             this._english.Add(Text.loadmapfirst, "You have to load the map first!");
             this._english.Add(Text.ZoomInAndOutButton, "Zoom in/out");
-            this._english.Add(Text.BackButtonButton, "Back-button");
+            this._english.Add(Text.BackButtonButton, "Back button");
             this._english.Add(Text.MapInfoButton, "Map");
             this._english.Add(Text.LegendButton, "Legend");
             this._english.Add(Text.SightingInfoButton, "Sighting");
@@ -100,6 +104,10 @@ namespace FIND_Breda.Model
             this._english.Add(Text.BackButtonInfo, "With the backbutton you can go back to the previous page. You can find this button in the bottom left.");
             this._english.Add(Text.MapInfo, "BING maps is used for this map.");
             this._english.Add(Text.SightingInfo, "All sightings are delivered by AGS.");
+            this._english.Add(Text.time, "Time:");
+            this._english.Add(Text.totaldistance, "Total distance(m):");
+            this._english.Add(Text.gettinglocationmessage, "Obtaining location may take a while");
+            this._english.Add(Text.removeroutebutton, "Remove route");
         }
 
         /* Methode om de taal te veranderen */
@@ -125,10 +133,12 @@ namespace FIND_Breda.Model
                 case Language.english:
                     result = _english[text];
                     break;
+
                 case Language.dutch:
                 default:
                     result = _dutch[text];
                     break;
+
             }
             return result;
         }
