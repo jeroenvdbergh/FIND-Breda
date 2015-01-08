@@ -62,7 +62,7 @@ namespace FIND_Breda.Model
             this._dutch.Add(Text.helptextblock, "Info & Help");
             this._dutch.Add(Text.loadmapfirst, "Je moet de kaart eerst laden!");
             this._dutch.Add(Text.ZoomInAndOutButton, "In/uitzoomen");
-            this._dutch.Add(Text.BackButtonButton, "Terug-knop");
+            this._dutch.Add(Text.BackButtonButton, "Terugknop");
             this._dutch.Add(Text.MapInfoButton, "Kaart");
             this._dutch.Add(Text.LegendButton, "Legenda");
             this._dutch.Add(Text.SightingInfoButton, "Bezienswaardigheid");
@@ -94,7 +94,7 @@ namespace FIND_Breda.Model
             this._english.Add(Text.helptextblock, "Info & Help");
             this._english.Add(Text.loadmapfirst, "You have to load the map first!");
             this._english.Add(Text.ZoomInAndOutButton, "Zoom in/out");
-            this._english.Add(Text.BackButtonButton, "Back-button");
+            this._english.Add(Text.BackButtonButton, "Back button");
             this._english.Add(Text.MapInfoButton, "Map");
             this._english.Add(Text.LegendButton, "Legend");
             this._english.Add(Text.SightingInfoButton, "Sighting");

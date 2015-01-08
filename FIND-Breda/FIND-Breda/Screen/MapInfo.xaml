@@ -11,6 +11,7 @@
     <Grid>
         <TextBlock x:Name="MapInfoLabel" Margin="154,34,154,0" HorizontalAlignment="Center" Text="Kaart" VerticalAlignment="Top" Height="58" FontSize="36" FontWeight="Bold"/>
         <TextBlock x:Name="MapInfoTextBlock" Margin="30,97,30,0" TextWrapping="Wrap" Text="Voor de kaart wordt BING maps gebruikt. " VerticalAlignment="Top" Height="223" FontSize="22"/>
+        <Image HorizontalAlignment="Left" Height="100" Margin="30,189,0,0" VerticalAlignment="Top" Width="260" Source="ms-appx:///Assets/Bing_Maps_blue-logo.jpg" Stretch="Fill"/>
 
     </Grid>
 </Page>

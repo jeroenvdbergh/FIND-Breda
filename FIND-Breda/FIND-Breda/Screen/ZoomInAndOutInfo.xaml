@@ -10,7 +10,8 @@
 
     <Grid>
         <TextBlock x:Name="ZoomInAndOutLabel" Margin="89,34,87,0" Text="In/uitzoomen" VerticalAlignment="Top" HorizontalAlignment="Center" Height="58" FontSize="36" FontWeight="Bold"/>
-        <TextBlock x:Name="ZoomInAndOutTextBlock" Margin="30,97,30,0" TextWrapping="Wrap" Text="U kunt door uw  duim en wijsvinger uit elkaar te schijven, de kaart inzoomen. Om uit te zoomen moet u uw duim en wijsvinger naar elkaar schuiven." VerticalAlignment="Top" Height="421" FontSize="22"/>
+        <TextBlock x:Name="ZoomInAndOutTextBlock" Margin="30,97,30,0" TextWrapping="Wrap" Text="U kunt door uw  duim en wijsvinger uit elkaar te schijven, de kaart inzoomen. Om uit te zoomen moet u uw duim en wijsvinger naar elkaar schuiven." VerticalAlignment="Top" Height="141" FontSize="22"/>
+        <Image HorizontalAlignment="Left" Height="272" Margin="30,243,0,0" VerticalAlignment="Top" Width="227" Source="ms-appx:///Assets/Zoomen.png" Stretch="Fill"/>
 
     </Grid>
 </Page>
