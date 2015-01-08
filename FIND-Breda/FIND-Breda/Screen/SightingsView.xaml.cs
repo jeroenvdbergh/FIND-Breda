@@ -91,11 +91,11 @@ namespace FIND_Breda.Screen
         {
             if (MonumentsCheckBox.IsChecked == true)
             {
-                toggleMapIconVisibility(new int[] { 1,2,3,8,14,17,24,25 }, true);
+                toggleMapIconVisibility(new int[] { 1, 2, 3, 8, 14, 17, 24, 25 }, true);
             }
             else
             {
-                toggleMapIconVisibility(new int[] { 0 }, false);
+                toggleMapIconVisibility(new int[] { 1, 2, 3, 8, 14, 17, 24, 25 }, false);
             }
         }
 
@@ -103,11 +103,11 @@ namespace FIND_Breda.Screen
         {
             if (BuildingsCheckBox.IsChecked == true)
             {
-                toggleMapIconVisibility(new int[] { 0,7,9,13,18,19,20,21,22,23,27 }, true);
+                toggleMapIconVisibility(new int[] { 0, 7, 9, 13, 18, 19, 20, 21, 22, 23, 27 }, true);
             }
             else
             {
-                toggleMapIconVisibility(new int[] { 0,7,9,13,18,19,20,21,22,23,27 }, false);
+                toggleMapIconVisibility(new int[] { 0, 7, 9, 13, 18, 19, 20, 21, 22, 23, 27 }, false);
             }
         }
 
@@ -115,11 +115,11 @@ namespace FIND_Breda.Screen
         {
             if (MarketCheckBox.IsChecked == true)
             {
-                toggleMapIconVisibility(new int[] { 11,12,16 }, true);
+                toggleMapIconVisibility(new int[] { 11, 12, 16 }, true);
             }
             else
             {
-                toggleMapIconVisibility(new int[] { 11,12,16 }, false);
+                toggleMapIconVisibility(new int[] { 11, 12, 16 }, false);
             }
         }
 
@@ -127,7 +127,7 @@ namespace FIND_Breda.Screen
         {
             if (RemainingCheckBox.IsChecked == true)
             {
-                toggleMapIconVisibility(new int[] { 4,5,6,10,11,15,26,28 }, true);
+                toggleMapIconVisibility(new int[] { 4, 5, 6, 10, 11, 15, 26, 28 }, true);
             }
             else
             {

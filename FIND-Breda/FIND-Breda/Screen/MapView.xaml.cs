@@ -47,6 +47,7 @@ namespace FIND_Breda.Screen
 
         public Dictionary<string, MapIcon> _sightings { get; set; }
         private Ellipse _ellipse;
+        public bool _started { get; set; }
 
         public MapView()
         {
@@ -59,7 +60,7 @@ namespace FIND_Breda.Screen
             this.NavigationCacheMode = NavigationCacheMode.Required;
             Window.Current.SizeChanged += Current_SizeChanged;
             _sightings = new Dictionary<string, MapIcon>();
-
+            _started = false;
             /* Layout goed zetten op landscape als de device al op landscape stond */
             if (_simpleorientation.GetCurrentOrientation() == SimpleOrientation.Rotated90DegreesCounterclockwise)
                 this.setToLandscape();
@@ -137,10 +138,6 @@ namespace FIND_Breda.Screen
         }
         #endregion
 
-        private void addellipse()
-        {
-
-        }
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             /* De kaart goedzetten op basis van je locatie alleen als je vanaf de mainpage komt */
@@ -152,7 +149,11 @@ namespace FIND_Breda.Screen
             else if (prevpage.Contains("RouteView"))
             {
                 /* Alle bezienswaardigheden weergeven */
-                displaySightings();
+                if (!_started)
+                {
+                    displaySightings(true);
+                    _started = true;
+                }
             }
             setToCurrentLocation();
 
@@ -182,9 +183,9 @@ namespace FIND_Breda.Screen
 
         private async void geo_PositionChanged(Geolocator sender, PositionChangedEventArgs e)
         {
-            var location = await getLocationAsync();
             this.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
             {
+                var location = await getLocationAsync();
                 map.Children.Remove(_ellipse);
                 _ellipse = new Ellipse();
 
@@ -195,7 +196,6 @@ namespace FIND_Breda.Screen
                 MapControl.SetLocation(_ellipse, location.Coordinate.Point);
                 await map.TrySetViewAsync(location.Coordinate.Point, map.ZoomLevel, 0, 0, MapAnimationKind.Linear);
             });
-
         }
 
         /* Methode om je locatie te geven 
@@ -207,20 +207,32 @@ namespace FIND_Breda.Screen
             return await _geo.GetGeopositionAsync();
         }
 
-        private void displaySightings()
+        private void displaySightings(bool on)
         {
+
             string name = "sighting";
-            for (int i = 0; i < DatabaseConnection.instance.getSightings().Count; i++)
+            if (on == false)
             {
-                MapIcon tempMapIcon = new MapIcon();
-                tempMapIcon.Location = new Geopoint(new BasicGeoposition()
+                for (int i = 0; i < DatabaseConnection.instance.getSightings().Count; i++)
                 {
-                    Latitude = DatabaseConnection.instance.getSighting(i).Latitude,
-                    Longitude = DatabaseConnection.instance.getSighting(i).Longitude
-                });
-                tempMapIcon.Title = DatabaseConnection.instance.getSighting(i).Name;
-                _sightings.Add(String.Format(name + "{0}", i.ToString()), tempMapIcon);
-                map.MapElements.Add(tempMapIcon);
+                    map.MapElements.Remove(_sightings[String.Format(name + "{0}", i.ToString())]);
+                }
+                _sightings.Clear();
+            }
+            else
+            {
+                for (int i = 0; i < DatabaseConnection.instance.getSightings().Count; i++)
+                {
+                    MapIcon tempMapIcon = new MapIcon();
+                    tempMapIcon.Location = new Geopoint(new BasicGeoposition()
+                    {
+                        Latitude = DatabaseConnection.instance.getSighting(i).Latitude,
+                        Longitude = DatabaseConnection.instance.getSighting(i).Longitude
+                    });
+                    tempMapIcon.Title = DatabaseConnection.instance.getSighting(i).Name;
+                    _sightings.Add(String.Format(name + "{0}", i.ToString()), tempMapIcon);
+                    map.MapElements.Add(tempMapIcon);
+                }
             }
         }
 
