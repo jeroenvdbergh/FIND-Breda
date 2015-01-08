@@ -173,9 +173,6 @@ namespace FIND_Breda.Screen
                 _geo = new Geolocator() { DesiredAccuracy = PositionAccuracy.High, ReportInterval = 1000 };
 
             var location = await getLocationAsync();
-            //await map.TrySetViewAsync(location.Coordinate.Point, 15, 0, 0, MapAnimationKind.Bow);
-            //Geopoint breda = new Geopoint(new BasicGeoposition() { Latitude = 51.5940, Longitude = 4.7795 });
-            //await map.TrySetViewAsync(breda, 15, 0, 0, MapAnimationKind.Bow);
             await map.TrySetViewAsync(location.Coordinate.Point, 18, 0, 0, MapAnimationKind.Linear);
 
             _geo.PositionChanged += new TypedEventHandler<Geolocator, PositionChangedEventArgs>(geo_PositionChanged);
