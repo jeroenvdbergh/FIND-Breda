@@ -148,14 +148,13 @@ namespace FIND_Breda.Screen
             if (prevpage.Contains("MainPage"))
             {
                 ShowToastNotification(LanguageModel.instance.getText(Text.gettinglocationmessage));
-                setToCurrentLocation();
             }
             else if (prevpage.Contains("RouteView"))
             {
                 /* Alle bezienswaardigheden weergeven */
                 displaySightings();
-                setToCurrentLocation();
             }
+            setToCurrentLocation();
 
             //GetLocationAsyncButton.Content = LanguageModel.instance.getText(Text.getlocationbutton);
             Aerial_Checkbox.Content = LanguageModel.instance.getText(Text.aerialcheckbox);
@@ -184,7 +183,7 @@ namespace FIND_Breda.Screen
         private async void geo_PositionChanged(Geolocator sender, PositionChangedEventArgs e)
         {
             var location = await getLocationAsync();
-            this.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+            this.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
             {
                 map.Children.Remove(_ellipse);
                 _ellipse = new Ellipse();
@@ -194,8 +193,8 @@ namespace FIND_Breda.Screen
                 _ellipse.Height = 10;
                 map.Children.Add(_ellipse);
                 MapControl.SetLocation(_ellipse, location.Coordinate.Point);
+                await map.TrySetViewAsync(location.Coordinate.Point, map.ZoomLevel, 0, 0, MapAnimationKind.Linear);
             });
-            await map.TrySetViewAsync(location.Coordinate.Point, map.ZoomLevel, 0, 0, MapAnimationKind.Linear);
 
         }
 
@@ -299,7 +298,7 @@ namespace FIND_Breda.Screen
             toastTextElements[0].AppendChild(toastXml.CreateTextNode(message));
 
             // Set image
-          // Images must be less than 200 KB in size and smaller than 1024 x 1024 pixels.
+            // Images must be less than 200 KB in size and smaller than 1024 x 1024 pixels.
             XmlNodeList toastImageAttributes = toastXml.GetElementsByTagName("image");
             ((XmlElement)toastImageAttributes[0]).SetAttribute("src", "ms-appx:///Images/logo-80px-80px.png");
             ((XmlElement)toastImageAttributes[0]).SetAttribute("alt", "logo");
