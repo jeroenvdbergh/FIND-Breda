@@ -17,6 +17,7 @@
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -27,6 +28,7 @@
             <Button x:Name="MapInfoButton" Grid.Row="3" Content="Kaart" HorizontalAlignment="Center"  VerticalAlignment="Top" Width="188" Click="MapInfoButton_Click"/>
             <Button x:Name="LegendButton" Grid.Row="4" Content="Legenda" HorizontalAlignment="Center" VerticalAlignment="Top" Width="188" Click="LegendButton_Click"/>
             <Button x:Name="SightingInfoButton" Grid.Row="5" Content="Bezienswaardigheid" HorizontalAlignment="Center" VerticalAlignment="Top" Click="SightingInfoButton_Click" Width="188"/>
+            <Button x:Name="Contact" Grid.Row="6" Content="Contact" HorizontalAlignment="Center" VerticalAlignment="Top" Click="Contact_Click" Width="188"/>
 
             <Grid x:Name="LayoutRoot"/>
         </Grid>

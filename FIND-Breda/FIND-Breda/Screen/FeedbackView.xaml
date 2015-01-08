@@ -1,0 +1,19 @@
+﻿<Page
+    x:Class="FIND_Breda.Screen.FeedbackView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:FIND_Breda.Screen"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <StackPanel>
+            <TextBlock FontSize="30" Margin="10,10,0,10" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Heb je een vraag of opmerking over FIND-Breda? Aarzel niet en stuur ons een bericht!" VerticalAlignment="Top" Height="143" Width="370"/>
+            <TextBox HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="{Binding}" VerticalAlignment="Stretch" Height="350" />
+            <Button Content="Stuur" Background="Transparent" BorderBrush="Transparent" BorderThickness="0" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="100"/>
+            
+        </StackPanel>
+    </Grid>
+</Page>
