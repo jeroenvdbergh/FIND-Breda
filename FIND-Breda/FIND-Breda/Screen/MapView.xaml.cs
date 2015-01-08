@@ -30,6 +30,7 @@ using Windows.UI.Core;
 using Windows.UI.Xaml.Shapes;
 using Windows.UI.Notifications;
 using Windows.Data.Xml.Dom;
+using Windows.UI.Popups;
 
 namespace FIND_Breda.Screen
 {
@@ -38,6 +39,7 @@ namespace FIND_Breda.Screen
         private NavigationHelper navigationHelper;
         private ObservableDictionary defaultViewModel = new ObservableDictionary();
 
+        private bool _routeStatus = false;
         private Geolocator _geo = null;
         private CoreDispatcher _cd;
         public MapControl _mapControl { get; set; }
@@ -69,6 +71,9 @@ namespace FIND_Breda.Screen
 
             this._mapControl = map;
             _mapView = this;
+
+            _routeStatus = true;
+        
         }
 
         public static MapView instance
@@ -154,7 +159,8 @@ namespace FIND_Breda.Screen
                     _started = true;
                 }
             }
-         //   setToCurrentLocation();
+            setToCurrentLocation();
+            popupSightings();
 
             Aerial_Checkbox.Content = LanguageModel.instance.getText(Text.aerialcheckbox);
             AerialWithRoads_Checkbox.Content = LanguageModel.instance.getText(Text.aerialwithroadscheckbox);
@@ -205,6 +211,30 @@ namespace FIND_Breda.Screen
             return await _geo.GetGeopositionAsync();
         }
 
+        private async void popupSightings()
+        {
+            double latitude;
+            double longitude;
+            String description;
+            while (_routeStatus == true)
+            {
+                for (int i = 0; i < DatabaseConnection.instance.getSightings().Count; i++)
+                {
+                    latitude = DatabaseConnection.instance.getSighting(i).Latitude;
+                    longitude = DatabaseConnection.instance.getSighting(i).Longitude;
+                    var location = await getLocationAsync();
+                    if ((location.Coordinate.Latitude - latitude <= 0.00016799999 || latitude - location.Coordinate.Latitude <= 0.00016799999) && location.Coordinate.Longitude - longitude <= 0.000297 || longitude - location.Coordinate.Longitude <= 0.000297)
+                      {
+                    description = DatabaseConnection.instance.getSighting(i).Description;
+                    // DatabaseConnection.instance.getSighting(i).Path;  plaatjes erbij
+                    MessageDialog _msgbox = new MessageDialog(description);
+                    await _msgbox.ShowAsync();
+                    //_routeStatus bij t stoppen van de route op false zetten
+
+                     }
+                }
+            }
+        }
         /* Methode om mapicons aan en uit te zetten */
         private void displaySightings(bool on)
         {
