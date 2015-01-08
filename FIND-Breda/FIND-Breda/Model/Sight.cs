@@ -15,6 +15,7 @@ namespace FIND_Breda.Model
         public string Description { get; set; }
         public string Address { get; set; }
         public string LongDescription { get; set; }
+        public string Pathname { get; set; }
 
     }
 }
