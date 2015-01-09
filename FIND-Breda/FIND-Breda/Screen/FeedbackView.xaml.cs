@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FIND_Breda.Common;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -22,19 +23,40 @@ namespace FIND_Breda.Screen
     /// </summary>
     public sealed partial class FeedbackView : Page
     {
+        private NavigationHelper navigationHelper;
+        private ObservableDictionary defaultViewModel = new ObservableDictionary();
         public FeedbackView()
         {
             this.InitializeComponent();
+            this.navigationHelper = new NavigationHelper(this);
+            this.navigationHelper.LoadState += this.NavigationHelper_LoadState;
+            this.navigationHelper.SaveState += this.NavigationHelper_SaveState;
+        }
+        public NavigationHelper NavigationHelper
+        {
+            get { return this.navigationHelper; }
+        }
+        public ObservableDictionary DefaultViewModel
+        {
+            get { return this.defaultViewModel; }
         }
 
-        /// <summary>
-        /// Invoked when this page is about to be displayed in a Frame.
-        /// </summary>
-        /// <param name="e">Event data that describes how this page was reached.
-        /// This parameter is typically used to configure the page.</param>
+        private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
+        {
+        }
+
+        private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e)
+        {
+        }
+
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            this.navigationHelper.OnNavigatedTo(e);
+        }
 
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            this.navigationHelper.OnNavigatedFrom(e);
         }
     }
 }
