@@ -161,8 +161,7 @@ namespace FIND_Breda.Screen
                 }
             }
             setToCurrentLocation();
-
-          //  await Task.Run(() => popupSightings());
+            //   await Task.Run(() => popupSightings());
 
             Aerial_Checkbox.Content = LanguageModel.instance.getText(Text.aerialcheckbox);
             AerialWithRoads_Checkbox.Content = LanguageModel.instance.getText(Text.aerialwithroadscheckbox);
@@ -173,8 +172,6 @@ namespace FIND_Breda.Screen
 
             this.navigationHelper.OnNavigatedTo(e);
         }
-
-
 
         /* Mapview op je huidige positie zetten */
         private async void setToCurrentLocation()
@@ -191,21 +188,21 @@ namespace FIND_Breda.Screen
         /* Eventhandler voor je locatie updaten */
         private async void geo_PositionChanged(Geolocator sender, PositionChangedEventArgs e)
         {
-            this.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
-            {
-                var location = await getLocationAsync();
-                map.Children.Remove(_ellipse);
-                _ellipse = new Ellipse();
+            await this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
+             {
+                 var location = await getLocationAsync();
+                 map.Children.Remove(_ellipse);
+                 _ellipse = new Ellipse();
 
-                _ellipse.Fill = new SolidColorBrush(Colors.Red);
-                _ellipse.Width = 10;
-                _ellipse.Height = 10;
-                map.Children.Add(_ellipse);
-                MapControl.SetLocation(_ellipse, location.Coordinate.Point);
+                 _ellipse.Fill = new SolidColorBrush(Colors.Red);
+                 _ellipse.Width = 10;
+                 _ellipse.Height = 10;
+                 map.Children.Add(_ellipse);
+                 MapControl.SetLocation(_ellipse, location.Coordinate.Point);
 
-                if (UpdateLocation_Checkbox.IsChecked == true)
-                    await map.TrySetViewAsync(location.Coordinate.Point, map.ZoomLevel, 0, 0, MapAnimationKind.Linear);
-            });
+                 if (UpdateLocation_Checkbox.IsChecked == true)
+                     await map.TrySetViewAsync(location.Coordinate.Point, map.ZoomLevel, 0, 0, MapAnimationKind.Linear);
+             });
         }
 
         /* Methode om je locatie te geven 
@@ -223,28 +220,26 @@ namespace FIND_Breda.Screen
             double longitude;
             String description;
             double distance = 0.02;
-            this.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
-          {
-              while (_routeStatus == true)
-              {
-                  for (int i = 0; i < DatabaseConnection.instance.getSightings().Count; i++)
-                  {
-                      latitude = DatabaseConnection.instance.getSighting(i).Latitude;
-                      longitude = DatabaseConnection.instance.getSighting(i).Longitude;
-                      var location = await getLocationAsync();
-                      //if ((location.Coordinate.Latitude - latitude <= 0.00016799999 || latitude - location.Coordinate.Latitude <= 0.00016799999) && location.Coordinate.Longitude - longitude <= 0.000297 || longitude - location.Coordinate.Longitude <= 0.000297)
-                      if (DistanceAlgorithm.DistanceBetweenPlaces(longitude, latitude, location.Coordinate.Point.Position.Longitude, location.Coordinate.Point.Position.Latitude) <= distance)
-                      {
-                          description = DatabaseConnection.instance.getSighting(i).Description;
-                          // DatabaseConnection.instance.getSighting(i).Path;  plaatjes erbij
-                          MessageDialog _msgbox = new MessageDialog(description);
-                          await _msgbox.ShowAsync();
-                          //_routeStatus bij t stoppen van de route op false zetten
-
-                      }
-                  }
-              }
-          });
+            this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
+           {
+               while (_routeStatus == true)
+               {
+                   for (int i = 0; i < DatabaseConnection.instance.getSightings().Count; i++)
+                   {
+                       latitude = DatabaseConnection.instance.getSighting(i).Latitude;
+                       longitude = DatabaseConnection.instance.getSighting(i).Longitude;
+                       var location = await getLocationAsync();
+                       //if ((location.Coordinate.Latitude - latitude <= 0.00016799999 || latitude - location.Coordinate.Latitude <= 0.00016799999) && location.Coordinate.Longitude - longitude <= 0.000297 || longitude - location.Coordinate.Longitude <= 0.000297)
+                       if (DistanceAlgorithm.DistanceBetweenPlaces(longitude, latitude, location.Coordinate.Point.Position.Longitude, location.Coordinate.Point.Position.Latitude) <= distance)
+                       {
+                           description = DatabaseConnection.instance.getSighting(i).Description;
+                           // DatabaseConnection.instance.getSighting(i).Path;  plaatjes erbij
+                           MessageDialog _msgbox = new MessageDialog(description);
+                           await _msgbox.ShowAsync();
+                       }
+                   }
+               }
+           });
         }
         /* Methode om mapicons aan en uit te zetten */
         private void displaySightings(bool on)
