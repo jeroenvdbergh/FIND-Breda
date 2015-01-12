@@ -74,6 +74,7 @@ namespace FIND_Breda.Model
             this._dutch.Add(Text.totaldistance, "Totale afstand(m):");
             this._dutch.Add(Text.gettinglocationmessage, "Locatie ophalen kan even duren");
             this._dutch.Add(Text.removeroutebutton, "Verwijder route");
+            this._dutch.Add(Text.updatetocurrentlocation, "Naar locatie updaten");
 
             this._english.Add(Text.dutchlanguagebutton, "Dutch");
             this._english.Add(Text.englishlanguagebutton, "English");
@@ -108,6 +109,7 @@ namespace FIND_Breda.Model
             this._english.Add(Text.totaldistance, "Total distance(m):");
             this._english.Add(Text.gettinglocationmessage, "Obtaining location may take a while");
             this._english.Add(Text.removeroutebutton, "Remove route");
+            this._english.Add(Text.updatetocurrentlocation, "Update to location");
         }
 
         /* Methode om de taal te veranderen */

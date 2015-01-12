@@ -162,7 +162,7 @@ namespace FIND_Breda.Screen
             }
             setToCurrentLocation();
 
-            await Task.Run(() => popupSightings());
+          //  await Task.Run(() => popupSightings());
 
             Aerial_Checkbox.Content = LanguageModel.instance.getText(Text.aerialcheckbox);
             AerialWithRoads_Checkbox.Content = LanguageModel.instance.getText(Text.aerialwithroadscheckbox);
@@ -202,7 +202,9 @@ namespace FIND_Breda.Screen
                 _ellipse.Height = 10;
                 map.Children.Add(_ellipse);
                 MapControl.SetLocation(_ellipse, location.Coordinate.Point);
-                await map.TrySetViewAsync(location.Coordinate.Point, map.ZoomLevel, 0, 0, MapAnimationKind.Linear);
+
+                if (UpdateLocation_Checkbox.IsChecked == true)
+                    await map.TrySetViewAsync(location.Coordinate.Point, map.ZoomLevel, 0, 0, MapAnimationKind.Linear);
             });
         }
 
@@ -214,9 +216,9 @@ namespace FIND_Breda.Screen
         {
             return await _geo.GetGeopositionAsync();
         }
+
         private async void popupSightings()
         {
-
             double latitude;
             double longitude;
             String description;

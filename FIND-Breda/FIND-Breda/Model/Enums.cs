@@ -46,6 +46,7 @@ namespace FIND_Breda.Model
         time,
         totaldistance,
         gettinglocationmessage,
-        removeroutebutton
+        removeroutebutton,
+       updatetocurrentlocation
     }
 }
