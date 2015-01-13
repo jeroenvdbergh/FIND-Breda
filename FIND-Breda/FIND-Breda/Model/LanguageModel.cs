@@ -75,6 +75,9 @@ namespace FIND_Breda.Model
             this._dutch.Add(Text.gettinglocationmessage, "Locatie ophalen kan even duren");
             this._dutch.Add(Text.removeroutebutton, "Verwijder route");
             this._dutch.Add(Text.updatetocurrentlocation, "Naar locatie updaten");
+            this._dutch.Add(Text.feedbacktext, "Heb je een vraag of opmerking over FIND-Breda? Aarzel niet en stuur ons een bericht!");
+            this._dutch.Add(Text.sendfeedbackbutton, "Stuur");
+            this._dutch.Add(Text.feedbackerror, "Feedback is leeg...");
 
             this._english.Add(Text.dutchlanguagebutton, "Dutch");
             this._english.Add(Text.englishlanguagebutton, "English");
@@ -110,6 +113,9 @@ namespace FIND_Breda.Model
             this._english.Add(Text.gettinglocationmessage, "Obtaining location may take a while");
             this._english.Add(Text.removeroutebutton, "Remove route");
             this._english.Add(Text.updatetocurrentlocation, "Update to location");
+            this._english.Add(Text.feedbacktext, "Do you have a questtion or comment about FIND-Breda? Feel free to send us a message!");
+            this._english.Add(Text.sendfeedbackbutton, "Send");
+            this._english.Add(Text.feedbackerror, "Feedback is empty...");
         }
 
         /* Methode om de taal te veranderen */

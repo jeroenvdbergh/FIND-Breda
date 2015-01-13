@@ -10,10 +10,9 @@
 
     <Grid>
         <StackPanel>
-            <TextBlock FontSize="30" Margin="10,10,0,10" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Heb je een vraag of opmerking over FIND-Breda? Aarzel niet en stuur ons een bericht!" VerticalAlignment="Top" Height="143" Width="370"/>
-            <TextBox HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="{Binding}" VerticalAlignment="Stretch" Height="350" />
-            <Button Content="Stuur" Background="Transparent" BorderBrush="Transparent" BorderThickness="0" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="100"/>
-            
+            <TextBlock x:Name="FeedbackTextBlock" FontSize="30" Margin="10,10,0,10" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Heb je een vraag of opmerking over FIND-Breda? Aarzel niet en stuur ons een bericht!" VerticalAlignment="Top" Height="143" Width="370"/>
+            <TextBox x:Name="FeedbackTextBox" HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="{Binding}" VerticalAlignment="Stretch" Height="350" />
+            <Button x:Name="SendFeedbackButton" Content="Stuur" Background="Transparent" BorderBrush="Transparent" BorderThickness="0" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="100" Click="SendFeedbackButton_Click"/>
         </StackPanel>
     </Grid>
 </Page>

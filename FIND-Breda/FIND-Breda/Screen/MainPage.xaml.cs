@@ -77,6 +77,7 @@ namespace FIND_Breda
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+
         }
 
         private void PlannedRouteButton_Click(object sender, RoutedEventArgs e)

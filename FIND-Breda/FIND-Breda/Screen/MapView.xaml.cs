@@ -40,7 +40,7 @@ namespace FIND_Breda.Screen
         private ObservableDictionary defaultViewModel = new ObservableDictionary();
 
         private bool _routeStatus = false;
-        private Geolocator _geo = null;
+        private Geolocator _geo = new Geolocator() { DesiredAccuracy = PositionAccuracy.High, ReportInterval = 1000 };
         private CoreDispatcher _cd;
         public MapControl _mapControl { get; set; }
         public static MapView _mapView = null;
@@ -49,7 +49,7 @@ namespace FIND_Breda.Screen
 
         public Dictionary<string, MapIcon> _sightings { get; set; }
         private Ellipse _ellipse;
-        public bool _started { get; set; }
+        private bool _started { get; set; }
 
         public MapView()
         {
@@ -158,10 +158,11 @@ namespace FIND_Breda.Screen
                     displaySightings(true);
                     _started = true;
                     _routeStatus = true;
+                    await Task.Run(() => checkForSightings());
                 }
             }
+
             setToCurrentLocation();
-            //   await Task.Run(() => popupSightings());
 
             Aerial_Checkbox.Content = LanguageModel.instance.getText(Text.aerialcheckbox);
             AerialWithRoads_Checkbox.Content = LanguageModel.instance.getText(Text.aerialwithroadscheckbox);
@@ -176,9 +177,6 @@ namespace FIND_Breda.Screen
         /* Mapview op je huidige positie zetten */
         private async void setToCurrentLocation()
         {
-            if (_geo == null)
-                _geo = new Geolocator() { DesiredAccuracy = PositionAccuracy.High, ReportInterval = 1000 };
-
             var location = await getLocationAsync();
             await map.TrySetViewAsync(location.Coordinate.Point, 18, 0, 0, MapAnimationKind.Linear);
 
@@ -214,13 +212,13 @@ namespace FIND_Breda.Screen
             return await _geo.GetGeopositionAsync();
         }
 
-        private async void popupSightings()
+        private async void checkForSightings()
         {
             double latitude;
             double longitude;
             String description;
             double distance = 0.02;
-            this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
+            await this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
            {
                while (_routeStatus == true)
                {
@@ -228,19 +226,33 @@ namespace FIND_Breda.Screen
                    {
                        latitude = DatabaseConnection.instance.getSighting(i).Latitude;
                        longitude = DatabaseConnection.instance.getSighting(i).Longitude;
+
                        var location = await getLocationAsync();
+
                        //if ((location.Coordinate.Latitude - latitude <= 0.00016799999 || latitude - location.Coordinate.Latitude <= 0.00016799999) && location.Coordinate.Longitude - longitude <= 0.000297 || longitude - location.Coordinate.Longitude <= 0.000297)
                        if (DistanceAlgorithm.DistanceBetweenPlaces(longitude, latitude, location.Coordinate.Point.Position.Longitude, location.Coordinate.Point.Position.Latitude) <= distance)
                        {
-                           description = DatabaseConnection.instance.getSighting(i).Description;
-                           // DatabaseConnection.instance.getSighting(i).Path;  plaatjes erbij
-                           MessageDialog _msgbox = new MessageDialog(description);
-                           await _msgbox.ShowAsync();
+                           if (DatabaseConnection.instance.getSighting(i).Name.Equals("Einde"))
+                           {
+                               stopRoute();
+                               MessageDialog _msgbox = new MessageDialog("Einde standswandeling!");
+                               await _msgbox.ShowAsync();
+
+                               Frame.Navigate(typeof(FeedbackView));
+                           }
+                           else
+                           {
+                               description = DatabaseConnection.instance.getSighting(i).Description;
+                               // DatabaseConnection.instance.getSighting(i).Path;  plaatjes erbij
+                               MessageDialog _msgbox = new MessageDialog(description);
+                               await _msgbox.ShowAsync();
+                           }
                        }
                    }
                }
            });
         }
+
         /* Methode om mapicons aan en uit te zetten */
         private void displaySightings(bool on)
         {
@@ -270,16 +282,23 @@ namespace FIND_Breda.Screen
                 }
             }
         }
+
         private void RemoveRouteButton_Click(object sender, RoutedEventArgs e)
         {
             if (_started)
             {
-                RouteTextBlock.Text = String.Empty;
-                map.Routes.Clear();
-                displaySightings(false);
-                _started = false;
-                _routeStatus = false;
+                stopRoute();
+                Frame.Navigate(typeof(FeedbackView), this.ToString());
             }
+        }
+
+        private void stopRoute()
+        {
+            RouteTextBlock.Text = String.Empty;
+            map.Routes.Clear();
+            displaySightings(false);
+            _started = false;
+            _routeStatus = false;
         }
 
         #region /* De route van breda */
