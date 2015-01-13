@@ -36,24 +36,8 @@ namespace FIND_Breda.Screen
             this.navigationHelper = new NavigationHelper(this);
             this.navigationHelper.LoadState += this.NavigationHelper_LoadState;
             this.navigationHelper.SaveState += this.NavigationHelper_SaveState;
-          //  HardwareButtons.BackPressed += HardwareButtons_BackPressed;
         }
 
-        void HardwareButtons_BackPressed(object sender, BackPressedEventArgs e)
-        {
-            Frame frame = Window.Current.Content as Frame;
-            if (frame == null)
-            {
-                return;
-            }
-
-            if (frame.CanGoBack)
-            {
-                frame.GoBack();
-                e.Handled = true;
-            }
-            Frame.Navigate(typeof(MapView), this.ToString());
-        }
         public NavigationHelper NavigationHelper
         {
             get { return this.navigationHelper; }
