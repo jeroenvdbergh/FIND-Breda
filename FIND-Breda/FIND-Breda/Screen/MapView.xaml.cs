@@ -245,7 +245,9 @@ namespace FIND_Breda.Screen
                                description = DatabaseConnection.instance.getSighting(i).Description;
                                // DatabaseConnection.instance.getSighting(i).Path;  plaatjes erbij
                                MessageDialog _msgbox = new MessageDialog(description);
+
                                await _msgbox.ShowAsync();
+                               chancePushPinColor(DatabaseConnection.instance.getSighting(i).ID);
                            }
                        }
                    }
@@ -280,6 +282,35 @@ namespace FIND_Breda.Screen
                     _sightings.Add(String.Format(name + "{0}", i.ToString()), tempMapIcon);
                     map.MapElements.Add(tempMapIcon);
                 }
+
+                MapIcon icon = (MapIcon)map.MapElements.ElementAt(1);
+                Debug.WriteLine(icon.Title);
+
+                map.MapElements.Add(icon);
+            }
+        }
+
+        public void chancePushPinColor(int index)
+        {
+
+            map.MapElements.Clear();
+
+            for (int i = 0; i < DatabaseConnection.instance.getSightings().Count; i++)
+            {
+
+                MapIcon tempMapIcon = new MapIcon();
+                tempMapIcon.Location = new Geopoint(new BasicGeoposition()
+                {
+                    Latitude = DatabaseConnection.instance.getSighting(i).Latitude,
+                    Longitude = DatabaseConnection.instance.getSighting(i).Longitude
+                });
+                tempMapIcon.Title = DatabaseConnection.instance.getSighting(i).Name;
+                if ((i == index-1))
+                {
+                    tempMapIcon.Image = RandomAccessStreamReference.CreateFromUri(new Uri("ms-appx:///Assets/customicon.png"));
+                    Debug.WriteLine(tempMapIcon.Title);
+                }
+                map.MapElements.Add(tempMapIcon);
             }
         }
 
