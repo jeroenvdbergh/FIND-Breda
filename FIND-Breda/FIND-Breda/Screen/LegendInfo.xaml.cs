@@ -17,6 +17,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Windows.Phone.UI.Input;
+using Windows.UI.Xaml.Media.Imaging;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkID=390556
 
@@ -64,6 +65,7 @@ namespace FIND_Breda.Screen
         #region NavigationHelper registration
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            LegendImage.Source = new BitmapImage(new Uri(LanguageModel.instance.getText(Text.legendimage)));
             LegendTextBlock.Text = LanguageModel.instance.getText(Text.LegendButton);
             this.navigationHelper.OnNavigatedTo(e);
         }

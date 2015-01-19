@@ -9,7 +9,7 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <TextBlock x:Name="LegendTextBlock" Margin="138,34,102,0" Text="Legenda" VerticalAlignment="Top" Height="47" FontSize="36" RenderTransformOrigin="0.529,0.238" SelectionChanged="TextBlock_SelectionChanged" FontWeight="Bold" HorizontalAlignment="Center"/>
-
+        <TextBlock x:Name="LegendTextBlock" Text="Legenda" VerticalAlignment="Top" Height="47" FontSize="36" FontWeight="Bold" HorizontalAlignment="Center"/>
+        <Image x:Name="LegendImage" HorizontalAlignment="Left" VerticalAlignment="Center" Source="ms-appx:///Assets/legenda.png" Stretch="Uniform" Margin="10,0"/>
     </Grid>
 </Page>

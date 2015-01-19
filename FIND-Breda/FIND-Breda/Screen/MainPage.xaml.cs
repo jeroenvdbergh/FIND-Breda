@@ -117,6 +117,8 @@ namespace FIND_Breda
             MapButton.Content = LanguageModel.instance.getText(Text.mapbutton);
             SightingsButton.Content = LanguageModel.instance.getText(Text.sightingbutton);
             HelpButton.Content = LanguageModel.instance.getText(Text.helpbutton);
+            DutchLanguageButton.Content = LanguageModel.instance.getText(Text.dutchlanguagebutton);
+            EnglishLanguageButton.Content = LanguageModel.instance.getText(Text.englishlanguagebutton);
         }
 
         private void EnglishLanguageButton_Click(object sender, RoutedEventArgs e)
@@ -130,6 +132,8 @@ namespace FIND_Breda
             MapButton.Content = LanguageModel.instance.getText(Text.mapbutton);
             SightingsButton.Content = LanguageModel.instance.getText(Text.sightingbutton);
             HelpButton.Content = LanguageModel.instance.getText(Text.helpbutton);
+            DutchLanguageButton.Content = LanguageModel.instance.getText(Text.dutchlanguagebutton);
+            EnglishLanguageButton.Content = LanguageModel.instance.getText(Text.englishlanguagebutton);
         }
     }
 }

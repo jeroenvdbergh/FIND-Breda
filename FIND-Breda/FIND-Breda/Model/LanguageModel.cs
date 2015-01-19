@@ -68,8 +68,8 @@ namespace FIND_Breda.Model
             this._dutch.Add(Text.SightingInfoButton, "Bezienswaardigheid");
             this._dutch.Add(Text.ZoomInAndOutInfo, "U kunt door uw  duim en wijsvinger uit elkaar te schijven, de kaart inzoomen. Om uit te zoomen moet u uw duim en wijsvinger naar elkaar schuiven.");
             this._dutch.Add(Text.BackButtonInfo, "Met de terugknop kunt u naar de vorige pagina gaan. Deze knop kunt u linksonder op de telefoon vinden.");
-            this._dutch.Add(Text.MapInfo, "Voor de kaart wordt BING maps gebruikt.");
-            this._dutch.Add(Text.SightingInfo, "Alle bezienswaardigheden zijn geleverd door AGS.");
+            this._dutch.Add(Text.MapInfo, "BING maps is gebruikt voor deze applicatie");
+            this._dutch.Add(Text.SightingInfo, "Alle bezienswaardigheden zijn geleverd door AGS");
             this._dutch.Add(Text.time, "Tijd:");
             this._dutch.Add(Text.totaldistance, "Totale afstand(m):");
             this._dutch.Add(Text.gettinglocationmessage, "Locatie ophalen kan even duren");
@@ -78,6 +78,7 @@ namespace FIND_Breda.Model
             this._dutch.Add(Text.feedbacktext, "Heb je een vraag of opmerking over FIND-Breda? Aarzel niet en stuur ons een bericht!");
             this._dutch.Add(Text.sendfeedbackbutton, "Stuur");
             this._dutch.Add(Text.feedbackerror, "Feedback is leeg...");
+            this._dutch.Add(Text.legendimage, "ms-appx:///Assets/legenda.png");
 
             this._english.Add(Text.dutchlanguagebutton, "Dutch");
             this._english.Add(Text.englishlanguagebutton, "English");
@@ -91,7 +92,7 @@ namespace FIND_Breda.Model
             this._english.Add(Text.aerialwithroadscheckbox, "Aerial+road view");
             this._english.Add(Text.darkthemecheckbox, "Dark theme");
             this._english.Add(Text.trafficcheckbox, "Traffic");
-            this._english.Add(Text.pedestriancheckbox, "Walker");
+            this._english.Add(Text.pedestriancheckbox, "Walking");
             this._english.Add(Text.sightingslabel, "Sightings");
             this._english.Add(Text.monumentscheckbox, "Monuments");
             this._english.Add(Text.buildingscheckbox, "Buildings");
@@ -106,8 +107,8 @@ namespace FIND_Breda.Model
             this._english.Add(Text.SightingInfoButton, "Sighting");
             this._english.Add(Text.ZoomInAndOutInfo, "Zoom in: You must slide your thump and forefinger apart. Zoom out: You must slide your thump and forefinger to each other.");
             this._english.Add(Text.BackButtonInfo, "With the backbutton you can go back to the previous page. You can find this button in the bottom left.");
-            this._english.Add(Text.MapInfo, "BING maps is used for this map.");
-            this._english.Add(Text.SightingInfo, "All sightings are delivered by AGS.");
+            this._english.Add(Text.MapInfo, "BING maps is used for this application");
+            this._english.Add(Text.SightingInfo, "All sightings are delivered by AGS");
             this._english.Add(Text.time, "Time:");
             this._english.Add(Text.totaldistance, "Total distance(m):");
             this._english.Add(Text.gettinglocationmessage, "Obtaining location may take a while");
@@ -116,6 +117,7 @@ namespace FIND_Breda.Model
             this._english.Add(Text.feedbacktext, "Do you have a questtion or comment about FIND-Breda? Feel free to send us a message!");
             this._english.Add(Text.sendfeedbackbutton, "Send");
             this._english.Add(Text.feedbackerror, "Feedback is empty...");
+            this._english.Add(Text.legendimage, "ms-appx:///Assets/legend.png");
         }
 
         /* Methode om de taal te veranderen */

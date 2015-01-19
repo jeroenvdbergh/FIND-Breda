@@ -50,6 +50,7 @@ namespace FIND_Breda.Model
        updatetocurrentlocation,
         feedbacktext,
         sendfeedbackbutton,
-        feedbackerror
+        feedbackerror,
+        legendimage
     }
 }

@@ -29,9 +29,9 @@
                     <CheckBox Margin="4,0" x:Name="AerialWithRoads_Checkbox" Checked="AerialWithRoads_Checked" Unchecked="Map_NoStyle" Content="Aerial with roads view"/>
                     <CheckBox Margin="4,0" x:Name="Traffic_Checkbox" Checked="Traffic_Checked" Unchecked="Traffic_Unchecked" Content="Traffic"/>
                     <CheckBox Margin="4,0" x:Name="Dark_Checkbox" Checked="Dark_Checked" Unchecked="Dark_Unchecked" Content="Dark" />
-                    <CheckBox Margin="4,0" x:Name="Pedestrian_Checkbox" Checked="Pedestrian_Checked" Unchecked="Pedestrian_Unchecked" Content="Pedestrian"/>
-                    <CheckBox Margin="4,0" x:Name="UpdateLocation_Checkbox" Content="Naar locatie updaten" IsChecked="True"/>
-                    <Button x:Name="RemoveRouteButton" Content="Verwijder route" Click="RemoveRouteButton_Click"/>
+                    <CheckBox Margin="4,0" x:Name="Pedestrian_Checkbox" Checked="Pedestrian_Checked" Unchecked="Pedestrian_Unchecked" Content="Walking"/>
+                    <CheckBox Margin="4,0" x:Name="UpdateLocation_Checkbox" Content="Update to location" IsChecked="True"/>
+                    <Button x:Name="RemoveRouteButton" Content="Remove route" Click="RemoveRouteButton_Click"/>
                 </StackPanel>
             </Viewbox>
         </ScrollViewer>
