@@ -158,9 +158,12 @@
   <ItemGroup>
     <Content Include="Assets\AGS.png" />
     <Content Include="Assets\Bing_Maps_blue-logo.jpg" />
+<<<<<<< HEAD
     <Content Include="Assets\legend.png" />
-    <Content Include="Assets\customicon.png" />
     <Content Include="Assets\legenda.png" />
+=======
+    <Content Include="Assets\customicon.png" />
+>>>>>>> d7473f3cba08b630f5532bf0ffa1e084fe006376
     <Content Include="Assets\Zoomen.png" />
     <Content Include="Assets\Logo.scale-240.png" />
     <Content Include="Assets\SmallLogo.scale-240.png" />
